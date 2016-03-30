@@ -19,7 +19,6 @@ import static common.HantoPlayerColor.RED;
 
 import common.*;
 import hanto.studentabensonpasalem.common.HantoBoardImpl;
-import hanto.studentabensonpasalem.common.HantoCoordinateImpl;
 import hanto.studentabensonpasalem.common.HantoPieceImpl;
 
 import static common.MoveResult.*;
@@ -38,6 +37,9 @@ public class BetaHantoGame implements HantoGame
 	private int blueTurns = 1;
 	private boolean redPlayedButterfly;
 	private boolean bluePlayedButterfly;
+	
+	private HantoCoordinate redButterflyPos = null;
+	private HantoCoordinate blueButterflyPos = null;
 	
 	private HantoPlayerColor currentPlayer;
 	private HantoBoardImpl board;
@@ -61,10 +63,12 @@ public class BetaHantoGame implements HantoGame
 		//Indicate that the player has actually played the butterfly
 		if(currentPlayer == RED){
 			if(piece.getType().getClass() == BUTTERFLY.getClass()){
+				redButterflyPos = to;
 				redPlayedButterfly = true;
 			}
 		} else{
 			if(piece.getType().getClass() == BUTTERFLY.getClass()){
+				blueButterflyPos = to;
 				bluePlayedButterfly = true;
 			}
 		}
@@ -168,7 +172,17 @@ public class BetaHantoGame implements HantoGame
 		throw new HantoException("The piece is not adjacent to any other piece");
 	}
 	
+	/**
+	 * Checks if a butterfly is surrounded by another player's pieces
+	 * @param butterflyPos
+	 * @return true if surrounded, false otherwise
+	 * @throws HantoException
+	 */
 	public boolean checkButterflySurrounded(HantoCoordinate butterflyPos) throws HantoException{
+		if(butterflyPos == null){
+			return false;
+		}
+		
 		HantoPiece butterfly = board.getPieceAt(butterflyPos);
 		if(butterfly.getType().getClass() != BUTTERFLY.getClass()){
 			throw new HantoException("provided coordinates to a non-butterfly piece in checkButterflySurrounded");
@@ -199,6 +213,12 @@ public class BetaHantoGame implements HantoGame
 		}
 	}
 	
+	/**
+	 * @return the total number of turns taken in the game
+	 */
+	public int totalTurnsTaken(){
+		return redTurns + blueTurns;
+	}
 	
 	/*
 	 * @see hanto.common.HantoGame#getPieceAt(hanto.common.HantoCoordinate)
