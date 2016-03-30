@@ -9,7 +9,6 @@ package hanto.studentabensonpasalem.common;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.IdentityHashMap;
 
 import common.HantoCoordinate;
 import common.HantoException;
@@ -34,10 +33,11 @@ public class HantoBoardImpl {
 	 */
 	public void placePiece(HantoCoordinate coordinate, HantoPiece piece) throws HantoException{
 		
-		if(spaceOccupied(coordinate)){
+		HantoCoordinateImpl key = new HantoCoordinateImpl(coordinate.getX(), coordinate.getY());
+		if(spaceOccupied(key)){
 			throw new HantoException("A piece already exists on this coordinate");
 		}
-		board.put(coordinate, piece);
+		board.put(key, piece);
 	}
 	
 	/**
@@ -62,14 +62,17 @@ public class HantoBoardImpl {
 	 * @throws HantoException
 	 */
 	public void movePiece(HantoPiece piece, HantoCoordinate from, HantoCoordinate to) throws HantoException{
-		if(spaceOccupied(to)){
+		if(from != null){
+			HantoCoordinateImpl fromKey = new HantoCoordinateImpl(from.getX(), from.getY());
+			if(piece == null){
+				piece = board.get(fromKey);
+			}
+		}
+		HantoCoordinateImpl toKey = new HantoCoordinateImpl(to.getX(), to.getY());
+		if(spaceOccupied(toKey)){
 			throw new HantoException("Cannot move to space: already occupied");
 		}
-		
-		if(piece == null){
-			piece = board.get(from);
-		}
-		this.board.put(to, piece);
+		this.board.put(toKey, piece);
 	}
 	
 	/**
@@ -78,7 +81,8 @@ public class HantoBoardImpl {
 	 * @return the board coordinate
 	 */
 	public HantoPiece getPieceAt(HantoCoordinate coordinate){
-		return this.board.get(coordinate);
+		HantoCoordinateImpl key = new HantoCoordinateImpl(coordinate.getX(), coordinate.getY());
+		return this.board.get(key);
 	}
 	
 	/**
