@@ -9,7 +9,6 @@ package hanto.studentabensonpasalem.common;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.IdentityHashMap;
 
 import common.HantoCoordinate;
 import common.HantoException;
@@ -61,7 +60,7 @@ public class HantoBoardImpl {
 	 * @param to
 	 */
 	public void movePiece(HantoPiece piece, HantoCoordinate from, HantoCoordinate to) throws HantoException{
-		if(from == null){
+		if(from != null){
 			HantoCoordinateImpl fromKey = new HantoCoordinateImpl(from.getX(), from.getY());
 			if(piece == null){
 				piece = board.get(fromKey);
