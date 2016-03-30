@@ -404,7 +404,7 @@ public class BetaHantoMasterTest
 		assertEquals(OK, bluemove1);
 		final MoveResult redmove1 = game.makeMove(BUTTERFLY, null, makeCoordinate(0,1));
 		assertEquals(OK, redmove1);
-		final MoveResult bluemove2 = game.makeMove(SPARROW, null, makeCoordinate(1, 0));
+		final MoveResult bluemove2 = game.makeMove(BUTTERFLY, null, makeCoordinate(1, 0));
 		assertEquals(OK, bluemove2);
 		final MoveResult redmove2 = game.makeMove(SPARROW, null, makeCoordinate(1,-1));
 		assertEquals(OK, redmove2);
@@ -412,7 +412,7 @@ public class BetaHantoMasterTest
 		assertEquals(OK, bluemove3);
 		final MoveResult redmove3 = game.makeMove(SPARROW, null, makeCoordinate(-1, 0));
 		assertEquals(OK, redmove3);
-		final MoveResult bluemove4 = game.makeMove(BUTTERFLY, null, makeCoordinate(-1, 1));
+		final MoveResult bluemove4 = game.makeMove(SPARROW, null, makeCoordinate(-1, 1));
 		assertEquals(BLUE_WINS, bluemove4);
 	}
 	
@@ -441,11 +441,13 @@ public class BetaHantoMasterTest
 		assertEquals(OK, redmove1);
 		final MoveResult bluemove2 = game.makeMove(BUTTERFLY, null, makeCoordinate(1, 0));
 	}
+	
 	/**
 	 * Throws an exception when red tries to play a butterfly 
 	 * @throws HantoException
 	 */
-	@Test (expected = common.HantoException.class) //12
+	@Test (expected = common.HantoException.class) //13
+
 	public void redbutterflyPlayedTwice() throws HantoException
 	{
 		setup();
@@ -456,6 +458,19 @@ public class BetaHantoMasterTest
 		final MoveResult bluemove2 = game.makeMove(SPARROW, null, makeCoordinate(1, 0));
 		assertEquals(OK, redmove1);
 		final MoveResult redmove2 = game.makeMove(BUTTERFLY, null, makeCoordinate(1,1));
+	}
+	
+	/**
+	 * Checking if a spot to is moved to twice
+	 * @throws HantoException
+	 */
+	@Test (expected = common.HantoException.class) //13
+	public void spotMovedToTwice() throws HantoException
+	{
+		setup();
+		final MoveResult bluemove1 = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		assertEquals(OK, bluemove1);
+		final MoveResult redmove1 = game.makeMove(SPARROW, null, makeCoordinate(0,0));
 	}
 	
 }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 import common.HantoCoordinate;
 import common.HantoException;
@@ -32,20 +33,6 @@ public class HantoBoardImpl {
 		board = new HashMap<HantoCoordinate, HantoPiece>();
 	}
 	
-	/**
-	 * 
-	 * @param coordinate
-	 * @param piece
-	 * @throws HantoException
-	 */
-	public void placePiece(HantoCoordinate coordinate, HantoPiece piece) throws HantoException{
-		
-		HantoCoordinateImpl key = new HantoCoordinateImpl(coordinate.getX(), coordinate.getY());
-		if(spaceOccupied(key)){
-			throw new HantoException("A piece already exists on this coordinate");
-		}
-		board.put(key, piece);
-	}
 	
 	/**
 	 * indicates whether or not the space at coordinate is occupied with a piece
@@ -116,8 +103,8 @@ public class HantoBoardImpl {
 	 * @param space
 	 * @return array of adjacent spaces
 	 */
-	public static ArrayList<HantoCoordinate> getAdjacentSpaces(HantoCoordinate space){
-		ArrayList<HantoCoordinate> adjacentSquares = new ArrayList<HantoCoordinate>();
+	public static List<HantoCoordinate> getAdjacentSpaces(HantoCoordinate space){
+		List<HantoCoordinate> adjacentSquares = new ArrayList<HantoCoordinate>();
 		
 		HantoCoordinate north = new HantoCoordinateImpl(space.getX(), space.getY() + 1);
 		HantoCoordinate east = new HantoCoordinateImpl(space.getX() + 1, space.getY());
