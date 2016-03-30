@@ -18,13 +18,8 @@ import static org.junit.Assert.*;
 import org.junit.*;
 
 import common.*;
-import hanto.studentabensonpasalem.common.HantoCoordinateImpl;
 import studentabensonpasalem.HantoGameFactory;
-<<<<<<< HEAD
-import hanto.studentabensonpasalem.common.*;
-=======
 import studentabensonpasalem.beta.BetaHantoGame;
->>>>>>> eae64534ccd5230d1e24eea5840c0f1520307226
 
 /**
  * Test cases for Beta Hanto.
