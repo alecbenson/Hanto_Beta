@@ -99,7 +99,6 @@ public class BetaHantoGame implements HantoGame
 			HantoCoordinate to) throws HantoException{
 		
 		checkIsValidPieceType(piece);
-		checkIsPlayersTurn(piece);
 		checkMustPlayButterfly();
 		checkAlreadyPlayedButterfly(piece);
 		checkPieceInLegalSpot(to);
@@ -145,18 +144,6 @@ public class BetaHantoGame implements HantoGame
 	}
 	
 	/**
-	 * Ensures that it is the moving player's turn
-	 * @param piece the piece the player is considering moving
-	
-	 * @throws HantoException */
-	public void checkIsPlayersTurn(HantoPiece piece) throws HantoException{
-		//Check that it is actually the player's turn to move
-		if(piece.getColor() != currentPlayer){
-			throw new HantoException("It is not this player's turn to move");
-		}
-	}
-	
-	/**
 	 * Ensures that the piece being played is a butterfly or sparrow
 	 * @param piece the piece being played
 	
@@ -192,7 +179,7 @@ public class BetaHantoGame implements HantoGame
 	 * @throws HantoException */
 	public void checkPieceInLegalSpot(HantoCoordinate coordinate) throws HantoException{
 		if(firstMove){
-			if(coordinate.getX() != 0 && coordinate.getY() != 0){
+			if(coordinate.getX() != 0 || coordinate.getY() != 0){
 				throw new HantoException("The only valid space for the first move is (0,0)");
 			}
 			return;
