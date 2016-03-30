@@ -130,8 +130,16 @@ public class BetaHantoMasterTest
 	@Test (expected = HantoException.class)	// 2
 	public void redPlacesButterflyAtBlueButterfly() throws HantoException
 	{
-		final MoveResult bluemove = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
-		assertEquals(OK, bluemove);
-		final MoveResult redmove = game.makeMove(BUTTERFLY, null, makeCoordinate(0,0));
+		final MoveResult bluemove1 = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		assertEquals(OK, bluemove1);
+		final MoveResult redmove1 = game.makeMove(BUTTERFLY, null, makeCoordinate(0,0));
 	}
+	
+	@Test (expected = HantoException.class) // 3
+	public void blueAttemptsToPlayedInvalidCrabPiece() throws HantoException
+	{
+		final MoveResult bluemove1 = game.makeMove(CRAB, null, makeCoordinate(0, 0));
+	}
+	
+	
 }
