@@ -179,7 +179,7 @@ public class BetaHantoGame implements HantoGame
 	 * @throws HantoException */
 	public void checkPieceInLegalSpot(HantoCoordinate coordinate) throws HantoException{
 		if(firstMove){
-			if(coordinate.getX() != 0 && coordinate.getY() != 0){
+			if(coordinate.getX() != 0 || coordinate.getY() != 0){
 				throw new HantoException("The only valid space for the first move is (0,0)");
 			}
 			return;
