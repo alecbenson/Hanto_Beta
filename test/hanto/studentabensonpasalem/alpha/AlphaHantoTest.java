@@ -11,7 +11,7 @@
  *******************************************************************************/
 
 
-package hanto.studentpasalem.alpha;
+package hanto.studentabensonpasalem.alpha;
 
 import static common.HantoPieceType.*;
 import static common.HantoPlayerColor.*;
@@ -19,8 +19,8 @@ import static common.MoveResult.*;
 import static org.junit.Assert.*;
 import org.junit.*;
 
-import studentpasalem.alpha.AlphaHantoGame;
 import common.*;
+import studentabensonpasalem.alpha.AlphaHantoGame;
 
 /**
  * Test cases for Alpha Hanto

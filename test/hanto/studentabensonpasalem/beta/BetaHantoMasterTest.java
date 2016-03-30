@@ -8,7 +8,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package hanto.studentpasalem.beta;
+package hanto.studentabensonpasalem.beta;
 
 import static common.HantoPieceType.*;
 import static common.HantoPlayerColor.*;
@@ -18,7 +18,8 @@ import static org.junit.Assert.*;
 import org.junit.*;
 
 import common.*;
-import studentpasalem.HantoGameFactory;
+import hanto.studentabensonpasalem.common.HantoCoordinateImpl;
+import studentabensonpasalem.HantoGameFactory;
 
 /**
  * Test cases for Beta Hanto.
@@ -55,6 +56,41 @@ public class BetaHantoMasterTest
 		public int getY()
 		{
 			return y;
+		}
+		
+		@Override
+		public int hashCode()
+		{
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + x;
+			result = prime * result + y;
+			return result;
+		}
+
+		/*
+		 * @see java.lang.Object#equals(java.lang.Object)
+		 */
+		@Override
+		public boolean equals(Object obj)
+		{
+			if (this == obj) {
+				return true;
+			}
+			if (obj == null) {
+				return false;
+			}
+			if (!(obj instanceof TestHantoCoordinate)) {
+				return false;
+			}
+			final TestHantoCoordinate other = (TestHantoCoordinate) obj;
+			if (x != other.x) {
+				return false;
+			}
+			if (y != other.y) {
+				return false;
+			}
+			return true;
 		}
 
 	}
