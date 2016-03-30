@@ -25,6 +25,7 @@ import static common.MoveResult.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * <<Fill this in>>
@@ -184,7 +185,7 @@ public class BetaHantoGame implements HantoGame
 			}
 			return;
 		}
-		ArrayList<HantoCoordinate> adjacentSpaces = HantoBoardImpl.getAdjacentSpaces(coordinate);
+		List<HantoCoordinate> adjacentSpaces = HantoBoardImpl.getAdjacentSpaces(coordinate);
 		for(HantoCoordinate space : adjacentSpaces){
 			HantoPiece piece = board.getPieceAt(space);
 			if(piece != null){
@@ -210,7 +211,7 @@ public class BetaHantoGame implements HantoGame
 		if(butterfly.getType().getClass() != BUTTERFLY.getClass()){
 			throw new HantoException("provided coordinates to a non-butterfly piece in checkButterflySurrounded");
 		}
-		ArrayList<HantoCoordinate> adjacentSpaces = HantoBoardImpl.getAdjacentSpaces(butterflyPos);
+		List<HantoCoordinate> adjacentSpaces = HantoBoardImpl.getAdjacentSpaces(butterflyPos);
 		HantoPlayerColor butterflyOwner = butterfly.getColor();
 		for(HantoCoordinate space : adjacentSpaces){
 			HantoPiece adjacentPiece = board.getPieceAt(space);
