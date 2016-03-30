@@ -84,6 +84,7 @@ public class BetaHantoGame implements HantoGame
 	public boolean validateMove(HantoPiece piece, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException{
 		
+		checkIsValidPieceType(piece);
 		checkIsPlayersTurn(piece);
 		checkMustPlayButterfly();
 		checkAlreadyPlayedButterfly(piece);
@@ -119,7 +120,16 @@ public class BetaHantoGame implements HantoGame
 		}
 	}
 	
-	
+	/**
+	 * Ensures that the piece being played is a butterfly or sparrow
+	 * @param piece the piece being played
+	 * @throws HantoException
+	 */
+	public void checkIsValidPieceType(HantoPiece piece) throws HantoException{
+		if(piece.getType().getClass() != BUTTERFLY.getClass() || piece.getType().getClass() != SPARROW.getClass()){
+			throw new HantoException("You may only play butterflies or sparrows in Hanto Beta");
+		}
+	}
 	
 	/**
 	 * 
@@ -156,6 +166,22 @@ public class BetaHantoGame implements HantoGame
 			}
 		}
 		throw new HantoException("The piece is not adjacent to any other piece");
+	}
+	
+	public boolean checkButterflySurrounded(HantoCoordinate butterflyPos) throws HantoException{
+		HantoPiece butterfly = board.getPieceAt(butterflyPos);
+		if(butterfly.getType().getClass() != BUTTERFLY.getClass()){
+			throw new HantoException("provided coordinates to a non-butterfly piece in checkButterflySurrounded");
+		}
+		ArrayList<HantoCoordinate> adjacentSpaces = HantoBoardImpl.getAdjacentSpaces(butterflyPos);
+		HantoPlayerColor butterflyOwner = butterfly.getColor();
+		for(HantoCoordinate space : adjacentSpaces){
+			HantoPiece adjacentPiece = board.getPieceAt(space);
+			if(adjacentPiece == null || adjacentPiece.getColor() == butterflyOwner){
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	/**
