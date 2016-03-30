@@ -33,8 +33,8 @@ public class BetaHantoGame implements HantoGame
 {
 
 	private boolean firstMove = true;
-	private int redTurns = 1;
-	private int blueTurns = 1;
+	private int redTurns = 0;
+	private int blueTurns = 0;
 	private boolean redPlayedButterfly;
 	private boolean bluePlayedButterfly;
 	
@@ -62,12 +62,12 @@ public class BetaHantoGame implements HantoGame
 		
 		//Indicate that the player has actually played the butterfly
 		if(currentPlayer == RED){
-			if(piece.getType().getClass() == BUTTERFLY.getClass()){
+			if(piece.getType() == BUTTERFLY){
 				redButterflyPos = to;
 				redPlayedButterfly = true;
 			}
 		} else{
-			if(piece.getType().getClass() == BUTTERFLY.getClass()){
+			if(piece.getType() == BUTTERFLY){
 				blueButterflyPos = to;
 				bluePlayedButterfly = true;
 			}
@@ -159,7 +159,7 @@ public class BetaHantoGame implements HantoGame
 			}
 		} else{
 			if(bluePlayedButterfly && piece.getType().getClass() == BUTTERFLY.getClass()){
-				throw new HantoException("RED has already played the butterfly");
+				throw new HantoException("BLUE has already played the butterfly");
 			}
 		}
 	}
@@ -178,7 +178,8 @@ public class BetaHantoGame implements HantoGame
 		}
 		ArrayList<HantoCoordinate> adjacentSpaces = HantoBoardImpl.getAdjacentSpaces(coordinate);
 		for(HantoCoordinate space : adjacentSpaces){
-			if(board.getPieceAt(space) != null){
+			HantoPiece piece = board.getPieceAt(space);
+			if(piece != null){
 				return;
 			}
 		}
@@ -215,6 +216,9 @@ public class BetaHantoGame implements HantoGame
 	 * Switches turns from RED to BLUE and vice versa
 	 */
 	public void switchTurn(){
+		if(firstMove){
+			firstMove = false;
+		}
 		//If the blue player moved, it is now red's turn
 		if(currentPlayer == BLUE){
 			currentPlayer = RED;
@@ -231,6 +235,22 @@ public class BetaHantoGame implements HantoGame
 	 */
 	public int totalTurnsTaken(){
 		return redTurns + blueTurns;
+	}
+	
+	/**
+	 * 
+	 * @return number of red turns taken
+	 */
+	public int redTurnsTaken(){
+		return redTurns;
+	}
+	
+	/**
+	 * 
+	 * @return number of blue turns taken
+	 */
+	public int blueTurnsTaken(){
+		return blueTurns;
 	}
 	
 	/*
