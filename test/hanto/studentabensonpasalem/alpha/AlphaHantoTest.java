@@ -68,7 +68,7 @@ public class AlphaHantoTest
 	private AlphaHantoGame game;
 	
 	/**
-	 * @return void
+	 * 
 	 */
 	@Before
 	public void setup() {
@@ -128,6 +128,10 @@ public class AlphaHantoTest
 		game.makeMove(CRAB, null, new TestHantoCoordinate(0, 0));
 	}
 
+	/**
+	 * 
+	 * @throws HantoException
+	 */
 	@Test(expected = HantoException.class)	// 6
 	public void redPlacesButterflyAtInvalidLocation() throws HantoException
 	{
@@ -135,6 +139,10 @@ public class AlphaHantoTest
 		game.makeMove(BUTTERFLY, null, new TestHantoCoordinate(2, 0));
 	}
 	
+	/**
+	 * 
+	 * @throws HantoException
+	 */
 	@Test(expected = HantoException.class) // 7
 	public void redPlacesButterflyAtOrigin() throws HantoException
 	{
@@ -142,6 +150,10 @@ public class AlphaHantoTest
 		game.makeMove(BUTTERFLY, null, new TestHantoCoordinate(0, 0));
 	}
 	
+	/**
+	 * 
+	 * @throws HantoException
+	 */
 	@Test 	// 8
 	public void blueButterflyIsAtOrginAfterMove() throws HantoException
 	{
@@ -152,6 +164,10 @@ public class AlphaHantoTest
 		assertEquals(BLUE, butterfly.getColor());
 	}
 	
+	/**
+	 * 
+	 * @throws HantoException
+	 */
 	@Test	// 9
 	public void redButterflyIsAtCorrectPlaceAfterRedMoves() throws HantoException
 	{
@@ -162,6 +178,9 @@ public class AlphaHantoTest
 		assertEquals(RED, butterfly.getColor());
 	}
 	
+	/**
+	 * @throws HantoException
+	 */
 	@Test(expected = HantoException.class)	// 10
 	public void attemptToMoveAfterGameEnds() throws HantoException
 	{

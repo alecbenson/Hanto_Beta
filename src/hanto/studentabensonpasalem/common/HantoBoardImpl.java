@@ -9,6 +9,7 @@ package hanto.studentabensonpasalem.common;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 import common.HantoCoordinate;
 import common.HantoException;
@@ -22,13 +23,13 @@ import common.HantoPiece;
  */
 public class HantoBoardImpl {
 	
-	private HashMap<HantoCoordinate, HantoPiece> board;
+	private Map<HantoCoordinate, HantoPiece> board;
 	
 	/**
 	 * Default constructor for a board in Hanto
 	 */
 	public HantoBoardImpl(){
-		this.board = new HashMap<HantoCoordinate, HantoPiece>();
+		board = new HashMap<HantoCoordinate, HantoPiece>();
 	}
 	
 	/**
@@ -78,7 +79,7 @@ public class HantoBoardImpl {
 		if(spaceOccupied(toKey)){
 			throw new HantoException("Cannot move to space: already occupied");
 		}
-		this.board.put(toKey, piece);
+		board.put(toKey, piece);
 	}
 	
 	/**
@@ -88,7 +89,7 @@ public class HantoBoardImpl {
 	 */
 	public HantoPiece getPieceAt(HantoCoordinate coordinate){
 		HantoCoordinateImpl key = new HantoCoordinateImpl(coordinate.getX(), coordinate.getY());
-		return this.board.get(key);
+		return board.get(key);
 	}
 	
 	/**

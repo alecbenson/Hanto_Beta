@@ -290,10 +290,6 @@ public class BetaHantoMasterTest
 
 		final MoveResult redmove4 = game.makeMove(SPARROW, null, makeCoordinate(3, 0));
 		assertEquals(OK, redmove4);
-
-		final MoveResult redMove4 = game.makeMove(SPARROW, null, makeCoordinate(-1, -2));
-		assertEquals(OK, redMove4);
-
 	}
 	
 	/**
@@ -420,6 +416,10 @@ public class BetaHantoMasterTest
 		assertEquals(BLUE_WINS, bluemove4);
 	}
 	
+	/**
+	 * Checking if first movement by blue is at the origin
+	 * @throws HantoException
+	 */
 	@Test (expected = common.HantoException.class) // 11
 	public void firstMoveIllegalSpot() throws HantoException
 	{
@@ -427,6 +427,10 @@ public class BetaHantoMasterTest
 		final MoveResult bluemove1 = game.makeMove(BUTTERFLY, null, makeCoordinate(1, 0));
 	}
 	
+	/**
+	 * Throws an exception when blue tries to play a butterfly twice	
+	 * @throws HantoException
+	 */
 	@Test (expected = common.HantoException.class) //12
 	public void bluebutterflyPlayedTwice() throws HantoException
 	{
@@ -437,7 +441,10 @@ public class BetaHantoMasterTest
 		assertEquals(OK, redmove1);
 		final MoveResult bluemove2 = game.makeMove(BUTTERFLY, null, makeCoordinate(1, 0));
 	}
-	
+	/**
+	 * Throws an exception when red tries to play a butterfly 
+	 * @throws HantoException
+	 */
 	@Test (expected = common.HantoException.class) //12
 	public void redbutterflyPlayedTwice() throws HantoException
 	{

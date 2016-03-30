@@ -53,8 +53,8 @@ public class BetaHantoGame implements HantoGame
 	 * @param startPlayer HantoPlayerColor
 	 */
 	public BetaHantoGame(HantoPlayerColor startPlayer){
-		this.currentPlayer = startPlayer;
-		this.board = new HantoBoardImpl();
+		currentPlayer = startPlayer;
+		board = new HantoBoardImpl();
 	}
 	
 	/*
