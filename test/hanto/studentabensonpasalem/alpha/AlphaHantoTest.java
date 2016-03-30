@@ -41,7 +41,7 @@ public class AlphaHantoTest
 		 * @param x
 		 * @param y
 		 */
-		public TestHantoCoordinate(int x, int y)
+		TestHantoCoordinate(int x, int y)
 		{
 			this.x = x;
 			this.y = y;
