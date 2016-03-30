@@ -74,7 +74,7 @@ public class BetaHantoGame implements HantoGame
 		}
 		
 		switchTurn();
-		return OK;
+		return gameState();
 	}
 	
 	/**
@@ -94,6 +94,19 @@ public class BetaHantoGame implements HantoGame
 		checkAlreadyPlayedButterfly(piece);
 		checkPieceInLegalSpot(to);
 		return true;
+	}
+	
+	public MoveResult gameState() throws HantoException{
+		if(totalTurnsTaken() >= 12){
+			return DRAW;
+		}
+		if(checkButterflySurrounded(blueButterflyPos)){
+			return BLUE_WINS;
+		}
+		if(checkButterflySurrounded(redButterflyPos)){
+			return RED_WINS;
+		}
+		return OK;
 	}
 	
 	/**
