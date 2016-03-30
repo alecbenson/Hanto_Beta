@@ -337,4 +337,28 @@ public class BetaHantoMasterTest
 		final MoveResult bluemove1 = game.makeMove(BUTTERFLY, null, makeCoordinate(1, 0));
 	}
 	
+	@Test (expected = common.HantoException.class) //12
+	public void bluebutterflyPlayedTwice() throws HantoException
+	{
+		setup();
+		final MoveResult bluemove1 = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		assertEquals(OK, bluemove1);
+		final MoveResult redmove1 = game.makeMove(BUTTERFLY, null, makeCoordinate(0,1));
+		assertEquals(OK, redmove1);
+		final MoveResult bluemove2 = game.makeMove(BUTTERFLY, null, makeCoordinate(1, 0));
+	}
+	
+	@Test (expected = common.HantoException.class) //12
+	public void redbutterflyPlayedTwice() throws HantoException
+	{
+		setup();
+		final MoveResult bluemove1 = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		assertEquals(OK, bluemove1);
+		final MoveResult redmove1 = game.makeMove(BUTTERFLY, null, makeCoordinate(0,1));
+		assertEquals(OK, redmove1);
+		final MoveResult bluemove2 = game.makeMove(SPARROW, null, makeCoordinate(1, 0));
+		assertEquals(OK, redmove1);
+		final MoveResult redmove2 = game.makeMove(BUTTERFLY, null, makeCoordinate(1,1));
+	}
+	
 }
