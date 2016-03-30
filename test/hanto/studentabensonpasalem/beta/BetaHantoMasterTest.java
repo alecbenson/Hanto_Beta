@@ -369,56 +369,6 @@ public class BetaHantoMasterTest
 		return true;
 	}
 */	
-
-	/**
-	 * Ensures that if the blue butterfly is surrounded,
-	 * the game ends and red wins.
-	 * @throws HantoException
-	 */
-	@Test // 13
-	public void gameEndsWhenBlueButterflyCantMove() throws HantoException
-	{
-		setup();
-		final MoveResult bluemove1 = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
-		assertEquals(OK, bluemove1);
-		final MoveResult redmove1 = game.makeMove(BUTTERFLY, null, makeCoordinate(0,1));
-		assertEquals(OK, redmove1);
-		final MoveResult bluemove2 = game.makeMove(SPARROW, null, makeCoordinate(1, 0));
-		assertEquals(OK, bluemove2);
-		final MoveResult redmove2 = game.makeMove(SPARROW, null, makeCoordinate(1,-1));
-		assertEquals(OK, redmove2);
-		final MoveResult bluemove3 = game.makeMove(SPARROW, null, makeCoordinate(0, -1));
-		assertEquals(OK, bluemove3);
-		final MoveResult redmove3 = game.makeMove(SPARROW, null, makeCoordinate(-1, 0));
-		assertEquals(OK, redmove3);
-		final MoveResult bluemove4 = game.makeMove(SPARROW, null, makeCoordinate(-1, 1));
-		assertEquals(RED_WINS, bluemove4);
-	}
-	
-	/**
-	 * Ensures if the red butterfly is surrounded,
-	 * the game ends and blue wins.
-	 * @throws HantoException
-	 */
-	@Test // 14
-	public void gameEndsWhenRedButterflyCantMove() throws HantoException
-	{
-		setup();
-		final MoveResult bluemove1 = game.makeMove(SPARROW, null, makeCoordinate(0, 0));
-		assertEquals(OK, bluemove1);
-		final MoveResult redmove1 = game.makeMove(BUTTERFLY, null, makeCoordinate(0,1));
-		assertEquals(OK, redmove1);
-		final MoveResult bluemove2 = game.makeMove(BUTTERFLY, null, makeCoordinate(1, 0));
-		assertEquals(OK, bluemove2);
-		final MoveResult redmove2 = game.makeMove(SPARROW, null, makeCoordinate(1,-1));
-		assertEquals(OK, redmove2);
-		final MoveResult bluemove3 = game.makeMove(SPARROW, null, makeCoordinate(0, -1));
-		assertEquals(OK, bluemove3);
-		final MoveResult redmove3 = game.makeMove(SPARROW, null, makeCoordinate(-1, 0));
-		assertEquals(OK, redmove3);
-		final MoveResult bluemove4 = game.makeMove(SPARROW, null, makeCoordinate(-1, 1));
-		assertEquals(BLUE_WINS, bluemove4);
-	}
 	
 	@Test (expected = common.HantoException.class) // 11
 	public void firstMoveIllegalSpot() throws HantoException
@@ -439,6 +389,16 @@ public class BetaHantoMasterTest
 	}
 	
 	@Test (expected = common.HantoException.class) //13
+	public void moveButterfly() throws HantoException
+	{
+		setup();
+		final MoveResult bluemove1 = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		assertEquals(OK, bluemove1);
+		final MoveResult redmove1 = game.makeMove(null, makeCoordinate(0,0), makeCoordinate(0,1));
+		assertEquals(OK, redmove1);
+	}
+	
+	@Test (expected = common.HantoException.class) //14
 	public void redbutterflyPlayedTwice() throws HantoException
 	{
 		setup();
