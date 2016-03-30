@@ -14,6 +14,12 @@ import common.HantoCoordinate;
 import common.HantoException;
 import common.HantoPiece;
 
+
+/**
+ * Implementation of the Hanto Board for purpose of placing pieces on it.
+ * @author Peter
+ *
+ */
 public class HantoBoardImpl {
 	
 	private HashMap<HantoCoordinate, HantoPiece> board;
