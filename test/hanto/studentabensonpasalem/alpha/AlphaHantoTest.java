@@ -36,6 +36,11 @@ public class AlphaHantoTest
 	{
 		private final int x, y;
 		
+		/**
+		 * 
+		 * @param x
+		 * @param y
+		 */
 		public TestHantoCoordinate(int x, int y)
 		{
 			this.x = x;
@@ -62,17 +67,28 @@ public class AlphaHantoTest
 	
 	private AlphaHantoGame game;
 	
+	/**
+	 * @return void
+	 */
 	@Before
 	public void setup() {
 		game = new AlphaHantoGame();
 	}
 	
+	/**
+	 * Ensures that blue makes a valid first move by placing a piece at (0,0)
+	 * @throws HantoException
+	 */
 	@Test	// 1
 	public void blueMakesValidFirstMove() throws HantoException
 	{
 		assertEquals(OK, game.makeMove(BUTTERFLY, null, new TestHantoCoordinate(0, 0)));
 	}
 	
+	/**
+	 * Ensures that red makes a valid first move following blue's first move
+	 * @throws HantoException
+	 */
 	@Test	// 2
 	public void redMakesValidMove() throws HantoException
 	{
@@ -80,18 +96,31 @@ public class AlphaHantoTest
 		assertEquals(DRAW, game.makeMove(BUTTERFLY, null, new TestHantoCoordinate(0, 1)));
 	}
 	
+	/**
+	 * Ensures that if blue tries to make their first move at any space other
+	 * than (0,0), that an exception will be thrown.
+	 * @throws HantoException
+	 */
 	@Test(expected = HantoException.class)	// 3
 	public void blueMovesToNonOrigin() throws HantoException
 	{
 		game.makeMove(BUTTERFLY, null, new TestHantoCoordinate(0, 1));
 	}
 	
+	/**
+	 * Ensures that no piece other than a Butterfly or Sparrow may be placed.
+	 * @throws HantoException
+	 */
 	@Test(expected = HantoException.class)	// 4
 	public void blueTriesToPlaceSparrow() throws HantoException
 	{
 		game.makeMove(SPARROW, null, new TestHantoCoordinate(0, 0));
 	}
 	
+	/**
+	 * 
+	 * @throws HantoException
+	 */
 	@Test(expected = HantoException.class)	// 5
 	public void redTriesToPlaceCrab() throws HantoException
 	{

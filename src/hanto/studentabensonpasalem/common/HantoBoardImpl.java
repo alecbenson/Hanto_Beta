@@ -43,7 +43,7 @@ public class HantoBoardImpl {
 	/**
 	 * indicates whether or not the space at coordinate is occupied with a piece
 	 * @param coordinate
-	 * @return
+	 * @return false if the space is unoccupied
 	 */
 	public boolean spaceOccupied(HantoCoordinate coordinate){
 		if(board.containsKey(coordinate)){
@@ -55,9 +55,11 @@ public class HantoBoardImpl {
 	}
 	
 	/**
-	 * 
+	 * @param piece
 	 * @param from
 	 * @param to
+	 * 
+	 * @throws HantoException
 	 */
 	public void movePiece(HantoPiece piece, HantoCoordinate from, HantoCoordinate to) throws HantoException{
 		if(spaceOccupied(to)){
@@ -73,7 +75,7 @@ public class HantoBoardImpl {
 	/**
 	 * Returns the piece located at the specified coordinate, or null if no piece exists
 	 * @param coordinate
-	 * @return
+	 * @return the board coordinate
 	 */
 	public HantoPiece getPieceAt(HantoCoordinate coordinate){
 		return this.board.get(coordinate);
@@ -83,7 +85,8 @@ public class HantoBoardImpl {
 	 * Returns true if the space at coordinate A is adjacent to coordinate B
 	 * @param a
 	 * @param b
-	 * @return
+	 * @return euclidian distance between the coordinates
+	 *
 	 */
 	public static boolean isAdjacentTo(HantoCoordinate a, HantoCoordinate b){
 		int aX = a.getX();
@@ -100,7 +103,7 @@ public class HantoBoardImpl {
 	/**
 	 * 
 	 * @param space
-	 * @return
+	 * @return array of adjacent spaces
 	 */
 	public static ArrayList<HantoCoordinate> getAdjacentSpaces(HantoCoordinate space){
 		ArrayList<HantoCoordinate> adjacentSquares = new ArrayList<HantoCoordinate>();

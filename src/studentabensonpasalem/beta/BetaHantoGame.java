@@ -33,8 +33,8 @@ public class BetaHantoGame implements HantoGame
 {
 
 	private boolean firstMove = true;
-	private int redTurns = 1;
-	private int blueTurns = 1;
+	private int redTurns = 0;
+	private int blueTurns = 0;
 	private boolean redPlayedButterfly;
 	private boolean bluePlayedButterfly;
 	
@@ -44,6 +44,13 @@ public class BetaHantoGame implements HantoGame
 	private HantoPlayerColor currentPlayer;
 	private HantoBoardImpl board;
 	
+	/*
+	 * 
+	 */
+	/**
+	 * Constructor for BetaHantoGame.
+	 * @param startPlayer HantoPlayerColor
+	 */
 	public BetaHantoGame(HantoPlayerColor startPlayer){
 		this.currentPlayer = startPlayer;
 		this.board = new HantoBoardImpl();
@@ -62,12 +69,12 @@ public class BetaHantoGame implements HantoGame
 		
 		//Indicate that the player has actually played the butterfly
 		if(currentPlayer == RED){
-			if(piece.getType().getClass() == BUTTERFLY.getClass()){
+			if(piece.getType() == BUTTERFLY){
 				redButterflyPos = to;
 				redPlayedButterfly = true;
 			}
 		} else{
-			if(piece.getType().getClass() == BUTTERFLY.getClass()){
+			if(piece.getType() == BUTTERFLY){
 				blueButterflyPos = to;
 				bluePlayedButterfly = true;
 			}
@@ -79,10 +86,12 @@ public class BetaHantoGame implements HantoGame
 	
 	/**
 	 * Ensures that a move is valid, or throws a HantoException otherwise
-	 * @param pieceType
+	 * @param piece
 	 * @param from
 	 * @param to
-	 * @return
+	
+	
+	 * @return true if move is valid 
 	 * @throws HantoException
 	 */
 	public boolean validateMove(HantoPiece piece, HantoCoordinate from,
@@ -96,6 +105,14 @@ public class BetaHantoGame implements HantoGame
 		return true;
 	}
 	
+	/**
+	 * 
+	
+	
+	 * @return game state after completed move
+	 * 
+	 * @throws HantoException
+	 */
 	public MoveResult gameState() throws HantoException{
 		if(totalTurnsTaken() >= 12){
 			return DRAW;
@@ -111,7 +128,8 @@ public class BetaHantoGame implements HantoGame
 	
 	/**
 	 * 
-	 * @return
+	 * @throws HantoException 
+	 * 
 	 */
 	public void checkMustPlayButterfly() throws HantoException{
 		if(currentPlayer == RED){
@@ -128,8 +146,8 @@ public class BetaHantoGame implements HantoGame
 	/**
 	 * Ensures that it is the moving player's turn
 	 * @param piece the piece the player is considering moving
-	 * @throws HantoException
-	 */
+	
+	 * @throws HantoException */
 	public void checkIsPlayersTurn(HantoPiece piece) throws HantoException{
 		//Check that it is actually the player's turn to move
 		if(piece.getColor() != currentPlayer){
@@ -140,8 +158,8 @@ public class BetaHantoGame implements HantoGame
 	/**
 	 * Ensures that the piece being played is a butterfly or sparrow
 	 * @param piece the piece being played
-	 * @throws HantoException
-	 */
+	
+	 * @throws HantoException */
 	public void checkIsValidPieceType(HantoPiece piece) throws HantoException{
 		if(piece.getType().getClass() != BUTTERFLY.getClass() || piece.getType().getClass() != SPARROW.getClass()){
 			throw new HantoException("You may only play butterflies or sparrows in Hanto Beta");
@@ -150,8 +168,9 @@ public class BetaHantoGame implements HantoGame
 	
 	/**
 	 * 
-	 * @throws HantoException
-	 */
+	
+	 * @param piece HantoPiece
+	 * @throws HantoException */
 	public void checkAlreadyPlayedButterfly(HantoPiece piece) throws HantoException{
 		if(currentPlayer == RED){
 			if(redPlayedButterfly && piece.getType().getClass() == BUTTERFLY.getClass()){
@@ -159,7 +178,7 @@ public class BetaHantoGame implements HantoGame
 			}
 		} else{
 			if(bluePlayedButterfly && piece.getType().getClass() == BUTTERFLY.getClass()){
-				throw new HantoException("RED has already played the butterfly");
+				throw new HantoException("BLUE has already played the butterfly");
 			}
 		}
 	}
@@ -167,8 +186,8 @@ public class BetaHantoGame implements HantoGame
 	/**
 	 * Ensures that a valid space is being moved to
 	 * @param coordinate the space the player is considering moving to
-	 * @throws HantoException
-	 */
+	
+	 * @throws HantoException */
 	public void checkPieceInLegalSpot(HantoCoordinate coordinate) throws HantoException{
 		if(firstMove){
 			if(coordinate.getX() != 0 && coordinate.getY() != 0){
@@ -178,7 +197,8 @@ public class BetaHantoGame implements HantoGame
 		}
 		ArrayList<HantoCoordinate> adjacentSpaces = HantoBoardImpl.getAdjacentSpaces(coordinate);
 		for(HantoCoordinate space : adjacentSpaces){
-			if(board.getPieceAt(space) != null){
+			HantoPiece piece = board.getPieceAt(space);
+			if(piece != null){
 				return;
 			}
 		}
@@ -188,6 +208,7 @@ public class BetaHantoGame implements HantoGame
 	/**
 	 * Checks if a butterfly is surrounded by another player's pieces
 	 * @param butterflyPos
+	 * 
 	 * @return true if surrounded, false otherwise
 	 * @throws HantoException
 	 */
@@ -215,6 +236,9 @@ public class BetaHantoGame implements HantoGame
 	 * Switches turns from RED to BLUE and vice versa
 	 */
 	public void switchTurn(){
+		if(firstMove){
+			firstMove = false;
+		}
 		//If the blue player moved, it is now red's turn
 		if(currentPlayer == BLUE){
 			currentPlayer = RED;
@@ -227,10 +251,26 @@ public class BetaHantoGame implements HantoGame
 	}
 	
 	/**
-	 * @return the total number of turns taken in the game
-	 */
+	
+	 * @return the total number of turns taken in the game */
 	public int totalTurnsTaken(){
 		return redTurns + blueTurns;
+	}
+	
+	/**
+	 * 
+	
+	 * @return number of red turns taken */
+	public int redTurnsTaken(){
+		return redTurns;
+	}
+	
+	/**
+	 * 
+	
+	 * @return number of blue turns taken */
+	public int blueTurnsTaken(){
+		return blueTurns;
 	}
 	
 	/*

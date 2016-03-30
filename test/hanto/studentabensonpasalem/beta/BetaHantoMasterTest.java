@@ -20,7 +20,11 @@ import org.junit.*;
 import common.*;
 import hanto.studentabensonpasalem.common.HantoCoordinateImpl;
 import studentabensonpasalem.HantoGameFactory;
+<<<<<<< HEAD
 import hanto.studentabensonpasalem.common.*;
+=======
+import studentabensonpasalem.beta.BetaHantoGame;
+>>>>>>> eae64534ccd5230d1e24eea5840c0f1520307226
 
 /**
  * Test cases for Beta Hanto.
@@ -97,7 +101,7 @@ public class BetaHantoMasterTest
 	}
 	
 	private static HantoGameFactory factory;
-	private HantoGame game;
+	private BetaHantoGame game;
 	
 	@BeforeClass
 	public static void initializeClass()
@@ -109,7 +113,7 @@ public class BetaHantoMasterTest
 	public void setup()
 	{
 		// By default, blue moves first.
-		game = factory.makeHantoGame(HantoGameID.BETA_HANTO, BLUE);
+		game = (BetaHantoGame) factory.makeHantoGame(HantoGameID.BETA_HANTO, BLUE);
 	}
 	
 	@Test	// 1
@@ -169,16 +173,23 @@ public class BetaHantoMasterTest
 	@Test  //4
 	public void blueMustPlayButterflyByFourthTurn() throws HantoException
 	{
+		assertEquals(0, game.redTurnsTaken());
+		assertEquals(0, game.blueTurnsTaken());
 		final MoveResult bluemove1 = game.makeMove(SPARROW, null, makeCoordinate(0, 0));
 		assertEquals(OK, bluemove1);
+		assertEquals(1, game.blueTurnsTaken());
 		final MoveResult redmove1 = game.makeMove(SPARROW, null, makeCoordinate(0,1));
 		assertEquals(OK, redmove1);
+		assertEquals(1, game.redTurnsTaken());
 		final MoveResult bluemove2 = game.makeMove(SPARROW, null, makeCoordinate(1, 0));
 		assertEquals(OK, bluemove2);
+		assertEquals(2, game.blueTurnsTaken());
 		final MoveResult redmove2 = game.makeMove(SPARROW, null, makeCoordinate(1,-1));
 		assertEquals(OK, redmove2);
+		assertEquals(3, game.redTurnsTaken());
 		final MoveResult bluemove3 = game.makeMove(SPARROW, null, makeCoordinate(1, 1));
 		assertEquals(OK, bluemove3);
+		assertEquals(3, game.blueTurnsTaken());
 		final MoveResult redmove3 = game.makeMove(SPARROW, null, makeCoordinate(2, 0));
 		assertEquals(OK, redmove3);
 		final MoveResult bluemove4 = game.makeMove(SPARROW, null, makeCoordinate(2, -1));
