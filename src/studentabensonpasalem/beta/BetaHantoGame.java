@@ -99,7 +99,6 @@ public class BetaHantoGame implements HantoGame
 			HantoCoordinate to) throws HantoException{
 		
 		checkIsValidPieceType(piece);
-		checkIsPlayersTurn(piece);
 		checkMustPlayButterfly();
 		checkAlreadyPlayedButterfly(piece);
 		checkPieceInLegalSpot(to);
@@ -141,18 +140,6 @@ public class BetaHantoGame implements HantoGame
 			if(blueTurns >= 3 && !bluePlayedButterfly){
 				throw new HantoException("Blue must play the butterfly!");
 			}
-		}
-	}
-	
-	/**
-	 * Ensures that it is the moving player's turn
-	 * @param piece the piece the player is considering moving
-	
-	 * @throws HantoException */
-	public void checkIsPlayersTurn(HantoPiece piece) throws HantoException{
-		//Check that it is actually the player's turn to move
-		if(piece.getColor() != currentPlayer){
-			throw new HantoException("It is not this player's turn to move");
 		}
 	}
 	
