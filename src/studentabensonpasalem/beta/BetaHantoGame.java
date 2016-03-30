@@ -24,6 +24,7 @@ import hanto.studentabensonpasalem.common.HantoPieceImpl;
 import static common.MoveResult.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * <<Fill this in>>
@@ -161,7 +162,8 @@ public class BetaHantoGame implements HantoGame
 	
 	 * @throws HantoException */
 	public void checkIsValidPieceType(HantoPiece piece) throws HantoException{
-		if(piece.getType().getClass() != BUTTERFLY.getClass() || piece.getType().getClass() != SPARROW.getClass()){
+		ArrayList<HantoPieceType> validTypes = new ArrayList<HantoPieceType>(Arrays.asList(BUTTERFLY, SPARROW));
+		if(!validTypes.contains(piece.getType())){
 			throw new HantoException("You may only play butterflies or sparrows in Hanto Beta");
 		}
 	}
@@ -173,11 +175,11 @@ public class BetaHantoGame implements HantoGame
 	 * @throws HantoException */
 	public void checkAlreadyPlayedButterfly(HantoPiece piece) throws HantoException{
 		if(currentPlayer == RED){
-			if(redPlayedButterfly && piece.getType().getClass() == BUTTERFLY.getClass()){
+			if(redPlayedButterfly && piece.getType() == BUTTERFLY){
 				throw new HantoException("RED has already played the butterfly");
 			}
 		} else{
-			if(bluePlayedButterfly && piece.getType().getClass() == BUTTERFLY.getClass()){
+			if(bluePlayedButterfly && piece.getType() == BUTTERFLY){
 				throw new HantoException("BLUE has already played the butterfly");
 			}
 		}
