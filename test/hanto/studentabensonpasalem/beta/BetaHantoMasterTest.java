@@ -126,4 +126,12 @@ public class BetaHantoMasterTest
 	{
 		return new TestHantoCoordinate(x, y);
 	}
+	
+	@Test (expected = HantoException.class)	// 2
+	public void redPlacesButterflyAtBlueButterfly() throws HantoException
+	{
+		final MoveResult bluemove = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		assertEquals(OK, bluemove);
+		final MoveResult redmove = game.makeMove(BUTTERFLY, null, makeCoordinate(0,0));
+	}
 }

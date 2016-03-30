@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * This files was developed for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ *
+ * Written by Alec Benson and Peter Salem
+ *******************************************************************************/
+
 package hanto.studentabensonpasalem.common;
 import java.util.ArrayList;
 import java.util.Arrays;
