@@ -150,7 +150,7 @@ public class BetaHantoGame implements HantoGame
 	
 	 * @throws HantoException */
 	public void checkIsValidPieceType(HantoPiece piece) throws HantoException{
-		List<HantoPieceType> validTypes = new ArrayList<HantoPieceType>(Arrays.asList(BUTTERFLY, SPARROW));
+		ArrayList<HantoPieceType> validTypes = new ArrayList<HantoPieceType>(Arrays.asList(BUTTERFLY, SPARROW));
 		if(!validTypes.contains(piece.getType())){
 			throw new HantoException("You may only play butterflies or sparrows in Hanto Beta");
 		}
