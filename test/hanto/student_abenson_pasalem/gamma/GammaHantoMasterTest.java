@@ -1,3 +1,9 @@
+/**
+ * Test file for GammaHantoGame.
+ *
+ */
+
+
 package hanto.student_abenson_pasalem.gamma;
 
 import static common.HantoPieceType.BUTTERFLY;
@@ -9,6 +15,7 @@ import static common.MoveResult.OK;
 import static common.MoveResult.RED_WINS;
 import static common.MoveResult.BLUE_WINS;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +32,7 @@ import common.MoveResult;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.HantoGameFactory;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
+import student_abenson_pasalem.beta.BetaHantoGame;
 import student_abenson_pasalem.gamma.GammaHantoGame;
 
 public class GammaHantoMasterTest {
@@ -456,10 +464,21 @@ public class GammaHantoMasterTest {
 	}
 	
 	/**
+	 * Makes a Beta game to test the game factory. 
+	 * @throws HantoException
+	 */
+	@Test //22 
+	public void makeBetaHantoGameFromFactory() throws HantoException
+	{
+		BetaHantoGame betaGame = (BetaHantoGame) factory.makeHantoGame(HantoGameID.BETA_HANTO, BLUE);
+		assertEquals(BetaHantoGame.class, betaGame.getClass());
+	}
+	
+	/**
 	 * This should result in an exception
 	 * @throws HantoException
 	 */
-	@Test (expected = HantoException.class)  // 22
+	@Test (expected = HantoException.class)
 	public void redPlacesNexToBlueFourthTurn() throws HantoException
 	{
 		setup();
@@ -536,6 +555,41 @@ public class GammaHantoMasterTest {
 		game.makeMove(SPARROW, null, makeCoordinate(-1, 2));
 		game.makeMove(null, makeCoordinate(0, -1), makeCoordinate(-1, -1)); // Move 7
 		game.makeMove(SPARROW, null, makeCoordinate(2, 1));
-		assertEquals(BLUE_WINS, game.makeMove(null, makeCoordinate(2, -1), makeCoordinate(1, 0)));
+		assertEquals(BLUE_WINS, game.makeMove(null, makeCoordinate(2, -1), makeCoordinate(1, 0)));	
 	}
+	
+	/**
+	 * Tests equality method of HantoCoordinateImpl
+	 * @throws HantoException
+	 */
+	@Test
+	public void coordinateImplEqualsChecks() throws HantoException
+	{
+		setup();
+		HantoCoordinate a = new HantoCoordinateImpl(0,0);
+		HantoCoordinate difX = new HantoCoordinateImpl(1,0);
+		HantoCoordinate difY = new HantoCoordinateImpl(0,1);
+		assertEquals(a,a);
+		assertFalse(a.equals(null));
+		assertEquals(a,a);
+		assertFalse(a.equals("blah"));
+		assertFalse(a.equals(difX));
+		assertFalse(a.equals(difY));
+	}
+	
+	/**
+	 * Tests copy constructor of HantoCoordinateImpl
+	 * @throws HantoException
+	 */
+	@Test
+	public void coordinateImplCopyConstructor() throws HantoException
+	{
+		setup();
+		HantoCoordinate b = makeCoordinate(1,2);
+		HantoCoordinateImpl a = new HantoCoordinateImpl(b);
+		assertEquals(1,a.getX());
+		assertEquals(2,a.getY());
+	}
+	
+	
 }

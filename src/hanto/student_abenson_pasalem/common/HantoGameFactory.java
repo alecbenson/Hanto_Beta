@@ -40,18 +40,7 @@ public class HantoGameFactory
 	{
 		return instance;
 	}
-	
-	/**
-	 * Create the specified Hanto game version with the Blue player moving
-	 * first.
-	 * @param gameId the version desired.
-	 * @return the game instance
-	 */
-	public HantoGame makeHantoGame(HantoGameID gameId)
-	{
-		return makeHantoGame(gameId, HantoPlayerColor.BLUE);
-	}
-	
+
 	/**
 	 * Factory method that returns the appropriately configured Hanto game.
 	 * @param gameId the version desired.
