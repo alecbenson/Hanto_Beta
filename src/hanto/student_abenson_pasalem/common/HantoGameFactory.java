@@ -8,7 +8,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package hanto.student_abensonpasalem.common;
+package hanto.student_abenson_pasalem.common;
 
 import common.*;
 import student_abenson_pasalem.beta.BetaHantoGame;

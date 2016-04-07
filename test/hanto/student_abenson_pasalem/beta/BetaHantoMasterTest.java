@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 import org.junit.*;
 
 import common.*;
-import hanto.student_abensonpasalem.common.HantoGameFactory;
+import hanto.student_abenson_pasalem.common.HantoGameFactory;
 import student_abenson_pasalem.beta.BetaHantoGame;
 
 /**
