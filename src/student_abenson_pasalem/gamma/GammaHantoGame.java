@@ -22,11 +22,15 @@ import common.HantoPlayerColor;
 import common.MoveResult;
 import hanto.student_abenson_pasalem.common.HantoPieceImpl;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
+import hanto.student_abenson_pasalem.common.Board.IHantoBoard;
 import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactoryImpl;
 import hanto.student_abenson_pasalem.common.PieceFactory.IHantoPieceFactory;
+import hanto.student_abenson_pasalem.common.RuleValidator.GammaMoveValidator;
+import hanto.student_abenson_pasalem.common.RuleValidator.GammaPlaceValidator;
+import hanto.student_abenson_pasalem.common.RuleValidator.IHantoRuleSet;
+import hanto.student_abenson_pasalem.common.RuleValidator.IRuleValidator;
 
-public class GammaHantoGame implements HantoGame {
-	private boolean firstMove = true;
+public class GammaHantoGame implements HantoGame, IHantoRuleSet {
 	private int redTurns = 0;
 	private int blueTurns = 0;
 	private boolean redPlayedButterfly;
@@ -57,14 +61,14 @@ public class GammaHantoGame implements HantoGame {
 		//If no piece is provided, then we are moving a piece rather than placing one
 		if(pieceType == null){
 			piece = (HantoPieceImpl) board.getPieceAt(from);
-			validateMove(piece, from, to);
 			checkPieceCanMove(piece, from, to);
+			IRuleValidator moveValidator = new GammaMoveValidator();
+			moveValidator.validate(this, pieceType, from, to);
 			board.movePiece(from, to);
 		} else{
 			piece = pieceFactory.createPiece(currentPlayer, pieceType);
-			checkAlreadyPlayedButterfly(piece);
-			validateMove(piece, from, to);
-			checkIsValidPieceType(piece);
+			IRuleValidator placeValidator = new GammaPlaceValidator();
+			placeValidator.validate(this, pieceType, from, to);
 			board.placePiece(piece, to);
 		}
 
@@ -83,24 +87,6 @@ public class GammaHantoGame implements HantoGame {
 
 		switchTurn();
 		return gameState();
-	}
-
-	/**
-	 * Ensures that a move is valid, or throws a HantoException otherwise
-	 * 
-	 * @param piece
-	 * @param from
-	 * @param to
-	 * 
-	 * 
-	 * @return true if move is valid
-	 * @throws HantoException
-	 */
-	public boolean validateMove(HantoPieceImpl piece, HantoCoordinate from, HantoCoordinate to) throws HantoException {
-		checkGameAlreadyOver();
-		checkMustPlayButterfly();
-		checkPieceInLegalSpot(to);
-		return true;
 	}
 
 	/**
@@ -126,23 +112,6 @@ public class GammaHantoGame implements HantoGame {
 		}
 		return OK;
 	}
-
-	/**
-	 * 
-	 * @throws HantoException
-	 * 
-	 */
-	public void checkMustPlayButterfly() throws HantoException {
-		if (currentPlayer == RED) {
-			if (redTurns >= 3 && !redPlayedButterfly) {
-				throw new HantoException("Red must play the butterfly!");
-			}
-		} else {
-			if (blueTurns >= 3 && !bluePlayedButterfly) {
-				throw new HantoException("Blue must play the butterfly!");
-			}
-		}
-	}
 	
 	/**
 	 * 
@@ -153,75 +122,6 @@ public class GammaHantoGame implements HantoGame {
 		if(!piece.canMove(from, to)){
 			throw new HantoException("The piece cannot move in this way.");
 		}
-	}
-
-	/**
-	 * Ensures that the piece being played is a butterfly or sparrow
-	 * 
-	 * @param piece
-	 *            the piece being played
-	 * 
-	 * @throws HantoException
-	 */
-	public void checkIsValidPieceType(HantoPiece piece) throws HantoException {
-		ArrayList<HantoPieceType> validTypes = new ArrayList<HantoPieceType>(Arrays.asList(BUTTERFLY, SPARROW));
-		if (!validTypes.contains(piece.getType())) {
-			throw new HantoException("You may only play butterflies or sparrows in Hanto Gamma");
-		}
-	}
-
-	/**
-	 * 
-	 * 
-	 * @param piece
-	 *            HantoPiece
-	 * @throws HantoException
-	 */
-	public void checkAlreadyPlayedButterfly(HantoPiece piece) throws HantoException {
-		if (currentPlayer == RED) {
-			if (redPlayedButterfly && piece.getType() == BUTTERFLY) {
-				throw new HantoException("RED has already played the butterfly");
-			}
-		} else {
-			if (bluePlayedButterfly && piece.getType() == BUTTERFLY) {
-				throw new HantoException("BLUE has already played the butterfly");
-			}
-		}
-	}
-	
-	/**
-	 * throws an exception if the game is already over
-	 * @throws HantoException
-	 */
-	public void checkGameAlreadyOver() throws HantoException {
-		if (isGameOver) {
-			throw new HantoException("The game is over already.");
-		}
-	}
-
-	/**
-	 * Ensures that a valid space is being moved to
-	 * 
-	 * @param coordinate
-	 *            the space the player is considering moving to
-	 * 
-	 * @throws HantoException
-	 */
-	public void checkPieceInLegalSpot(HantoCoordinate coordinate) throws HantoException {
-		if (firstMove) {
-			if (coordinate.getX() != 0 || coordinate.getY() != 0) {
-				throw new HantoException("The only valid space for the first move is (0,0)");
-			}
-			return;
-		}
-		List<HantoCoordinate> adjacentSpaces = HantoBoardImpl.getAdjacentSpaces(coordinate);
-		for (HantoCoordinate space : adjacentSpaces) {
-			HantoPiece piece = board.getPieceAt(space);
-			if (piece != null) {
-				return;
-			}
-		}
-		throw new HantoException("The piece is not adjacent to any other piece");
 	}
 
 	/**
@@ -256,9 +156,6 @@ public class GammaHantoGame implements HantoGame {
 	 * Switches turns from RED to BLUE and vice versa
 	 */
 	public void switchTurn() {
-		if (firstMove) {
-			firstMove = false;
-		}
 		// If the blue player moved, it is now red's turn
 		if (currentPlayer == BLUE) {
 			currentPlayer = RED;
@@ -270,6 +167,47 @@ public class GammaHantoGame implements HantoGame {
 		}
 	}
 
+	/*
+	 * @see hanto.common.HantoGame#getPieceAt(hanto.common.HantoCoordinate)
+	 */
+	@Override
+	public HantoPiece getPieceAt(HantoCoordinate where) {
+		return board.getPieceAt(where);
+	}
+
+	/*
+	 * @see hanto.common.HantoGame#getPrintableBoard()
+	 */
+	@Override
+	public String getPrintableBoard() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean getIsGameOver() {
+		return isGameOver;
+	}
+
+	public boolean getRedPlayedButterfly() {
+		return redPlayedButterfly;
+	}
+
+	public boolean getBluePlayedButterfly() {
+		return bluePlayedButterfly;
+	}
+
+	public HantoCoordinate getRedButterflyPos() {
+		return redButterflyPos;
+	}
+
+	public HantoCoordinate getBlueButterflyPos() {
+		return blueButterflyPos;
+	}
+
+	public HantoPlayerColor getCurrentPlayer() {
+		return currentPlayer;
+	}
+	
 	/**
 	 * 
 	 * @return the total number of turns taken in the game
@@ -283,35 +221,21 @@ public class GammaHantoGame implements HantoGame {
 	 * 
 	 * @return number of red turns taken
 	 */
-	public int redTurnsTaken() {
+	public int getRedTurns() {
 		return redTurns;
 	}
 
 	/**
-	 * 
-	 * 
 	 * @return number of blue turns taken
 	 */
-	public int blueTurnsTaken() {
+	public int getBlueTurns() {
 		return blueTurns;
 	}
 
-	/*
-	 * @see hanto.common.HantoGame#getPieceAt(hanto.common.HantoCoordinate)
+	/**
+	 * Gets the game board
 	 */
-	@Override
-	public HantoPiece getPieceAt(HantoCoordinate where) {
-		// TODO Auto-generated method stub private HantoCoordinateImpl
-		// blueButterflyHex = null, redButterflyHex = null;
-		return board.getPieceAt(where);
+	public IHantoBoard getBoard() {
+		return board;
 	}
-
-	/*
-	 * @see hanto.common.HantoGame#getPrintableBoard()
-	 */
-	@Override
-	public String getPrintableBoard() {
-		// TODO Auto-generated method stub
-		return null;
-	}	
 }

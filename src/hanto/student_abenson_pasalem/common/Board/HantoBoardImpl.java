@@ -135,4 +135,11 @@ public class HantoBoardImpl implements IHantoBoard {
 		adjacentSquares.addAll(Arrays.asList(north, east, southeast, south, southwest, west));
 		return adjacentSquares;
 	}
+
+	/**
+	 * True if board is empty, false otherwise
+	 */
+	public boolean isBoardIsEmpty() {
+		return board.isEmpty();
+	}
 }
