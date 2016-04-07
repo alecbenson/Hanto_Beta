@@ -12,6 +12,7 @@ package hanto.student_abenson_pasalem.common;
 
 import common.*;
 import student_abenson_pasalem.beta.BetaHantoGame;
+import student_abenson_pasalem.gamma.GammaHantoGame;
 
 /**
  * This is a singleton class that provides a factory to create an instance of any version
@@ -62,6 +63,9 @@ public class HantoGameFactory
 		switch (gameId) {
 			case BETA_HANTO:
 				game = new BetaHantoGame(movesFirst);
+				break;
+			case GAMMA_HANTO:
+				game = new GammaHantoGame(movesFirst);
 				break;
 		}
 		return game;

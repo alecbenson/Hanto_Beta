@@ -18,7 +18,7 @@ import common.HantoGameID;
 import common.HantoPiece;
 import common.MoveResult;
 import hanto.student_abenson_pasalem.common.HantoGameFactory;
-import student_abenson_pasalem.beta.BetaHantoGame;
+import student_abenson_pasalem.gamma.GammaHantoGame;
 
 public class GammaHantoMasterTest {
 	
@@ -60,7 +60,7 @@ public class GammaHantoMasterTest {
 	}
 	
 	private static HantoGameFactory factory;
-	private BetaHantoGame game;
+	private GammaHantoGame game;
 	
 	/**
 	 * Initializing Factory Class
@@ -79,7 +79,7 @@ public class GammaHantoMasterTest {
 	public void setup()
 	{
 		// By default, blue moves first.
-		game = (BetaHantoGame) factory.makeHantoGame(HantoGameID.GAMMA_HANTO, BLUE);
+		game = (GammaHantoGame) factory.makeHantoGame(HantoGameID.GAMMA_HANTO, BLUE);
 	}
 	
 	// Helper methods
@@ -262,32 +262,6 @@ public class GammaHantoMasterTest {
 	}
 	
 	/**
-	 * Tests that blue can't play on red's turn
-	 * or an exception is thrown
-	 * @throws HantoException
-	 */
-	@Test // 10
-	public void blueTriesToPlayOnRedsTurn() throws HantoException
-	{
-		setup();
-		final MoveResult bluemove1 = game.makeMove(SPARROW, null, makeCoordinate(0, 0));
-		assertEquals(OK, bluemove1);
-	}
-	
-	/**
-	 * Tests that red can't play on blue's turn
-	 * or an exception is thrown
-	 * @throws HantoException
-	 */
-	@Test // 11
-	public void redTriesToPlayOnBluesTurn() throws HantoException
-	{
-		setup();
-		final MoveResult bluemove1 = game.makeMove(SPARROW, null, makeCoordinate(0, 0));
-		assertEquals(OK, bluemove1);
-	}
-	
-	/**
 	 * Ensures that if 40 total turns are played and the butterflies aren't surrounded,
 	 * the game ends in a draw
 	 * @throws HantoException
@@ -295,10 +269,16 @@ public class GammaHantoMasterTest {
 	@Test // 12
 	public void gameEndsInDrawAfter40Turns() throws HantoException
 	{
-		//	TODO 
-		// loop to 39 turns
-		// do 40th turn
-		// end in draw
+		setup();
+		final MoveResult bluebutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		final MoveResult redbutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
+		
+		for(int i = 0; i< 37; i++){
+			final MoveResult sparrowMove = game.makeMove(SPARROW, null, makeCoordinate(1, i));
+		}
+		
+		final MoveResult finalMove = game.makeMove(SPARROW, null, makeCoordinate(1, 37));
+		assertEquals(DRAW, finalMove);
 	}
 	
 	/**

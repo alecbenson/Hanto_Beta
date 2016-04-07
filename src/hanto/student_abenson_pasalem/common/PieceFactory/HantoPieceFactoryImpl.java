@@ -1,5 +1,6 @@
 package hanto.student_abenson_pasalem.common.PieceFactory;
 
+import common.HantoException;
 import common.HantoPieceType;
 import common.HantoPlayerColor;
 import hanto.student_abenson_pasalem.common.HantoPieceImpl;
@@ -13,15 +14,16 @@ public class HantoPieceFactoryImpl implements IHantoPieceFactory{
 	 * @param color
 	 * @param type
 	 */
-	public HantoPieceImpl createPiece(HantoPlayerColor color, HantoPieceType type) {
+	public HantoPieceImpl createPiece(HantoPlayerColor color, HantoPieceType type) throws HantoException{
 		IMoveValidator adjacentValidator = new AdjacentSquareValidator();
+		
 		switch(type){
 		case BUTTERFLY:
 			return new HantoPieceImpl(color, type, adjacentValidator);
 		case SPARROW:
 			return new HantoPieceImpl(color, type, adjacentValidator);
 		default:
-			return new HantoPieceImpl(color, type);
+			throw new HantoException("Move validators not defined for this type of piece");
 		}
 	}
 
