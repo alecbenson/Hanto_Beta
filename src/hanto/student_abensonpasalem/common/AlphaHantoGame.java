@@ -10,14 +10,14 @@
  * Copyright ©2015 Gary F. Pollice
  *******************************************************************************/
 
-package studentabensonpasalem.alpha;
+package hanto.student_abensonpasalem.common;
 
 import static common.HantoPieceType.*;
 import static common.HantoPlayerColor.*;
 import static common.MoveResult.*;
 
 import common.*;
-import hanto.studentabensonpasalem.common.*;
+import hanto.student_abensonpasalem.common.*;
 /**
  * The implementation of Alpha Hanto.
  * @version Mar 2, 2016

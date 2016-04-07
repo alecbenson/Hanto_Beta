@@ -5,7 +5,7 @@
  * Written by Alec Benson and Peter Salem
  *******************************************************************************/
 
-package hanto.studentabensonpasalem.common;
+package hanto.student_abensonpasalem.common;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;

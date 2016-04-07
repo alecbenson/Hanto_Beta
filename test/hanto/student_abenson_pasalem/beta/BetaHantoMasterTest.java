@@ -8,7 +8,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package hanto.studentabensonpasalem.beta;
+package hanto.student_abenson_pasalem.beta;
 
 import static common.HantoPieceType.*;
 import static common.HantoPlayerColor.*;
@@ -18,8 +18,8 @@ import static org.junit.Assert.*;
 import org.junit.*;
 
 import common.*;
-import studentabensonpasalem.HantoGameFactory;
-import studentabensonpasalem.beta.BetaHantoGame;
+import hanto.student_abensonpasalem.common.HantoGameFactory;
+import student_abenson_pasalem.beta.BetaHantoGame;
 
 /**
  * Test cases for Beta Hanto.
@@ -62,42 +62,6 @@ public class BetaHantoMasterTest
 		{
 			return y;
 		}
-		
-		@Override
-		public int hashCode()
-		{
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + x;
-			result = prime * result + y;
-			return result;
-		}
-
-		/*
-		 * @see java.lang.Object#equals(java.lang.Object)
-		 */
-		@Override
-		public boolean equals(Object obj)
-		{
-			if (this == obj) {
-				return true;
-			}
-			if (obj == null) {
-				return false;
-			}
-			if (!(obj instanceof TestHantoCoordinate)) {
-				return false;
-			}
-			final TestHantoCoordinate other = (TestHantoCoordinate) obj;
-			if (x != other.x) {
-				return false;
-			}
-			if (y != other.y) {
-				return false;
-			}
-			return true;
-		}
-
 	}
 	
 	private static HantoGameFactory factory;
@@ -618,7 +582,7 @@ public class BetaHantoMasterTest
 		game.makeMove(SPARROW, null, makeCoordinate(1, 0));
 		game.makeMove(SPARROW, null, makeCoordinate(1, 1));		// Move 4
 		game.makeMove(SPARROW, null, makeCoordinate(0, 2));
-		game.makeMove(SPARROW, null, makeCoordinate(-1, 2));		// Move 5
+		game.makeMove(SPARROW, null, makeCoordinate(-1, 2));	// Move 5
 		assertEquals(DRAW, game.makeMove(SPARROW, null, makeCoordinate(-1, 1)));
 	}
 }
