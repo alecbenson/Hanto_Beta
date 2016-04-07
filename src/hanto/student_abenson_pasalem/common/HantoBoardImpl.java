@@ -7,6 +7,7 @@
 
 package hanto.student_abenson_pasalem.common;
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +23,7 @@ import common.HantoPiece;
  * @author Peter
  *
  */
-public class HantoBoardImpl {
+public class HantoBoardImpl implements IHantoBoard {
 	
 	private Map<HantoCoordinate, HantoPiece> board;
 	
@@ -33,40 +34,19 @@ public class HantoBoardImpl {
 		board = new HashMap<HantoCoordinate, HantoPiece>();
 	}
 	
-	
 	/**
 	 * indicates whether or not the space at coordinate is occupied with a piece
 	 * @param coordinate
 	 * @return false if the space is unoccupied
 	 */
 	public boolean spaceOccupied(HantoCoordinate coordinate){
-		if(board.containsKey(coordinate)){
-			if(board.get(coordinate) != null){
+		HantoCoordinateImpl key = new HantoCoordinateImpl(coordinate.getX(), coordinate.getY());
+		if(board.containsKey(key)){
+			if(getPieceAt(key) != null){
 				return true;
 			}
 		}
 		return false;
-	}
-	
-	/**
-	 * @param piece
-	 * @param from
-	 * @param to
-	 * 
-	 * @throws HantoException
-	 */
-	public void movePiece(HantoPiece piece, HantoCoordinate from, HantoCoordinate to) throws HantoException{
-		if(from != null){
-			HantoCoordinateImpl fromKey = new HantoCoordinateImpl(from.getX(), from.getY());
-			if(piece == null){
-				piece = board.get(fromKey);
-			}
-		}
-		HantoCoordinateImpl toKey = new HantoCoordinateImpl(to.getX(), to.getY());
-		if(spaceOccupied(toKey)){
-			throw new HantoException("Cannot move to space: already occupied");
-		}
-		board.put(toKey, piece);
 	}
 	
 	/**
@@ -77,6 +57,44 @@ public class HantoBoardImpl {
 	public HantoPiece getPieceAt(HantoCoordinate coordinate){
 		HantoCoordinateImpl key = new HantoCoordinateImpl(coordinate.getX(), coordinate.getY());
 		return board.get(key);
+	}
+	
+	/**
+	 * @param piece the piece to add to the board
+	 * @param coordinate the place to put the piece at
+	 */
+	public void placePiece(HantoPiece piece, HantoCoordinate coordinate) throws HantoException {
+		if(spaceOccupied(coordinate)){
+			throw new HantoException("Cannot move to space: already occupied");
+		}
+		HantoCoordinateImpl key = new HantoCoordinateImpl(coordinate.getX(), coordinate.getY());
+		board.put(key, piece);
+	}
+	
+	/**
+	 * Removes the piece at the specified location
+	 * @param coordinate the coordinate at which to remove the piece from
+	 */
+	public void removePiece(HantoCoordinate coordinate){
+		HantoCoordinateImpl key = new HantoCoordinateImpl(coordinate.getX(), coordinate.getY());
+		board.remove(key);
+	}
+	
+	/**
+	 * @param piece
+	 * @param from
+	 * @param to
+	 * 
+	 * @throws HantoException
+	 */
+	public void movePiece(HantoCoordinate from, HantoCoordinate to) throws HantoException{		
+		if(spaceOccupied(to)){
+			throw new HantoException("Cannot move to space: already occupied");
+		}
+		
+		HantoPiece piece = getPieceAt(from);
+		removePiece(from);
+		placePiece(piece, to);
 	}
 	
 	/**
@@ -116,6 +134,4 @@ public class HantoBoardImpl {
 		adjacentSquares.addAll(Arrays.asList(north, east, southeast, south, southwest, west));
 		return adjacentSquares;
 	}
-	
-	
 }
