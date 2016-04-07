@@ -1,3 +1,10 @@
+/**
+ * 
+ * Validator for whether or not an adjacent piece is left 
+ * isolated after a piece is moved
+ * 
+ */
+
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
 import java.util.List;

@@ -1,3 +1,11 @@
+/**
+ * Interface for the purpose of creating the Hanto board
+ * with checking occupied spaces, getting piece locations,
+ * moving pieces, placing pieces, and remove pieces. It 
+ * also checks if the board is empty. 
+ * 
+ */
+
 package hanto.student_abenson_pasalem.common.Board;
 
 import java.util.List;

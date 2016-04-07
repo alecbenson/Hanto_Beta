@@ -1,3 +1,8 @@
+/**
+ * Implementation of a Hanto piece factory,
+ * to handle all of the functionality for pieces.
+ */
+
 package hanto.student_abenson_pasalem.common.PieceFactory;
 
 import common.HantoException;

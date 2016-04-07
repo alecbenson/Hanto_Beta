@@ -1,3 +1,7 @@
+/**
+ * Interface for Hanto Piece Factory
+ */
+
 package hanto.student_abenson_pasalem.common.PieceFactory;
 
 import common.HantoException;

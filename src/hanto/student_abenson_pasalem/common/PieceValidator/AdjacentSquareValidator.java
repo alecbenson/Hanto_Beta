@@ -1,3 +1,8 @@
+/**
+ * Validator for adjacency checks.
+ * 
+ */
+
 package hanto.student_abenson_pasalem.common.PieceValidator;
 
 import java.util.List;

@@ -1,3 +1,10 @@
+/**
+ * Validator for that any piece played will be a 
+ * butterfly or sparrow, as they are the only
+ * valid pieces for Gamma Hanto.
+ */
+
+
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
 import static common.HantoPieceType.BUTTERFLY;

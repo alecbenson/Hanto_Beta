@@ -1,3 +1,9 @@
+/**
+ * Validator for not placing a piece adjacent 
+ * to an opponent's piece.
+ */
+
+
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
 import java.util.List;

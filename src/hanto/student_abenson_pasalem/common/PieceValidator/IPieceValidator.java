@@ -1,3 +1,8 @@
+/**
+ * Interface for Piece Validation.
+ * 
+ */
+
 package hanto.student_abenson_pasalem.common.PieceValidator;
 
 import common.HantoCoordinate;

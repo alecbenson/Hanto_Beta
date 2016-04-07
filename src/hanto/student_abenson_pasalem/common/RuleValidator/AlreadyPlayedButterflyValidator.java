@@ -1,3 +1,10 @@
+/**
+ * Validator for checking if a butterfly has already
+ * been played by the player attempting to play it.
+ * 
+ */
+
+
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
 import static common.HantoPieceType.BUTTERFLY;

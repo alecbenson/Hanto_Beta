@@ -152,7 +152,7 @@ public class GammaHantoMasterTest {
 	 * Ensures that red moves to an adjacent square to where blue's piece is.
 	 * @throws HantoException
 	 */
-	@Test // 4
+	@Test // 5
 	public void testAdjacentSquares() throws HantoException
 	{
 		setup();
@@ -178,7 +178,7 @@ public class GammaHantoMasterTest {
 	 * another piece, an exception will be thrown
 	 * @throws HantoException
 	 */
-	@Test (expected = HantoException.class) // 5
+	@Test (expected = HantoException.class) // 6
 	public void redPlacesPieceOnNonAdjacentSquare() throws HantoException
 	{
 		setup();
@@ -193,7 +193,7 @@ public class GammaHantoMasterTest {
 	 * an exception will be thrown
 	 * @throws HantoException
 	 */
-	@Test (expected = HantoException.class) // 6
+	@Test (expected = HantoException.class) // 7
 	public void blueAttemptsToPlayInvalidCrabPiece() throws HantoException
 	{
 		setup();
@@ -205,7 +205,7 @@ public class GammaHantoMasterTest {
 	 *  or an exception is thrown
 	 * @throws HantoException
 	 */
-	@Test (expected = HantoException.class) // 7
+	@Test (expected = HantoException.class) // 8
 	public void blueAttemptsToPlayedAtInvalidLocationOnFirstTurn() throws HantoException
 	{
 		setup();
@@ -217,7 +217,7 @@ public class GammaHantoMasterTest {
 	 * or an exception will be thrown
 	 * @throws HantoException
 	 */
-	@Test (expected = HantoException.class)  // 8
+	@Test (expected = HantoException.class)  // 9
 	public void blueMustPlayButterflyByFourthTurn() throws HantoException
 	{
 		setup();
@@ -255,7 +255,7 @@ public class GammaHantoMasterTest {
 	 * or an exception will be thrown
 	 * @throws HantoException
 	 */
-	@Test (expected = HantoException.class) // 9
+	@Test (expected = HantoException.class) // 10
 	public void redMustPlayButterflyByFourthTurn() throws HantoException
 	{
 		setup();
@@ -297,7 +297,7 @@ public class GammaHantoMasterTest {
 	 * the game ends in a draw
 	 * @throws HantoException
 	 */
-	@Test // 12
+	@Test // 11
 	public void gameEndsInDrawAfter40Turns() throws HantoException
 	{
 		setup();
@@ -318,7 +318,7 @@ public class GammaHantoMasterTest {
 	 * Checking if first movement by blue is at the origin
 	 * @throws HantoException
 	 */
-	@Test (expected = common.HantoException.class) // 13
+	@Test (expected = common.HantoException.class) // 12
 	public void firstMoveIllegalSpot() throws HantoException
 	{
 		setup();
@@ -329,7 +329,7 @@ public class GammaHantoMasterTest {
 	 * Throws an exception when blue tries to play a butterfly twice	
 	 * @throws HantoException
 	 */
-	@Test (expected = common.HantoException.class) // 14
+	@Test (expected = common.HantoException.class) // 13
 	public void bluebutterflyPlayedTwice() throws HantoException
 	{
 		setup();
@@ -340,7 +340,7 @@ public class GammaHantoMasterTest {
 		final MoveResult bluemove2 = game.makeMove(BUTTERFLY, null, makeCoordinate(1, -1));
 	}
 	
-	@Test (expected = common.HantoException.class) // 15
+	@Test (expected = common.HantoException.class) // 14
 	public void redbutterflyPlayedTwice() throws HantoException
 	{
 		setup();
@@ -357,7 +357,7 @@ public class GammaHantoMasterTest {
 	 * Checking if a spot is moved to twice
 	 * @throws HantoException
 	 */
-	@Test (expected = common.HantoException.class) // 16
+	@Test (expected = common.HantoException.class) // 15
 	public void spotMovedToTwice() throws HantoException
 	{
 		setup();
@@ -370,7 +370,7 @@ public class GammaHantoMasterTest {
 	 * Simulates blue playing butterfly and moving it on the next turn
 	 * @throws HantoException
 	 */
-	@Test // 17
+	@Test // 16
 	public void blueMovesButterflyToValidSpace() throws HantoException
 	{
 		setup();
@@ -384,7 +384,7 @@ public class GammaHantoMasterTest {
 	 * Simulates blue playing butterfly and moving in an invalid way
 	 * @throws HantoException
 	 */
-	@Test (expected = HantoException.class)  // 18
+	@Test (expected = HantoException.class)  // 17
 	public void blueMovesButterflyToInvalidSpace() throws HantoException
 	{
 		setup();
@@ -400,7 +400,7 @@ public class GammaHantoMasterTest {
 	 * but it causes one of the sparrows in the line to be isolated. This should throw an exception
 	 * @throws HantoException
 	 */
-	@Test (expected = HantoException.class)  // 8
+	@Test (expected = HantoException.class)  // 18
 	public void blueIsolatesSparrow() throws HantoException
 	{
 		setup();
