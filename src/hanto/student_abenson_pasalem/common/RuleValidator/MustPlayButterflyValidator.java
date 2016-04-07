@@ -1,6 +1,7 @@
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
 import static common.HantoPlayerColor.RED;
+import static common.HantoPieceType.BUTTERFLY;
 
 import common.HantoCoordinate;
 import common.HantoException;
@@ -15,11 +16,15 @@ public class MustPlayButterflyValidator implements IRuleValidator{
 			throws HantoException {
 		if (game.getCurrentPlayer() == RED) {
 			if (game.getRedTurns() >= 3 && !game.getRedPlayedButterfly()) {
-				throw new HantoException("Red must play the butterfly!");
+				if(pieceType != BUTTERFLY){
+					throw new HantoException("Red must play the butterfly!");
+				}
 			}
 		} else {
 			if (game.getBlueTurns() >= 3 && !game.getBluePlayedButterfly()) {
-				throw new HantoException("Blue must play the butterfly!");
+				if(pieceType != BUTTERFLY){
+					throw new HantoException("Blue must play the butterfly!");
+				}
 			}
 		}		
 	}

@@ -22,6 +22,8 @@ public class GammaMoveValidator implements IRuleValidator{
 		validators.add(adjacentValidator);
 		IRuleValidator butterflyValidator = new MustPlayButterflyValidator();
 		validators.add(butterflyValidator);
+		IRuleValidator spaceoccupied = new SpaceOccupiedValidator();
+		validators.add(spaceoccupied);
 		
 		//Run all validators
 		for(IRuleValidator validator : validators){

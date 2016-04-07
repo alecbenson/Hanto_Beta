@@ -65,9 +65,6 @@ public class HantoBoardImpl implements IHantoBoard {
 	 * @param coordinate the place to put the piece at
 	 */
 	public void placePiece(HantoPiece piece, HantoCoordinate coordinate) throws HantoException {
-		if(spaceOccupied(coordinate)){
-			throw new HantoException("Cannot move to space: already occupied");
-		}
 		HantoCoordinateImpl key = new HantoCoordinateImpl(coordinate.getX(), coordinate.getY());
 		board.put(key, piece);
 	}
@@ -88,11 +85,7 @@ public class HantoBoardImpl implements IHantoBoard {
 	 * 
 	 * @throws HantoException
 	 */
-	public void movePiece(HantoCoordinate from, HantoCoordinate to) throws HantoException{		
-		if(spaceOccupied(to)){
-			throw new HantoException("Cannot move to space: already occupied");
-		}
-		
+	public void movePiece(HantoCoordinate from, HantoCoordinate to) throws HantoException{				
 		HantoPiece piece = getPieceAt(from);
 		removePiece(from);
 		placePiece(piece, to);

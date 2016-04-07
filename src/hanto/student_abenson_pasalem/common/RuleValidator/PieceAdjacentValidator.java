@@ -21,6 +21,13 @@ public class PieceAdjacentValidator implements IRuleValidator{
 		
 		List<HantoCoordinate> adjacentSpaces = HantoBoardImpl.getAdjacentSpaces(to);
 		for (HantoCoordinate space : adjacentSpaces) {
+			//If moving, don't consider the space we are coming from
+			if(from != null){
+				if(space.getX() == from.getX() && space.getY() == from.getY()){
+					continue;
+				}
+			}
+			//If the piece is adjacent to any other pieces, move on
 			HantoPiece piece = game.getBoard().getPieceAt(space);
 			if (piece != null) {
 				return;

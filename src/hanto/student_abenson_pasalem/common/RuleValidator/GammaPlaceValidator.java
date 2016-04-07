@@ -31,6 +31,8 @@ public class GammaPlaceValidator implements IRuleValidator{
 		validators.add(butterflyInPlayValidator);
 		IRuleValidator adjacentOpposingPiece = new AdjacentOpposingPieceValidator();
 		validators.add(adjacentOpposingPiece);
+		IRuleValidator spaceoccupied = new SpaceOccupiedValidator();
+		validators.add(spaceoccupied);
 		
 		//Run all validators
 		for(IRuleValidator validator : validators){
