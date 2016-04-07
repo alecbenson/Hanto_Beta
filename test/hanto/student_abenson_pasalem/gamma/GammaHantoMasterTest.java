@@ -8,6 +8,9 @@ import static common.MoveResult.DRAW;
 import static common.MoveResult.OK;
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -17,7 +20,9 @@ import common.HantoException;
 import common.HantoGameID;
 import common.HantoPiece;
 import common.MoveResult;
+import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.HantoGameFactory;
+import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 import student_abenson_pasalem.gamma.GammaHantoGame;
 
 public class GammaHantoMasterTest {
@@ -139,6 +144,31 @@ public class GammaHantoMasterTest {
 		assertEquals(OK, bluemove1);
 		final MoveResult redmove1 = game.makeMove(BUTTERFLY, null, makeCoordinate(0,1));
 		assertEquals(OK, redmove1);
+	}
+	
+	/**
+	 * Ensures that red moves to an adjacent square to where blue's piece is.
+	 * @throws HantoException
+	 */
+	@Test // 4
+	public void testAdjacentSquares() throws HantoException
+	{
+		setup();
+		final List<HantoCoordinate> adjacencies = HantoBoardImpl.getAdjacentSpaces(makeCoordinate(-1,0));
+		HantoCoordinateImpl north = new HantoCoordinateImpl(-1,1);
+		HantoCoordinateImpl east = new HantoCoordinateImpl(0,0);
+		HantoCoordinateImpl southEast = new HantoCoordinateImpl(0,-1);
+		HantoCoordinateImpl south = new HantoCoordinateImpl(-1,-1);
+		HantoCoordinateImpl southWest = new HantoCoordinateImpl(-2,0);
+		HantoCoordinateImpl west = new HantoCoordinateImpl(-2,1);
+		List<HantoCoordinate> expectedCoords = new ArrayList<HantoCoordinate>();
+		expectedCoords.add(north);
+		expectedCoords.add(east);
+		expectedCoords.add(southEast);
+		expectedCoords.add(south);
+		expectedCoords.add(southWest);
+		expectedCoords.add(west);
+		assertEquals(adjacencies,expectedCoords);
 	}
 	
 	/**
@@ -359,6 +389,28 @@ public class GammaHantoMasterTest {
 		final MoveResult bluebutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
 		final MoveResult redbutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(1,0));
 		final MoveResult bluemovebutterfly = game.makeMove(null, makeCoordinate(0,0), makeCoordinate(1, -10));
+	}
+	
+	/**
+	 * Blue isolates a sparrow when moving. 
+	 * In this test, blue places a butterfly, followed by three sparrows in a line.
+	 * The middle sparrow is moved, downward, so that it is still adjacent to a piece, 
+	 * but it causes one of the sparrows in the line to be isolated. This should throw an exception
+	 * @throws HantoException
+	 */
+	@Test (expected = HantoException.class)  // 8
+	public void blueIsolatesSparrow() throws HantoException
+	{
+		setup();
+		final MoveResult bluebutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		final MoveResult redbutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0,1));
+		final MoveResult blueSparrow1 = game.makeMove(SPARROW, null, makeCoordinate(-1,0));
+		final MoveResult redSparrow1 = game.makeMove(SPARROW, null, makeCoordinate(1,1));
+		final MoveResult blueSparrow2 = game.makeMove(SPARROW, null, makeCoordinate(-2,1));
+		final MoveResult redSparrow2 = game.makeMove(SPARROW, null, makeCoordinate(0,2));
+		final MoveResult blueSparrow3 = game.makeMove(SPARROW, null, makeCoordinate(0,-1));
+		final MoveResult redSparrow3 = game.makeMove(SPARROW, null, makeCoordinate(-1,2));
+		final MoveResult isolatingMove = game.makeMove(null, makeCoordinate(-1,0), makeCoordinate(-1,-1));
 	}
 	
 	
