@@ -456,7 +456,7 @@ public class GammaHantoMasterTest {
 	 * @throws HantoException
 	 */
 	@Test  // 20
-	public void bluePlacesNexToRedFirstTwoTurns() throws HantoException
+	public void bluePlacesNextToRedFirstTwoTurns() throws HantoException
 	{
 		setup();
 		final MoveResult bluebutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
@@ -469,12 +469,73 @@ public class GammaHantoMasterTest {
 	 * @throws HantoException
 	 */
 	@Test (expected = HantoException.class) // 21
-	public void bluePlacesNexToRedThirdTurn() throws HantoException
+	public void bluePlacesNextToRedThirdTurn() throws HantoException
 	{
 		setup();
 		final MoveResult bluebutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
 		final MoveResult redbutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(1,0));
 		final MoveResult blueSparrow = game.makeMove(SPARROW, null, makeCoordinate(2,0));
+	}
+	
+	/**
+	 * This should be totally legal.
+	 * @throws HantoException
+	 */
+	@Test
+	public void blueButterflyMovesLegallyGroupStaysIntact() throws HantoException
+	{
+		setup();
+		final MoveResult bluebutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		final MoveResult redbutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0,1));
+		//Blue
+		final MoveResult sparrow1 = game.makeMove(SPARROW, null, makeCoordinate(0,-1));
+		//Red
+		final MoveResult sparrow2 = game.makeMove(SPARROW, null, makeCoordinate(1,1));
+		//Blue
+		final MoveResult sparrow3 = game.makeMove(SPARROW, null, makeCoordinate(-1,-1));
+		//Red
+		final MoveResult sparrow4 = game.makeMove(SPARROW, null, makeCoordinate(2,0));
+		//Blue
+		final MoveResult sparrow5 = game.makeMove(SPARROW, null, makeCoordinate(-2,0));
+		//Red
+		final MoveResult sparrow6 = game.makeMove(SPARROW, null, makeCoordinate(2,-1));
+		//Blue
+		final MoveResult sparrow7 = game.makeMove(SPARROW, null, makeCoordinate(-2,1));
+		//Red
+		final MoveResult sparrow8 = game.makeMove(SPARROW, null, makeCoordinate(2,-2));
+		//Blue
+		final MoveResult finalMove = game.makeMove( null, makeCoordinate(0,0), makeCoordinate(1,-1));
+		assertEquals(OK, finalMove);
+	}
+	
+	/**
+	 * This should cause an exception because it results in two isolated groups from forming on the board
+	 * @throws HantoException
+	 */
+	@Test(expected = HantoException.class)
+	public void blueButterflyMovesIllegallyCausesIsolation() throws HantoException
+	{
+		setup();
+		final MoveResult bluebutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		final MoveResult redbutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0,1));
+		//Blue
+		final MoveResult sparrow1 = game.makeMove(SPARROW, null, makeCoordinate(0,-1));
+		//Red
+		final MoveResult sparrow2 = game.makeMove(SPARROW, null, makeCoordinate(1,1));
+		//Blue
+		final MoveResult sparrow3 = game.makeMove(SPARROW, null, makeCoordinate(-1,-1));
+		//Red
+		final MoveResult sparrow4 = game.makeMove(SPARROW, null, makeCoordinate(2,0));
+		//Blue
+		final MoveResult sparrow5 = game.makeMove(SPARROW, null, makeCoordinate(-2,0));
+		//Red
+		final MoveResult sparrow6 = game.makeMove(SPARROW, null, makeCoordinate(2,-1));
+		//Blue
+		final MoveResult sparrow7 = game.makeMove(SPARROW, null, makeCoordinate(-2,1));
+		//Red
+		final MoveResult sparrow8 = game.makeMove(SPARROW, null, makeCoordinate(2,-2));
+		//Blue
+		final MoveResult finalMove = game.makeMove( null, makeCoordinate(0,0), makeCoordinate(1,0));
 	}
 	
 	/**
