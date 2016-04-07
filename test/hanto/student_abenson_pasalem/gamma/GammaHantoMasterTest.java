@@ -6,6 +6,8 @@ import static common.HantoPieceType.SPARROW;
 import static common.HantoPlayerColor.BLUE;
 import static common.MoveResult.DRAW;
 import static common.MoveResult.OK;
+import static common.MoveResult.RED_WINS;
+import static common.MoveResult.BLUE_WINS;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
@@ -338,7 +340,7 @@ public class GammaHantoMasterTest {
 	 * Simulates blue playing butterfly and moving it on the next turn
 	 * @throws HantoException
 	 */
-	@Test
+	@Test // 17
 	public void blueMovesButterflyToValidSpace() throws HantoException
 	{
 		setup();
@@ -352,7 +354,7 @@ public class GammaHantoMasterTest {
 	 * Simulates blue playing butterfly and moving in an invalid way
 	 * @throws HantoException
 	 */
-	@Test (expected = HantoException.class)  // 8
+	@Test (expected = HantoException.class)  // 18
 	public void blueMovesButterflyToInvalidSpace() throws HantoException
 	{
 		setup();
@@ -366,7 +368,7 @@ public class GammaHantoMasterTest {
 	 * Simulates blue playing butterfly and moving away from adjacent pieces
 	 * @throws HantoException
 	 */
-	@Test (expected = HantoException.class)
+	@Test (expected = HantoException.class)  // 19
 	public void blueMovesAwayFromAdjacentPieces() throws HantoException
 	{
 		setup();
@@ -379,7 +381,7 @@ public class GammaHantoMasterTest {
 	 * This should result in OK
 	 * @throws HantoException
 	 */
-	@Test
+	@Test  // 20
 	public void bluePlacesNexToRedFirstTwoTurns() throws HantoException
 	{
 		setup();
@@ -392,7 +394,7 @@ public class GammaHantoMasterTest {
 	 * This should result in an exception
 	 * @throws HantoException
 	 */
-	@Test (expected = HantoException.class)
+	@Test (expected = HantoException.class) // 21
 	public void bluePlacesNexToRedThirdTurn() throws HantoException
 	{
 		setup();
@@ -405,7 +407,7 @@ public class GammaHantoMasterTest {
 	 * This should result in an exception
 	 * @throws HantoException
 	 */
-	@Test (expected = HantoException.class)
+	@Test (expected = HantoException.class)  // 22
 	public void redPlacesNexToBlueFourthTurn() throws HantoException
 	{
 		setup();
@@ -413,5 +415,75 @@ public class GammaHantoMasterTest {
 		final MoveResult redbutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(1,0));
 		final MoveResult blueSparrow = game.makeMove(SPARROW, null, makeCoordinate(-1,0));
 		final MoveResult redSparrow = game.makeMove(SPARROW, null, makeCoordinate(-2,0));
+	}
+	
+	/**
+	 * 
+	 * Checks that a draw occurs when a move results in both the
+	 * red and blue butterflies to be surrounded.
+	 * @throws HantoException
+	 */
+	@Test	// 23
+	public void drawnGame() throws HantoException
+	{
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));	// Move 1
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
+		game.makeMove(SPARROW, null, makeCoordinate(-1, 0));	// Move 2
+		game.makeMove(SPARROW, null, makeCoordinate(-1, 2));
+		game.makeMove(SPARROW, null, makeCoordinate(0, -1));	// Move 3
+		game.makeMove(SPARROW, null, makeCoordinate(0, 2));
+		game.makeMove(SPARROW, null, makeCoordinate(1, -1));	// Move 4
+		game.makeMove(SPARROW, null, makeCoordinate(1, 1));
+		game.makeMove(SPARROW, null, makeCoordinate(2, -1));	// Move 5
+		game.makeMove(null, makeCoordinate(-1, 2), makeCoordinate(-1, 1));
+		game.makeMove(SPARROW, null, makeCoordinate(-2, 0)); 	// Move 6
+		game.makeMove(SPARROW, null, makeCoordinate(-1, 2));
+		assertEquals(DRAW, game.makeMove(null, makeCoordinate(2, -1), makeCoordinate(1, 0)));
+	}
+	
+	/**
+	 * Checks that the game ends when the blue butterfly is surrounded.
+	 * @throws HantoException
+	 */
+	@Test // 24
+	public void blueButterflySurrounded() throws HantoException
+	{
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));	// Move 1
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
+		game.makeMove(SPARROW, null, makeCoordinate(-1, 0));	// Move 2
+		game.makeMove(SPARROW, null, makeCoordinate(-1, 2));
+		game.makeMove(SPARROW, null, makeCoordinate(0, -1));	// Move 3
+		game.makeMove(SPARROW, null, makeCoordinate(0, 2));
+		game.makeMove(SPARROW, null, makeCoordinate(1, -1));	// Move 4
+		game.makeMove(SPARROW, null, makeCoordinate(1, 1));
+		game.makeMove(SPARROW, null, makeCoordinate(2, -1));	// Move 5
+		game.makeMove(null, makeCoordinate(-1, 2), makeCoordinate(-1, 1));
+		game.makeMove(SPARROW, null, makeCoordinate(-2, 0)); 	// Move 6
+		game.makeMove(SPARROW, null, makeCoordinate(0, 3));
+		assertEquals(RED_WINS, game.makeMove(null, makeCoordinate(2, -1), makeCoordinate(1, 0)));
+	}
+	
+	/**
+	 * Checks that the game ends when the blue butterfly is surrounded.
+	 * @throws HantoException
+	 */
+	@Test // 25
+	public void redButterflySurrounded() throws HantoException
+	{
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));	// Move 1
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
+		game.makeMove(SPARROW, null, makeCoordinate(-1, 0));	// Move 2
+		game.makeMove(SPARROW, null, makeCoordinate(-1, 2));
+		game.makeMove(SPARROW, null, makeCoordinate(0, -1));	// Move 3
+		game.makeMove(SPARROW, null, makeCoordinate(0, 2));
+		game.makeMove(SPARROW, null, makeCoordinate(1, -1));	// Move 4
+		game.makeMove(SPARROW, null, makeCoordinate(1, 1));
+		game.makeMove(SPARROW, null, makeCoordinate(2, -1));	// Move 5
+		game.makeMove(null, makeCoordinate(-1, 2), makeCoordinate(-1, 1));
+		game.makeMove(SPARROW, null, makeCoordinate(-2, 0)); 	// Move 6
+		game.makeMove(SPARROW, null, makeCoordinate(-1, 2));
+		game.makeMove(null, makeCoordinate(0, -1), makeCoordinate(-1, -1)); // Move 7
+		game.makeMove(SPARROW, null, makeCoordinate(2, 1));
+		assertEquals(BLUE_WINS, game.makeMove(null, makeCoordinate(2, -1), makeCoordinate(1, 0)));
 	}
 }
