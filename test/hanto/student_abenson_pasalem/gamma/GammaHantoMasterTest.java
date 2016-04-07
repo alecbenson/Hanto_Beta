@@ -147,7 +147,7 @@ public class GammaHantoMasterTest {
 	 * @throws HantoException
 	 */
 	@Test (expected = HantoException.class) // 5
-	public void redMovesToNonAdjacentSquare() throws HantoException
+	public void redPlacesPieceOnNonAdjacentSquare() throws HantoException
 	{
 		setup();
 		final MoveResult bluemove1 = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
@@ -189,28 +189,28 @@ public class GammaHantoMasterTest {
 	public void blueMustPlayButterflyByFourthTurn() throws HantoException
 	{
 		setup();
-		assertEquals(0, game.redTurnsTaken());
-		assertEquals(0, game.blueTurnsTaken());
+		assertEquals(0, game.getRedTurns());
+		assertEquals(0, game.getBlueTurns());
 		
 		final MoveResult bluemove1 = game.makeMove(SPARROW, null, makeCoordinate(0, 0));
 		assertEquals(OK, bluemove1);
-		assertEquals(1, game.blueTurnsTaken());
+		assertEquals(1, game.getBlueTurns());
 		
 		final MoveResult redmove1 = game.makeMove(SPARROW, null, makeCoordinate(0,1));
 		assertEquals(OK, redmove1);
-		assertEquals(1, game.redTurnsTaken());
+		assertEquals(1, game.getRedTurns());
 		
 		final MoveResult bluemove2 = game.makeMove(SPARROW, null, makeCoordinate(1, 0));
 		assertEquals(OK, bluemove2);
-		assertEquals(2, game.blueTurnsTaken());
+		assertEquals(2, game.getBlueTurns());
 		
 		final MoveResult redmove2 = game.makeMove(SPARROW, null, makeCoordinate(1,-1));
 		assertEquals(OK, redmove2);
-		assertEquals(2, game.redTurnsTaken());
+		assertEquals(2, game.getRedTurns());
 
 		final MoveResult bluemove3 = game.makeMove(SPARROW, null, makeCoordinate(1, 1));
 		assertEquals(OK, bluemove3);
-		assertEquals(3, game.blueTurnsTaken());
+		assertEquals(3, game.getBlueTurns());
 		
 		final MoveResult redmove3 = game.makeMove(SPARROW, null, makeCoordinate(2, 0));
 		assertEquals(OK, redmove3);
@@ -228,28 +228,28 @@ public class GammaHantoMasterTest {
 	public void redMustPlayButterflyByFourthTurn() throws HantoException
 	{
 		setup();
-		assertEquals(0, game.redTurnsTaken());
-		assertEquals(0, game.blueTurnsTaken());
+		assertEquals(0, game.getRedTurns());
+		assertEquals(0, game.getBlueTurns());
 
 		final MoveResult bluemove1 = game.makeMove(SPARROW, null, makeCoordinate(0, 0));
 		assertEquals(OK, bluemove1);
-		assertEquals(1, game.blueTurnsTaken());
+		assertEquals(1, game.getBlueTurns());
 		
 		final MoveResult redmove1 = game.makeMove(SPARROW, null, makeCoordinate(0,1));
 		assertEquals(OK, redmove1);
-		assertEquals(1, game.redTurnsTaken());
+		assertEquals(1, game.getRedTurns());
 		
 		final MoveResult bluemove2 = game.makeMove(SPARROW, null, makeCoordinate(1, 0));
 		assertEquals(OK, bluemove2);
-		assertEquals(2, game.blueTurnsTaken());
+		assertEquals(2, game.getBlueTurns());
 		
 		final MoveResult redmove2 = game.makeMove(SPARROW, null, makeCoordinate(1,-1));
 		assertEquals(OK, redmove2);
-		assertEquals(2, game.redTurnsTaken());
+		assertEquals(2, game.getRedTurns());
 		
 		final MoveResult bluemove3 = game.makeMove(SPARROW, null, makeCoordinate(1, 1));
 		assertEquals(OK, bluemove3);
-		assertEquals(3, game.blueTurnsTaken());
+		assertEquals(3, game.getBlueTurns());
 
 		final MoveResult redmove3 = game.makeMove(SPARROW, null, makeCoordinate(2, 0));
 		assertEquals(OK, redmove3);
@@ -273,12 +273,14 @@ public class GammaHantoMasterTest {
 		final MoveResult bluebutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
 		final MoveResult redbutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
 		
-		for(int i = 0; i< 37; i++){
-			final MoveResult sparrowMove = game.makeMove(SPARROW, null, makeCoordinate(1, i));
+		for(int i = 1; i< 19; i++){
+			final MoveResult blueMove = game.makeMove(SPARROW, null, makeCoordinate((i * -1), 0));
+			final MoveResult redMove = game.makeMove(SPARROW, null, makeCoordinate(i, 1));
 		}
 		
-		final MoveResult finalMove = game.makeMove(SPARROW, null, makeCoordinate(1, 37));
-		assertEquals(DRAW, finalMove);
+		final MoveResult blueFinal = game.makeMove(SPARROW, null, makeCoordinate(-18, 1));
+		final MoveResult redFinal = game.makeMove(SPARROW, null, makeCoordinate(19, 1));
+		assertEquals(DRAW, redFinal);
 	}
 	
 	/**
@@ -334,17 +336,29 @@ public class GammaHantoMasterTest {
 	}
 	
 	/**
-	 * 
-	 * NEW
-	 * TESTS
-	 * FROM
-	 * GAMMA
-	 * BELOW
-	 * HERE 
-	 * 
+	 * Simulates blue playing butterfly and moving it on the next turn
+	 * @throws HantoException
 	 */
+	@Test
+	public void blueMovesButterflyToValidSpace() throws HantoException
+	{
+		setup();
+		final MoveResult bluebutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		final MoveResult redbutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(1,0));
+		final MoveResult bluemovebutterfly = game.makeMove(null, makeCoordinate(0,0), makeCoordinate(1, -1));
+		assertEquals(OK, bluemovebutterfly);
+	}
 	
-	
-	
-	
+	/**
+	 * Simulates blue playing butterfly and moving it to a non adjacent space
+	 * @throws HantoException
+	 */
+	@Test (expected = HantoException.class)  // 8
+	public void blueMovesButterflyToInvalidSpace() throws HantoException
+	{
+		setup();
+		final MoveResult bluebutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		final MoveResult redbutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(1,0));
+		final MoveResult bluemovebutterfly = game.makeMove(null, makeCoordinate(0,0), makeCoordinate(1, -10));
+	}
 }

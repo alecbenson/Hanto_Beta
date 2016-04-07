@@ -4,7 +4,7 @@ import common.HantoCoordinate;
 import common.HantoException;
 import common.HantoPieceType;
 
-public class FirstMoveValidator implements IRuleValidator{
+public class FirstTurnValidator implements IRuleValidator{
 
 	/**
 	 * Ensures the first move is made at (0,0)
