@@ -22,6 +22,8 @@ import common.HantoPlayerColor;
 import common.MoveResult;
 import hanto.student_abenson_pasalem.common.HantoPieceImpl;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
+import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactoryImpl;
+import hanto.student_abenson_pasalem.common.PieceFactory.IHantoPieceFactory;
 
 public class GammaHantoGame implements HantoGame {
 	private boolean firstMove = true;
@@ -49,14 +51,20 @@ public class GammaHantoGame implements HantoGame {
 	@Override
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 			throws HantoException {
-		HantoPieceImpl piece = new HantoPieceImpl(currentPlayer, pieceType);
-		validateMove(piece, from, to);
+		IHantoPieceFactory pieceFactory = new HantoPieceFactoryImpl();
+		HantoPieceImpl piece;
 		
 		//If no piece is provided, then we are moving a piece rather than placing one
 		if(pieceType == null){
+			piece = (HantoPieceImpl) board.getPieceAt(from);
+			validateMove(piece, from, to);
 			checkPieceCanMove(piece, from, to);
 			board.movePiece(from, to);
 		} else{
+			piece = pieceFactory.createPiece(currentPlayer, pieceType);
+			checkAlreadyPlayedButterfly(piece);
+			validateMove(piece, from, to);
+			checkIsValidPieceType(piece);
 			board.placePiece(piece, to);
 		}
 
@@ -90,9 +98,7 @@ public class GammaHantoGame implements HantoGame {
 	 */
 	public boolean validateMove(HantoPieceImpl piece, HantoCoordinate from, HantoCoordinate to) throws HantoException {
 		checkGameAlreadyOver();
-		checkIsValidPieceType(piece);
 		checkMustPlayButterfly();
-		checkAlreadyPlayedButterfly(piece);
 		checkPieceInLegalSpot(to);
 		return true;
 	}
@@ -143,7 +149,7 @@ public class GammaHantoGame implements HantoGame {
 	 * @throws HantoException
 	 * 
 	 */
-	public void checkPieceCanMove(HantoPieceImpl piece, HantoCoordinate to, HantoCoordinate from) throws HantoException {
+	public void checkPieceCanMove(HantoPieceImpl piece, HantoCoordinate from, HantoCoordinate to) throws HantoException {
 		if(!piece.canMove(from, to)){
 			throw new HantoException("The piece cannot move in this way.");
 		}
@@ -160,7 +166,7 @@ public class GammaHantoGame implements HantoGame {
 	public void checkIsValidPieceType(HantoPiece piece) throws HantoException {
 		ArrayList<HantoPieceType> validTypes = new ArrayList<HantoPieceType>(Arrays.asList(BUTTERFLY, SPARROW));
 		if (!validTypes.contains(piece.getType())) {
-			throw new HantoException("You may only play butterflies or sparrows in Hanto Beta");
+			throw new HantoException("You may only play butterflies or sparrows in Hanto Gamma");
 		}
 	}
 
