@@ -4,8 +4,8 @@ import common.HantoException;
 import common.HantoPieceType;
 import common.HantoPlayerColor;
 import hanto.student_abenson_pasalem.common.HantoPieceImpl;
-import hanto.student_abenson_pasalem.common.MoveValidator.AdjacentSquareValidator;
-import hanto.student_abenson_pasalem.common.MoveValidator.IMoveValidator;
+import hanto.student_abenson_pasalem.common.PieceValidator.AdjacentSquareValidator;
+import hanto.student_abenson_pasalem.common.PieceValidator.IPieceValidator;
 
 public class HantoPieceFactoryImpl implements IHantoPieceFactory{
 
@@ -15,7 +15,7 @@ public class HantoPieceFactoryImpl implements IHantoPieceFactory{
 	 * @param type
 	 */
 	public HantoPieceImpl createPiece(HantoPlayerColor color, HantoPieceType type) throws HantoException{
-		IMoveValidator adjacentValidator = new AdjacentSquareValidator();
+		IPieceValidator adjacentValidator = new AdjacentSquareValidator();
 		
 		switch(type){
 		case BUTTERFLY:

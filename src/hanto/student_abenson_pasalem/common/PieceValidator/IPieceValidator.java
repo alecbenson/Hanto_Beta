@@ -1,7 +1,7 @@
-package hanto.student_abenson_pasalem.common.MoveValidator;
+package hanto.student_abenson_pasalem.common.PieceValidator;
 
 import common.HantoCoordinate;
 
-public interface IMoveValidator {
+public interface IPieceValidator {
 	public boolean canMove(HantoCoordinate from, HantoCoordinate to);
 }

@@ -1,11 +1,11 @@
-package hanto.student_abenson_pasalem.common.MoveValidator;
+package hanto.student_abenson_pasalem.common.PieceValidator;
 
 import java.util.List;
 
 import common.HantoCoordinate;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 
-public class AdjacentSquareValidator implements IMoveValidator{
+public class AdjacentSquareValidator implements IPieceValidator{
 
 	/**
 	 * returns true if the space is adjacent to another space
