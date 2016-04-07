@@ -1,4 +1,4 @@
-package hanto.student_abenson_pasalem.common;
+package hanto.student_abenson_pasalem.common.Board;
 
 import common.HantoCoordinate;
 import common.HantoException;

@@ -11,6 +11,7 @@
 package hanto.student_abenson_pasalem.common;
 
 import common.*;
+import hanto.student_abenson_pasalem.common.MoveValidator.IMoveValidator;
 
 /**
  * Implementation of the HantoPiece.
@@ -26,7 +27,7 @@ public class HantoPieceImpl implements HantoPiece
 	 * @param color the piece color
 	 * @param type the piece type
 	 */
-	public HantoPieceImpl(HantoPlayerColor color, HantoPieceType type)
+	public HantoPieceImpl(HantoPlayerColor color, HantoPieceType type, IMoveValidator... validators)
 	{
 		this.color = color;
 		this.type = type;

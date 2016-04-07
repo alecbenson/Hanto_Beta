@@ -5,7 +5,7 @@
  * Written by Alec Benson and Peter Salem
  *******************************************************************************/
 
-package hanto.student_abenson_pasalem.common;
+package hanto.student_abenson_pasalem.common.Board;
 import java.util.ArrayList;
 
 import java.util.Arrays;
@@ -16,6 +16,7 @@ import java.util.List;
 import common.HantoCoordinate;
 import common.HantoException;
 import common.HantoPiece;
+import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 
 
 /**

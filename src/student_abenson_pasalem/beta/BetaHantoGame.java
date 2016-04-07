@@ -18,8 +18,8 @@ import static common.HantoPlayerColor.BLUE;
 import static common.HantoPlayerColor.RED;
 
 import common.*;
-import hanto.student_abenson_pasalem.common.HantoBoardImpl;
 import hanto.student_abenson_pasalem.common.HantoPieceImpl;
+import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 
 import static common.MoveResult.*;
 
