@@ -70,7 +70,12 @@ public class BetaHantoGame implements HantoGame {
 			throws HantoException {
 		HantoPieceImpl piece = new HantoPieceImpl(currentPlayer, pieceType);
 		validateMove(piece, from, to);
-		board.movePiece(piece, from, to);
+		
+		if(pieceType == null){
+			board.movePiece(from, to);
+		} else{
+			board.placePiece(piece, to);
+		}
 
 		// Indicate that the player has actually played the butterfly
 		if (currentPlayer == RED) {
