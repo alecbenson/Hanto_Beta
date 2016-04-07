@@ -1,3 +1,8 @@
+/**
+ * 
+ * Master validator for all move validators called in Gamma Hanto.
+ */
+
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
 import java.util.ArrayList;
@@ -7,6 +12,11 @@ import common.HantoCoordinate;
 import common.HantoException;
 import common.HantoPieceType;
 
+/**
+ * Validator for moves in Gamma Hanto.
+ * @author Peter
+ *
+ */
 public class GammaMoveValidator implements IRuleValidator{
 
 	/**

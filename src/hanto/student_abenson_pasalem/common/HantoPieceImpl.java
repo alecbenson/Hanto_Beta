@@ -27,6 +27,7 @@ public class HantoPieceImpl implements HantoPiece, IPieceValidator
 	 * Default constructor
 	 * @param color the piece color
 	 * @param type the piece type
+	 * @param validators the validators
 	 */
 	public HantoPieceImpl(HantoPlayerColor color, HantoPieceType type, IPieceValidator... validators)
 	{

@@ -1,9 +1,19 @@
+/**
+ * Validator for first turn movement at 0,0.
+ * 
+ */
+
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
 import common.HantoCoordinate;
 import common.HantoException;
 import common.HantoPieceType;
 
+/**
+ * Validator for first move placement at origin.
+ * @author Peter
+ *
+ */
 public class FirstTurnValidator implements IRuleValidator{
 
 	/**

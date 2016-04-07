@@ -9,6 +9,18 @@ import common.HantoPieceType;
 import common.HantoPlayerColor;
 import hanto.student_abenson_pasalem.common.HantoPieceImpl;
 
+/**
+ * Interface for Hanto Piece Factory.
+ * @author Peter
+ *
+ */
 public interface IHantoPieceFactory {
-	public HantoPieceImpl createPiece(HantoPlayerColor color, HantoPieceType type) throws HantoException;
+	/**
+	 * Creates a piece
+	 * @param color
+	 * @param type
+	 * @return piece
+	 * @throws HantoException
+	 */
+	HantoPieceImpl createPiece(HantoPlayerColor color, HantoPieceType type) throws HantoException;
 }

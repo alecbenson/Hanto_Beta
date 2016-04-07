@@ -1,9 +1,28 @@
+/**
+ * 
+ * Interface for the rule validation.
+ */
+
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
 import common.HantoCoordinate;
 import common.HantoException;
 import common.HantoPieceType;
 
+/**
+ * Interface for validator.
+ * @author Peter
+ *
+ */
 public interface IRuleValidator {
-	public void validate(IHantoRuleSet game, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException;
+	
+	/**
+	 * Rule validation.
+	 * @param game
+	 * @param pieceType
+	 * @param from
+	 * @param to
+	 * @throws HantoException
+	 */
+	void validate(IHantoRuleSet game, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException;
 }

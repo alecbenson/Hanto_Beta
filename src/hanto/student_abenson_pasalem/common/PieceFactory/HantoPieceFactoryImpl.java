@@ -12,6 +12,9 @@ import hanto.student_abenson_pasalem.common.HantoPieceImpl;
 import hanto.student_abenson_pasalem.common.PieceValidator.AdjacentSquareValidator;
 import hanto.student_abenson_pasalem.common.PieceValidator.IPieceValidator;
 
+/**
+ * Implementation of the hanto piece factory.
+ */
 public class HantoPieceFactoryImpl implements IHantoPieceFactory{
 
 	/**

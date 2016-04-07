@@ -1,3 +1,8 @@
+/**
+ * 
+ * Validator for piece adjacency.
+ */
+
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
 import java.util.List;
@@ -8,6 +13,11 @@ import common.HantoPiece;
 import common.HantoPieceType;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 
+/**
+ * Validator for placing adjacent to other pieces.
+ * @author Peter
+ *
+ */
 public class PieceAdjacentValidator implements IRuleValidator{
 
 	@Override

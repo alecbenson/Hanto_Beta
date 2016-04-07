@@ -1,3 +1,8 @@
+/**
+ * Validator for each player needing to play
+ * their butterfly by their turn 4.
+ */
+
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
 import static common.HantoPlayerColor.RED;
@@ -7,6 +12,11 @@ import common.HantoCoordinate;
 import common.HantoException;
 import common.HantoPieceType;
 
+/**
+ * Validator for needing to played the butterfly.
+ * @author Peter
+ *
+ */
 public class MustPlayButterflyValidator implements IRuleValidator{
 
 	/**

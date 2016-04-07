@@ -14,6 +14,11 @@ import common.HantoCoordinate;
 import common.HantoException;
 import common.HantoPieceType;
 
+/**
+ * Validator for if the butterfly has already been played.
+ * @author Peter
+ *
+ */
 public class AlreadyPlayedButterflyValidator implements IRuleValidator {
 
 	/**

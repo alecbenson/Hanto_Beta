@@ -1,16 +1,16 @@
+/**
+ * Gamma Hanto Game
+ */
+
 package student_abenson_pasalem.gamma;
 
 import static common.HantoPieceType.BUTTERFLY;
-import static common.HantoPieceType.SPARROW;
 import static common.HantoPlayerColor.BLUE;
 import static common.HantoPlayerColor.RED;
 import static common.MoveResult.BLUE_WINS;
 import static common.MoveResult.DRAW;
 import static common.MoveResult.OK;
 import static common.MoveResult.RED_WINS;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import common.HantoCoordinate;
@@ -30,6 +30,11 @@ import hanto.student_abenson_pasalem.common.RuleValidator.GammaPlaceValidator;
 import hanto.student_abenson_pasalem.common.RuleValidator.IHantoRuleSet;
 import hanto.student_abenson_pasalem.common.RuleValidator.IRuleValidator;
 
+/**
+ * Gamma Hanto Game.
+ * @author Peter
+ *
+ */
 public class GammaHantoGame implements HantoGame, IHantoRuleSet {
 	private int redTurns = 0;
 	private int blueTurns = 0;
@@ -43,6 +48,10 @@ public class GammaHantoGame implements HantoGame, IHantoRuleSet {
 	private HantoPlayerColor currentPlayer;
 	private HantoBoardImpl board;
 	
+	/**
+	 * Default constructor of Gamma Hanto Game.
+	 * @param startPlayer
+	 */
 	public GammaHantoGame(HantoPlayerColor startPlayer) {
 		currentPlayer = startPlayer;
 		board = new HantoBoardImpl();
@@ -114,9 +123,11 @@ public class GammaHantoGame implements HantoGame, IHantoRuleSet {
 	}
 	
 	/**
-	 * 
+	 * Checks if a piece can move.
+	 * @param piece
+	 * @param from
+	 * @param to
 	 * @throws HantoException
-	 * 
 	 */
 	public void checkPieceCanMove(HantoPieceImpl piece, HantoCoordinate from, HantoCoordinate to) throws HantoException {
 		if(!piece.canMove(from, to)){

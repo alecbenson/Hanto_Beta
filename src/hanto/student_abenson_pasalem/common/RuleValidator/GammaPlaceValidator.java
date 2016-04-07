@@ -1,3 +1,8 @@
+/**
+ * Master validator for all placing piece validators called in Gamma Hanto.
+ */
+
+
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
 import java.util.ArrayList;
@@ -7,6 +12,11 @@ import common.HantoCoordinate;
 import common.HantoException;
 import common.HantoPieceType;
 
+/**
+ * Validator for Gamma Hanto placements.
+ * @author Peter
+ *
+ */
 public class GammaPlaceValidator implements IRuleValidator{
 
 	/**

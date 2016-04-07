@@ -15,6 +15,11 @@ import common.HantoPiece;
 import common.HantoPieceType;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 
+/**
+ * Validator for isolated pieces.
+ * @author Peter
+ *
+ */
 public class AdjacentPiecesIsolatedValidator implements IRuleValidator{
 
 	@Override

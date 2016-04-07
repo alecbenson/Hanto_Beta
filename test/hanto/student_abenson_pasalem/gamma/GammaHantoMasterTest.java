@@ -35,6 +35,11 @@ import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 import student_abenson_pasalem.beta.BetaHantoGame;
 import student_abenson_pasalem.gamma.GammaHantoGame;
 
+/**
+ * Gamma Hanto Test.
+ * @author Peter
+ *
+ */
 public class GammaHantoMasterTest {
 	
 	/**
@@ -118,6 +123,11 @@ public class GammaHantoMasterTest {
 		assertEquals(BUTTERFLY, p.getType());
 	}
 	
+	/**
+	 * Ensures that blue can play a sparrow on their first turn,
+	 * as long as it is at the origin.
+	 * @throws HantoException
+	 */
 	@Test	// 2
 	public void bluePlacesInitialSparrowAtOrigin() throws HantoException
 	{
@@ -348,6 +358,10 @@ public class GammaHantoMasterTest {
 		final MoveResult bluemove2 = game.makeMove(BUTTERFLY, null, makeCoordinate(1, -1));
 	}
 	
+	/**
+	 * Ensures that a player can't play the butterfly twice.
+	 * @throws HantoException
+	 */
 	@Test (expected = common.HantoException.class) // 14
 	public void redbutterflyPlayedTwice() throws HantoException
 	{

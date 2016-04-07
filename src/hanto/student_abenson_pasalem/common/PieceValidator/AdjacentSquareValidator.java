@@ -5,11 +5,15 @@
 
 package hanto.student_abenson_pasalem.common.PieceValidator;
 
-import java.util.List;
 
 import common.HantoCoordinate;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 
+/**
+ * Validator for adjacent squares after a piece has moved.
+ * @author Peter
+ *
+ */
 public class AdjacentSquareValidator implements IPieceValidator{
 
 	/**

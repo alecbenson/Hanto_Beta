@@ -108,6 +108,11 @@ public class BetaHantoMasterTest
 		return new TestHantoCoordinate(x, y);
 	}
 	
+	/**
+	 * Ensures that blue can place a nonbutterfly piece on their
+	 * first turn, as long as it is at the origin.
+	 * @throws HantoException
+	 */
 	@Test	// 2
 	public void bluePlacesInitialSparrowAtOrigin() throws HantoException
 	{
@@ -380,6 +385,10 @@ public class BetaHantoMasterTest
 		assertEquals(OK, redmove1);
 	}
 	
+	/**
+	 * Ensures that a player can't play a butterfly twice.
+	 * @throws HantoException
+	 */
 	@Test (expected = common.HantoException.class) //14
 	public void redbutterflyPlayedTwice() throws HantoException
 	{
@@ -416,6 +425,10 @@ public class BetaHantoMasterTest
 	 * 
 	 */
 	
+	/**
+	 * 
+	 * @throws HantoException
+	 */
 	@Test	// 3
 	public void redPlacesInitialSparrowAtOrigin() throws HantoException
 	{
@@ -427,6 +440,10 @@ public class BetaHantoMasterTest
 		assertEquals(SPARROW, p.getType());
 	}
 	
+	/**
+	 * 
+	 * @throws HantoException
+	 */
 	@Test	// 4
 	public void validFirstAndSecondMove() throws HantoException
 	{
@@ -442,6 +459,10 @@ public class BetaHantoMasterTest
 		assertEquals(SPARROW, p.getType());
 	}
 	
+	/**
+	 * 
+	 * @throws HantoException
+	 */
 	@Test(expected = HantoException.class)	// 5
 	public void validFirstMoveNonAdjacentHexSecondMove() throws HantoException
 	{
@@ -449,12 +470,20 @@ public class BetaHantoMasterTest
 		game.makeMove(BUTTERFLY, null, makeCoordinate(1, 1));
 	}
 	
+	/**
+	 * 
+	 * @throws HantoException
+	 */
 	@Test(expected = HantoException.class)	// 6
 	public void firstMoveIsNotAtOrigin() throws HantoException
 	{
 		game.makeMove(BUTTERFLY, null, makeCoordinate(-1, 0));
 	}
 	
+	/**
+	 * 
+	 * @throws HantoException
+	 */
 	@Test(expected = HantoException.class)	// 7
 	public void blueAttemptsToPlaceTwoButterflies() throws HantoException
 	{
@@ -463,6 +492,10 @@ public class BetaHantoMasterTest
 		game.makeMove(BUTTERFLY, null, makeCoordinate(0, -1));
 	}
 	
+	/**
+	 * 
+	 * @throws HantoException
+	 */
 	@Test(expected = HantoException.class)	// 8
 	public void redAttemptsToPlaceTwoButterflies() throws HantoException
 	{
@@ -496,6 +529,10 @@ public class BetaHantoMasterTest
 	}
 	**/
 	
+	/**
+	 * 
+	 * @throws HantoException
+	 */
 	@Test(expected = HantoException.class)	// 11
 	public void blueDoesNotPlaceButterflyByFourthMove() throws HantoException
 	{
@@ -508,6 +545,10 @@ public class BetaHantoMasterTest
 		game.makeMove(SPARROW, null, makeCoordinate(0, 3));	// Move 4
 	}
 	
+	/**
+	 * 
+	 * @throws HantoException
+	 */
 	@Test(expected = HantoException.class)	// 12
 	public void redDoesNotPlaceButterflyByFourthTurn() throws HantoException
 	{
@@ -521,6 +562,10 @@ public class BetaHantoMasterTest
 		game.makeMove(SPARROW, null, makeCoordinate(0, -4));
 	}
 	
+	/**
+	 * 
+	 * @throws HantoException
+	 */
 	@Test	// 13
 	public void blueWinsBeforeLastTurn() throws HantoException
 	{
@@ -533,6 +578,10 @@ public class BetaHantoMasterTest
 		assertEquals(BLUE_WINS, game.makeMove(SPARROW, null, makeCoordinate(-1,1)));	// Move 4
 	}
 	
+	/**
+	 * 
+	 * @throws HantoException
+	 */
 	@Test	// 14
 	public void redSelfLosesBeforeLastTurn() throws HantoException
 	{
@@ -546,6 +595,10 @@ public class BetaHantoMasterTest
 		assertEquals(BLUE_WINS, game.makeMove(SPARROW, null, makeCoordinate(-1,1)));
 	}
 	
+	/**
+	 * 
+	 * @throws HantoException
+	 */
 	@Test	// 15
 	public void redWinsOnLastTurn() throws HantoException
 	{
@@ -563,6 +616,10 @@ public class BetaHantoMasterTest
 		assertEquals(RED_WINS, game.makeMove(SPARROW, null, makeCoordinate(-1,1)));
 	}
 	
+	/**
+	 * 
+	 * @throws HantoException
+	 */
 	@Test(expected = HantoException.class)	// 16
 	public void moveAfterGameIsOverLessThanSixTurns() throws HantoException
 	{
@@ -576,6 +633,10 @@ public class BetaHantoMasterTest
 		game.makeMove(SPARROW, null, makeCoordinate(0, -1));
 	}
 	
+	/**
+	 * 
+	 * @throws HantoException
+	 */
 	@Test	// 17
 	public void drawnGame() throws HantoException
 	{

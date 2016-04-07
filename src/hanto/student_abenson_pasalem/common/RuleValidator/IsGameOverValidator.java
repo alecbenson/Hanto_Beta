@@ -1,9 +1,19 @@
+/**
+ * 
+ * Validator for moves being made after the game has ended.
+ */
+
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
 import common.HantoCoordinate;
 import common.HantoException;
 import common.HantoPieceType;
 
+/**
+ * Validator for game over condition.
+ * @author Peter
+ *
+ */
 public class IsGameOverValidator implements IRuleValidator{
 
 	/**

@@ -14,6 +14,11 @@ import common.HantoPiece;
 import common.HantoPieceType;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 
+/**
+ * Validator for not placing a piece next to an opposing piece.
+ * @author Peter
+ *
+ */
 public class AdjacentOpposingPieceValidator implements IRuleValidator{
 
 	@Override
