@@ -35,6 +35,14 @@ public class ContiguousGroupsValidator implements IRuleValidator{
 		}
 	}
 	
+	/**
+	 * Retrieves a list of all pieces reachable at a specific piece
+	 * @param board the board of pieces
+	 * @param from the space the piece is moving from
+	 * @param to the space the piece is moving to
+	 * @param visited the list of visited coordinates
+	 * @return a list of coordinates visited by the traversal
+	 */
 	public List<HantoCoordinate> getContiguousGraph(IHantoBoard board, HantoCoordinate from, HantoCoordinate to, List<HantoCoordinate> visited){
 		visited.add(to);
 		

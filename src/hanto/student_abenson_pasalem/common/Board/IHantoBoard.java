@@ -54,10 +54,10 @@ public interface IHantoBoard {
 	/**
 	 * @return true if board is empty
 	 */
-	public boolean isBoardIsEmpty();
+	boolean isBoardIsEmpty();
 	
 	/**
 	 * @return the number of pieces on the board
 	 */
-	public int pieceCount();
+	int pieceCount();
 }
