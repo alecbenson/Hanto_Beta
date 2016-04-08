@@ -195,26 +195,44 @@ public class GammaHantoGame implements HantoGame, IHantoRuleSet {
 		return null;
 	}
 
+	/**
+	 * Returns whether or not the game is over
+	 */
 	public boolean getIsGameOver() {
 		return isGameOver;
 	}
 
+	/**
+	 * REturns whether or not the red player has played the butterfly
+	 */
 	public boolean getRedPlayedButterfly() {
 		return redPlayedButterfly;
 	}
 
+	/**
+	 * Returns whether or not the blue player has played the butterfly
+	 */
 	public boolean getBluePlayedButterfly() {
 		return bluePlayedButterfly;
 	}
 
+	/**
+	 * Returns the red butterfly position
+	 */
 	public HantoCoordinate getRedButterflyPos() {
 		return redButterflyPos;
 	}
 
+	/**
+	 * Returns the blue butterfly position
+	 */
 	public HantoCoordinate getBlueButterflyPos() {
 		return blueButterflyPos;
 	}
 
+	/**
+	 * Returns the current player
+	 */
 	public HantoPlayerColor getCurrentPlayer() {
 		return currentPlayer;
 	}
