@@ -21,4 +21,5 @@ public interface IHantoBoard {
 	public void placePiece(HantoPiece piece, HantoCoordinate coordinate) throws HantoException;
 	public void removePiece(HantoCoordinate coordinate);
 	public boolean isBoardIsEmpty();
+	public int pieceCount();
 }

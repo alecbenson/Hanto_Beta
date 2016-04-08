@@ -495,7 +495,7 @@ public class GammaHantoMasterTest {
 	}
 	
 	/**
-	 * This should cause an exception because it results in two isolated groups from forming on the board
+	 * This should cause an exception because it results in two isolated groups on the board
 	 * @throws HantoException
 	 */
 	@Test(expected = HantoException.class)
