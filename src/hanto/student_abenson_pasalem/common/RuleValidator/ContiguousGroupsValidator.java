@@ -12,11 +12,15 @@ import java.util.List;
 
 import common.HantoCoordinate;
 import common.HantoException;
-import common.HantoPiece;
 import common.HantoPieceType;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 import hanto.student_abenson_pasalem.common.Board.IHantoBoard;
 
+/**
+ * Validator for isolated pieces.
+ * @author Peter
+ *
+ */
 public class ContiguousGroupsValidator implements IRuleValidator{
 
 	@Override

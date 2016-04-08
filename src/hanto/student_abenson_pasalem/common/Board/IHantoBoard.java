@@ -15,8 +15,6 @@ import common.HantoPiece;
 /**
  */
 public interface IHantoBoard {
-<<<<<<< HEAD
-	
 	/**
 	 * Method spaceOccupied.
 	 * @param coordinate HantoCoordinate
@@ -56,14 +54,10 @@ public interface IHantoBoard {
 	/**
 	 * @return true if board is empty
 	 */
-	boolean isBoardIsEmpty();
-=======
-	public boolean spaceOccupied(HantoCoordinate coordinate);
-	public HantoPiece getPieceAt(HantoCoordinate coordinate);
-	public void movePiece(HantoCoordinate from, HantoCoordinate to) throws HantoException;
-	public void placePiece(HantoPiece piece, HantoCoordinate coordinate) throws HantoException;
-	public void removePiece(HantoCoordinate coordinate);
 	public boolean isBoardIsEmpty();
+	
+	/**
+	 * @return the number of pieces on the board
+	 */
 	public int pieceCount();
->>>>>>> d82c3064d0f697e9e89e278eec24997a1ec02f51
 }
