@@ -135,4 +135,15 @@ public class HantoBoardImpl implements IHantoBoard {
 	public boolean isBoardIsEmpty() {
 		return board.isEmpty();
 	}
+
+	/**
+	 * Returns the total number of pieces on the board
+	 */
+	public int pieceCount() {
+		int total = 0;
+		for(HantoPiece pieces : board.values()){
+			total++;
+		}
+		return total;
+	}
 }
