@@ -18,8 +18,7 @@ import static common.HantoPlayerColor.RED;
 
 import common.*;
 import hanto.student_abenson_pasalem.common.BaseHantoGame;
-import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactoryImpl;
-import hanto.student_abenson_pasalem.common.PieceFactory.IHantoPieceFactory;
+import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactory;
 import hanto.student_abenson_pasalem.common.RuleValidator.BetaPlaceValidator;
 import hanto.student_abenson_pasalem.common.RuleValidator.IRuleValidator;
 import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerStateFactory;
@@ -52,8 +51,7 @@ public class BetaHantoGame extends BaseHantoGame implements HantoGame {
 	@Override
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 		throws HantoException {
-		IHantoPieceFactory pieceFactory = new HantoPieceFactoryImpl();
-		HantoPiece piece = pieceFactory.createPiece(currentPlayer, pieceType);
+		HantoPiece piece = HantoPieceFactory.createPiece(currentPlayer, pieceType);
 		IRuleValidator placeValidator = new BetaPlaceValidator();
 		placeValidator.validate(this, pieceType, from, to);
 		board.placePiece(piece, to);

@@ -11,8 +11,7 @@ import static common.HantoPlayerColor.RED;
 
 import hanto.student_abenson_pasalem.common.BaseHantoGame;
 import hanto.student_abenson_pasalem.common.HantoPieceImpl;
-import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactoryImpl;
-import hanto.student_abenson_pasalem.common.PieceFactory.IHantoPieceFactory;
+import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactory;
 import hanto.student_abenson_pasalem.common.RuleValidator.GammaMoveValidator;
 import hanto.student_abenson_pasalem.common.RuleValidator.GammaPlaceValidator;
 import hanto.student_abenson_pasalem.common.RuleValidator.IHantoRuleSet;
@@ -44,7 +43,6 @@ public class GammaHantoGame extends BaseHantoGame implements HantoGame {
 	@Override
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 			throws HantoException {
-		IHantoPieceFactory pieceFactory = new HantoPieceFactoryImpl();
 		HantoPieceImpl piece;
 		
 		//If no piece is provided, then we are moving a piece rather than placing one
@@ -55,7 +53,7 @@ public class GammaHantoGame extends BaseHantoGame implements HantoGame {
 			moveValidator.validate(this, pieceType, from, to);
 			board.movePiece(from, to);
 		} else{
-			piece = pieceFactory.createPiece(currentPlayer, pieceType);
+			piece = HantoPieceFactory.createPiece(currentPlayer, pieceType);
 			IRuleValidator placeValidator = new GammaPlaceValidator();
 			placeValidator.validate(this, pieceType, from, to);
 			board.placePiece(piece, to);

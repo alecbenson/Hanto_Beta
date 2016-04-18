@@ -3,12 +3,8 @@ package hanto.student_abenson_pasalem.comon.PlayerState;
 import java.util.HashMap;
 import java.util.Map;
 
-import common.HantoException;
-import common.HantoPiece;
-import common.HantoPieceType;
-import common.HantoPlayerColor;
-import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactoryImpl;
-import hanto.student_abenson_pasalem.common.PieceFactory.IHantoPieceFactory;
+import common.*;
+import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactory;
 
 public class HantoPlayerState {
 	public final HantoPlayerColor color;
@@ -59,8 +55,7 @@ public class HantoPlayerState {
 		if(pieceType == HantoPieceType.BUTTERFLY){
 			hasPlayedButterfly = true;
 		}
-		IHantoPieceFactory pieceFactory = new HantoPieceFactoryImpl();
-		return pieceFactory.createPiece(color, pieceType);
+		return HantoPieceFactory.createPiece(color, pieceType);
 	}
 	
 	/**

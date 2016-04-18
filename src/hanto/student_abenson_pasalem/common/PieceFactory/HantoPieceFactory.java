@@ -15,14 +15,14 @@ import hanto.student_abenson_pasalem.common.PieceValidator.IPieceValidator;
 /**
  * Implementation of the hanto piece factory.
  */
-public class HantoPieceFactoryImpl implements IHantoPieceFactory{
+public class HantoPieceFactory{
 
 	/**
 	 * Factory method for creating different types of hanto pieces
 	 * @param color
 	 * @param type
 	 */
-	public HantoPieceImpl createPiece(HantoPlayerColor color, HantoPieceType type) throws HantoException{
+	public static HantoPieceImpl createPiece(HantoPlayerColor color, HantoPieceType type) throws HantoException{
 		IPieceValidator adjacentValidator = new AdjacentSquareValidator(1);
 		
 		switch(type){
