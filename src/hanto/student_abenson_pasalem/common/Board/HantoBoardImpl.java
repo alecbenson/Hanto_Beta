@@ -99,6 +99,9 @@ public class HantoBoardImpl implements IHantoBoard {
 	 *
 	 */
 	public static boolean isAdjacentTo(HantoCoordinate a, HantoCoordinate b){
+		if(a == null || b == null){
+			return false;
+		}
 		int aX = a.getX();
 		int aY = a.getY();
 		int bX = b.getX();

@@ -35,7 +35,7 @@ public class AdjacentOpposingPieceValidator implements IRuleValidator{
 			HantoPiece piece = game.getBoard().getPieceAt(space);
 			if (piece != null) {
 				if(piece.getColor() != game.getCurrentPlayer()){
-					throw new HantoException("You cannot place your piece next to an opposing piece");
+					throw new HantoException("Cannot place a piece next to an opposing piece");
 				}
 			}
 		}

@@ -68,7 +68,7 @@ public class GammaHantoGame implements HantoGame, IHantoRuleSet {
 		HantoPieceImpl piece;
 		
 		//If no piece is provided, then we are moving a piece rather than placing one
-		if(pieceType == null){
+		if(pieceType == null || (from != null && to != null)){
 			piece = (HantoPieceImpl) board.getPieceAt(from);
 			checkPieceCanMove(piece, from, to);
 			IRuleValidator moveValidator = new GammaMoveValidator();
@@ -130,7 +130,8 @@ public class GammaHantoGame implements HantoGame, IHantoRuleSet {
 	 * @throws HantoException
 	 */
 	public void checkPieceCanMove(HantoPieceImpl piece, HantoCoordinate from, HantoCoordinate to) throws HantoException {
-		if(!piece.canMove(from, to)){
+
+		if(piece == null || !piece.canMove(from, to)){
 			throw new HantoException("The piece cannot move in this way.");
 		}
 	}

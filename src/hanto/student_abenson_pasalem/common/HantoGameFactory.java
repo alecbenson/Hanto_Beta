@@ -11,6 +11,7 @@
 package hanto.student_abenson_pasalem.common;
 
 import common.*;
+import student_abenson_pasalem.beta.BetaHantoGame;
 import student_abenson_pasalem.gamma.GammaHantoGame;
 
 /**
@@ -49,6 +50,9 @@ public class HantoGameFactory
 	public  HantoGame makeHantoGame(HantoGameID gameId, HantoPlayerColor movesFirst) {
 		HantoGame game = null;
 		switch (gameId) {
+			case BETA_HANTO:
+				game = new BetaHantoGame(movesFirst);
+				break;
 			case GAMMA_HANTO:
 				game = new GammaHantoGame(movesFirst);
 				break;
