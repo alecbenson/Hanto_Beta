@@ -96,21 +96,24 @@ public class HantoBoardImpl implements IHantoBoard {
 	 * @param a
 	 * @param b
 	 * @return euclidian distance between the coordinates
+	 * @throws HantoException 
 	 *
 	 */
 	public static boolean isAdjacentTo(HantoCoordinate a, HantoCoordinate b){
 		if(a == null || b == null){
 			return false;
 		}
-		int aX = a.getX();
-		int aY = a.getY();
-		int bX = b.getX();
-		int bY = b.getY();
 		
-		//We use euclidian distance to verify that the pieces are adjacent
-		//If the pieces are adjacent, they will have a eucl. distance <= sqrt(2)
-		double dist = Math.sqrt(Math.pow(bY - aY, 2) + Math.pow(bX - aX, 2));
-		return dist <= Math.sqrt(2);
+		try{
+			HantoCoordinateImpl coordImplA = new HantoCoordinateImpl(a);
+			HantoCoordinateImpl coordImplB = new HantoCoordinateImpl(b);
+			int dist = coordImplA.distance(coordImplB);
+			//We use euclidian distance to verify that the pieces are adjacent
+			//If the pieces are adjacent, they will have a eucl. distance <= sqrt(2)
+			return dist <= Math.sqrt(2);
+		}catch(HantoException e){
+			return false;
+		}
 	}
 	
 	/**

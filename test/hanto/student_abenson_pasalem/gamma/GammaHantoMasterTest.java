@@ -406,7 +406,7 @@ public class GammaHantoMasterTest {
 		setup();
 		final MoveResult bluebutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
 		final MoveResult redbutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(1,0));
-		final MoveResult bluemovebutterfly = game.makeMove(null, makeCoordinate(0,0), makeCoordinate(1, -1));
+		final MoveResult bluemovebutterfly = game.makeMove(BUTTERFLY, makeCoordinate(0,0), makeCoordinate(1, -1));
 		assertEquals(OK, bluemovebutterfly);
 	}
 	
@@ -512,7 +512,7 @@ public class GammaHantoMasterTest {
 		//Red
 		final MoveResult sparrow8 = game.makeMove(SPARROW, null, makeCoordinate(2,-2));
 		//Blue
-		final MoveResult finalMove = game.makeMove( null, makeCoordinate(0,0), makeCoordinate(1,-1));
+		final MoveResult finalMove = game.makeMove( BUTTERFLY, makeCoordinate(0,0), makeCoordinate(1,-1));
 		assertEquals(OK, finalMove);
 	}
 	
@@ -578,10 +578,10 @@ public class GammaHantoMasterTest {
 		game.makeMove(SPARROW, null, makeCoordinate(1, -1));	// Move 4
 		game.makeMove(SPARROW, null, makeCoordinate(1, 1));
 		game.makeMove(SPARROW, null, makeCoordinate(2, -1));	// Move 5
-		game.makeMove(null, makeCoordinate(-1, 2), makeCoordinate(-1, 1));
+		game.makeMove(SPARROW, makeCoordinate(-1, 2), makeCoordinate(-1, 1));
 		game.makeMove(SPARROW, null, makeCoordinate(-2, 0)); 	// Move 6
 		game.makeMove(SPARROW, null, makeCoordinate(-1, 2));
-		assertEquals(DRAW, game.makeMove(null, makeCoordinate(2, -1), makeCoordinate(1, 0)));
+		assertEquals(DRAW, game.makeMove(SPARROW, makeCoordinate(2, -1), makeCoordinate(1, 0)));
 	}
 	
 	/**
@@ -600,10 +600,10 @@ public class GammaHantoMasterTest {
 		game.makeMove(SPARROW, null, makeCoordinate(1, -1));	// Move 4
 		game.makeMove(SPARROW, null, makeCoordinate(1, 1));
 		game.makeMove(SPARROW, null, makeCoordinate(2, -1));	// Move 5
-		game.makeMove(null, makeCoordinate(-1, 2), makeCoordinate(-1, 1));
+		game.makeMove(SPARROW, makeCoordinate(-1, 2), makeCoordinate(-1, 1));
 		game.makeMove(SPARROW, null, makeCoordinate(-2, 0)); 	// Move 6
 		game.makeMove(SPARROW, null, makeCoordinate(0, 3));
-		assertEquals(RED_WINS, game.makeMove(null, makeCoordinate(2, -1), makeCoordinate(1, 0)));
+		assertEquals(RED_WINS, game.makeMove(SPARROW, makeCoordinate(2, -1), makeCoordinate(1, 0)));
 	}
 	
 	/**
@@ -622,12 +622,12 @@ public class GammaHantoMasterTest {
 		game.makeMove(SPARROW, null, makeCoordinate(1, -1));	// Move 4
 		game.makeMove(SPARROW, null, makeCoordinate(1, 1));
 		game.makeMove(SPARROW, null, makeCoordinate(2, -1));	// Move 5
-		game.makeMove(null, makeCoordinate(-1, 2), makeCoordinate(-1, 1));
+		game.makeMove(SPARROW, makeCoordinate(-1, 2), makeCoordinate(-1, 1));
 		game.makeMove(SPARROW, null, makeCoordinate(-2, 0)); 	// Move 6
 		game.makeMove(SPARROW, null, makeCoordinate(-1, 2));
-		game.makeMove(null, makeCoordinate(0, -1), makeCoordinate(-1, -1)); // Move 7
+		game.makeMove(SPARROW, makeCoordinate(0, -1), makeCoordinate(-1, -1)); // Move 7
 		game.makeMove(SPARROW, null, makeCoordinate(2, 1));
-		assertEquals(BLUE_WINS, game.makeMove(null, makeCoordinate(2, -1), makeCoordinate(1, 0)));	
+		assertEquals(BLUE_WINS, game.makeMove(SPARROW, makeCoordinate(2, -1), makeCoordinate(1, 0)));	
 	}
 	
 	/**

@@ -23,7 +23,7 @@ public class HantoPieceFactoryImpl implements IHantoPieceFactory{
 	 * @param type
 	 */
 	public HantoPieceImpl createPiece(HantoPlayerColor color, HantoPieceType type) throws HantoException{
-		IPieceValidator adjacentValidator = new AdjacentSquareValidator();
+		IPieceValidator adjacentValidator = new AdjacentSquareValidator(1);
 		
 		switch(type){
 		case BUTTERFLY:

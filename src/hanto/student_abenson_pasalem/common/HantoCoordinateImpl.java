@@ -13,6 +13,7 @@
 package hanto.student_abenson_pasalem.common;
 
 import common.HantoCoordinate;
+import common.HantoException;
 
 /**
  * The implementation for my version of Hanto.
@@ -52,6 +53,23 @@ public class HantoCoordinateImpl implements HantoCoordinate
 	public int getY()
 	{
 		return y;
+	}
+	
+	/**
+	 * Gets the euclidian distance between two hexes on the board
+	 * @param other another HantoCoordinate to get the distance between
+	 * @return the distance as an integer
+	 * @throws HantoException
+	 */
+	public int distance(HantoCoordinate other) throws HantoException{
+		if(other == null){
+			throw new HantoException("Passed null argument when getting coordinate distance");
+		}
+		//We use euclidian distance to verify that the pieces are adjacent
+		//If the pieces are adjacent, they will have a eucl. distance <= sqrt(2)
+		double dist = Math.sqrt(Math.pow(other.getY() - this.getY(), 2) + 
+				Math.pow(other.getX() - this.getX(), 2));
+		return (int) dist;
 	}
 	
 	/*
