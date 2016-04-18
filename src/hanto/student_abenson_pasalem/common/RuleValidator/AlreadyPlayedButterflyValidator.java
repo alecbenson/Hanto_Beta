@@ -27,14 +27,8 @@ public class AlreadyPlayedButterflyValidator implements IRuleValidator {
 	public void validate(IHantoRuleSet game, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 			throws HantoException {
 		
-		if (game.getCurrentPlayer() == RED) {
-			if (game.getRedPlayedButterfly() && pieceType == BUTTERFLY) {
-				throw new HantoException("RED has already played the butterfly");
-			}
-		} else {
-			if (game.getBluePlayedButterfly() && pieceType == BUTTERFLY) {
-				throw new HantoException("BLUE has already played the butterfly");
-			}
+		if (game.getCurrentPlayerPlayedButterfly() && pieceType == BUTTERFLY){
+			throw new HantoException(game.getCurrentPlayer() + " has already played the butterfly");
 		}
 	}
 }

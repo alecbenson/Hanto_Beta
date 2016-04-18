@@ -22,7 +22,6 @@ import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactoryImpl;
 import hanto.student_abenson_pasalem.common.PieceFactory.IHantoPieceFactory;
 import hanto.student_abenson_pasalem.common.RuleValidator.BetaPlaceValidator;
 import hanto.student_abenson_pasalem.common.RuleValidator.IRuleValidator;
-import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerState;
 import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerStateFactory;
 
 /**
@@ -38,11 +37,12 @@ public class BetaHantoGame extends BaseHantoGame implements HantoGame {
 	public BetaHantoGame(HantoPlayerColor movesFirst) {
 		super(movesFirst);
 		maxTurns = 12;
-		HantoGameID version = BETA_HANTO;
-		HantoPlayerState bluePlayerState = HantoPlayerStateFactory.makePlayerState(
+		HantoGameID version = HantoGameID.BETA_HANTO;
+		bluePlayerState = HantoPlayerStateFactory.makePlayerState(
 				version, HantoPlayerColor.BLUE);
-		HantoPlayerState redPlayerState = HantoPlayerStateFactory.makePlayerState(
+		redPlayerState = HantoPlayerStateFactory.makePlayerState(
 				version, HantoPlayerColor.RED);	
+		currentPlayerState = movesFirst == HantoPlayerColor.BLUE ? bluePlayerState : redPlayerState;
 	}
 	
 	/*
@@ -62,12 +62,10 @@ public class BetaHantoGame extends BaseHantoGame implements HantoGame {
 		if (currentPlayer == RED) {
 			if (piece.getType() == BUTTERFLY) {
 				redButterflyPos = to;
-				redPlayedButterfly = true;
 			}
 		} else {
 			if (piece.getType() == BUTTERFLY) {
 				blueButterflyPos = to;
-				bluePlayedButterfly = true;
 			}
 		}
 		switchTurn();

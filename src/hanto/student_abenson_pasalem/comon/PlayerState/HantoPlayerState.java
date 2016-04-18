@@ -11,7 +11,7 @@ import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactoryImpl;
 import hanto.student_abenson_pasalem.common.PieceFactory.IHantoPieceFactory;
 
 public class HantoPlayerState {
-	private final HantoPlayerColor color;
+	public final HantoPlayerColor color;
 	private final Map<HantoPieceType, Integer> inventory;
 	private boolean hasPlayedButterfly;
 	
@@ -82,5 +82,12 @@ public class HantoPlayerState {
 	 */
 	public boolean getHasPlayedButterfly(){
 		return hasPlayedButterfly;
+	}
+	
+	/**
+	 * Returns the player's color
+	 */
+	public HantoPlayerColor getColor(){
+		return color;
 	}
 }

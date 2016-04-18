@@ -32,14 +32,14 @@ public interface IHantoRuleSet {
 	int getBlueTurns();
 	
 	/**
-	 * @return true if red had played butterfly.
+	 * @return true if the currentPlayer has played the butterfly.
 	 */
-	boolean getRedPlayedButterfly();
+	boolean getCurrentPlayerPlayedButterfly();
 	
 	/**
-	 * @return true if blue has played the butterfly
+	 * @return the number of turns the current player has taken
 	 */
-	boolean getBluePlayedButterfly();
+	int getCurrentPlayerTurns();
 	
 	/**
 	 * @return red butterfly position

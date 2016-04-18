@@ -24,18 +24,10 @@ public class MustPlayButterflyValidator implements IRuleValidator{
 	 */
 	public void validate(IHantoRuleSet game, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 			throws HantoException {
-		if (game.getCurrentPlayer() == RED) {
-			if (game.getRedTurns() >= 3 && !game.getRedPlayedButterfly()) {
-				if(pieceType != BUTTERFLY){
-					throw new HantoException("Red must play the butterfly!");
-				}
+		if (!game.getCurrentPlayerPlayedButterfly()){
+			if(game.getCurrentPlayerTurns() >= 3){
+				throw new HantoException(game.getCurrentPlayer() + "  must play the butterfly!");
 			}
-		} else {
-			if (game.getBlueTurns() >= 3 && !game.getBluePlayedButterfly()) {
-				if(pieceType != BUTTERFLY){
-					throw new HantoException("Blue must play the butterfly!");
-				}
-			}
-		}		
+		}
 	}
 }

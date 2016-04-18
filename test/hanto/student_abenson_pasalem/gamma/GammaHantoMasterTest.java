@@ -237,108 +237,6 @@ public class GammaHantoMasterTest {
 		setup();
 		final MoveResult bluemove1 = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
 	}
-
-	/**
-	 * Ensures that blue will play their butterfly by turn 4,
-	 * or an exception will be thrown
-	 * @throws HantoException
-	 */
-	@Test (expected = HantoException.class)  // 9
-	public void blueMustPlayButterflyByFourthTurn() throws HantoException
-	{
-		setup();
-		assertEquals(0, game.getRedTurns());
-		assertEquals(0, game.getBlueTurns());
-
-		final MoveResult bluemove1 = game.makeMove(SPARROW, null, makeCoordinate(0, 0));
-		assertEquals(OK, bluemove1);
-		assertEquals(1, game.getBlueTurns());
-		
-		final MoveResult redmove1 = game.makeMove(SPARROW, null, makeCoordinate(0,1));
-		assertEquals(OK, redmove1);
-		assertEquals(1, game.getRedTurns());
-		
-		final MoveResult bluemove2 = game.makeMove(SPARROW, null, makeCoordinate(1, -1));
-		assertEquals(OK, bluemove2);
-		assertEquals(2, game.getBlueTurns());
-		
-		final MoveResult redmove2 = game.makeMove(SPARROW, null, makeCoordinate(1,1));
-		assertEquals(OK, redmove2);
-		assertEquals(2, game.getRedTurns());
-		
-		final MoveResult bluemove3 = game.makeMove(SPARROW, null, makeCoordinate(0, -1));
-		assertEquals(OK, bluemove3);
-		assertEquals(3, game.getBlueTurns());
-
-		final MoveResult redmove3 = game.makeMove(SPARROW, null, makeCoordinate(0, 2));
-		assertEquals(OK, redmove3);
-		
-		final MoveResult bluemove4 = game.makeMove(SPARROW, null, makeCoordinate(-1, 0));
-	}
-	
-	/**
-	 * Ensures that red will play their butterfly by turn 4,
-	 * or an exception will be thrown
-	 * @throws HantoException
-	 */
-	@Test (expected = HantoException.class) // 10
-	public void redMustPlayButterflyByFourthTurn() throws HantoException
-	{
-		setup();
-		assertEquals(0, game.getRedTurns());
-		assertEquals(0, game.getBlueTurns());
-
-		final MoveResult bluemove1 = game.makeMove(SPARROW, null, makeCoordinate(0, 0));
-		assertEquals(OK, bluemove1);
-		assertEquals(1, game.getBlueTurns());
-		
-		final MoveResult redmove1 = game.makeMove(SPARROW, null, makeCoordinate(0,1));
-		assertEquals(OK, redmove1);
-		assertEquals(1, game.getRedTurns());
-		
-		final MoveResult bluemove2 = game.makeMove(SPARROW, null, makeCoordinate(1, -1));
-		assertEquals(OK, bluemove2);
-		assertEquals(2, game.getBlueTurns());
-		
-		final MoveResult redmove2 = game.makeMove(SPARROW, null, makeCoordinate(1,1));
-		assertEquals(OK, redmove2);
-		assertEquals(2, game.getRedTurns());
-		
-		final MoveResult bluemove3 = game.makeMove(SPARROW, null, makeCoordinate(0, -1));
-		assertEquals(OK, bluemove3);
-		assertEquals(3, game.getBlueTurns());
-
-		final MoveResult redmove3 = game.makeMove(SPARROW, null, makeCoordinate(0, 2));
-		assertEquals(OK, redmove3);
-		
-		final MoveResult bluemove4 = game.makeMove(BUTTERFLY, null, makeCoordinate(-1, 0));
-		assertEquals(OK, bluemove4);
-
-		final MoveResult redmove4 = game.makeMove(SPARROW, null, makeCoordinate(2, 0));
-		assertEquals(OK, redmove4);
-	}
-	
-	/**
-	 * Ensures that if 40 total turns are played and the butterflies aren't surrounded,
-	 * the game ends in a draw
-	 * @throws HantoException
-	 */
-	@Test // 11
-	public void gameEndsInDrawAfter40Turns() throws HantoException
-	{
-		setup();
-		final MoveResult bluebutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
-		final MoveResult redbutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
-		
-		for(int i = 1; i< 19; i++){
-			final MoveResult blueMove = game.makeMove(SPARROW, null, makeCoordinate((i * -1), 0));
-			final MoveResult redMove = game.makeMove(SPARROW, null, makeCoordinate(i, 1));
-		}
-		
-		final MoveResult blueFinal = game.makeMove(SPARROW, null, makeCoordinate(-18, 1));
-		final MoveResult redFinal = game.makeMove(SPARROW, null, makeCoordinate(19, 1));
-		assertEquals(DRAW, redFinal);
-	}
 	
 	/**
 	 * Checking if first movement by blue is at the origin
@@ -647,6 +545,19 @@ public class GammaHantoMasterTest {
 		assertFalse(a.equals("blah"));
 		assertFalse(a.equals(difX));
 		assertFalse(a.equals(difY));
+	}
+	
+	@Test
+	public void stateSwitchesAfterTurn() throws HantoException
+	{
+		setup();
+		assertEquals(HantoPlayerColor.BLUE, game.getCurrentPlayerState().getColor());
+		assertEquals(false, game.getCurrentPlayerState().getHasPlayedButterfly());
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));	// Move 1
+		assertEquals(HantoPlayerColor.RED, game.getCurrentPlayerState().getColor());
+		assertEquals(false, game.getCurrentPlayerState().getHasPlayedButterfly());
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
+		assertEquals(true, game.getCurrentPlayerState().getHasPlayedButterfly());
 	}
 	
 	/**

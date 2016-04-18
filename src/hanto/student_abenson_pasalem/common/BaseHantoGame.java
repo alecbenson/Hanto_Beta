@@ -13,26 +13,17 @@ import java.util.List;
 import common.*;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 import hanto.student_abenson_pasalem.common.Board.IHantoBoard;
-import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactoryImpl;
-import hanto.student_abenson_pasalem.common.PieceFactory.IHantoPieceFactory;
-import hanto.student_abenson_pasalem.common.RuleValidator.GammaMoveValidator;
-import hanto.student_abenson_pasalem.common.RuleValidator.GammaPlaceValidator;
 import hanto.student_abenson_pasalem.common.RuleValidator.IHantoRuleSet;
-import hanto.student_abenson_pasalem.common.RuleValidator.IRuleValidator;
+import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerState;
 
 public abstract class BaseHantoGame implements HantoGame, IHantoRuleSet{
-	protected int redTurns = 0;
-	protected int blueTurns = 0;
-	protected boolean redPlayedButterfly;
-	protected boolean bluePlayedButterfly;
+	protected int redTurns = 0, blueTurns = 0;
 	protected boolean isGameOver;
 	protected int maxTurns = 0;
-
-	protected HantoCoordinate redButterflyPos = null;
-	protected HantoCoordinate blueButterflyPos = null;
-
+	protected HantoCoordinate redButterflyPos = null, blueButterflyPos = null;
 	protected HantoPlayerColor currentPlayer;
 	protected HantoBoardImpl board;
+	protected HantoPlayerState redPlayerState, bluePlayerState, currentPlayerState;
 	
 	public BaseHantoGame(HantoPlayerColor movesFirst){
 		this.currentPlayer = movesFirst;
@@ -47,37 +38,7 @@ public abstract class BaseHantoGame implements HantoGame, IHantoRuleSet{
 	@Override
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 			throws HantoException {
-		IHantoPieceFactory pieceFactory = new HantoPieceFactoryImpl();
-		HantoPieceImpl piece;
-		
-		//If no piece is provided, then we are moving a piece rather than placing one
-		if(from != null && to != null){
-			piece = (HantoPieceImpl) board.getPieceAt(from);
-			checkPieceCanMove(piece, from, to);
-			IRuleValidator moveValidator = new GammaMoveValidator();
-			moveValidator.validate(this, pieceType, from, to);
-			board.movePiece(from, to);
-		} else{
-			piece = pieceFactory.createPiece(currentPlayer, pieceType);
-			IRuleValidator placeValidator = new GammaPlaceValidator();
-			placeValidator.validate(this, pieceType, from, to);
-			board.placePiece(piece, to);
-		}
-
-		// Indicate that the player has actually played the butterfly
-		if (currentPlayer == RED) {
-			if (piece.getType() == BUTTERFLY) {
-				redButterflyPos = to;
-				redPlayedButterfly = true;
-			}
-		} else {
-			if (piece.getType() == BUTTERFLY) {
-				blueButterflyPos = to;
-				bluePlayedButterfly = true;
-			}
-		}
-		switchTurn();
-		return gameState();
+		throw new HantoException("Must be implemented by the game version");
 	}
 
 	/**
@@ -152,10 +113,12 @@ public abstract class BaseHantoGame implements HantoGame, IHantoRuleSet{
 		// If the blue player moved, it is now red's turn
 		if (currentPlayer == BLUE) {
 			currentPlayer = RED;
+			currentPlayerState = redPlayerState;
 			blueTurns++;
 			// Otherwise it is red's turn, make it blue's
 		} else {
 			currentPlayer = BLUE;
+			currentPlayerState = bluePlayerState;
 			redTurns++;
 		}
 	}
@@ -185,17 +148,10 @@ public abstract class BaseHantoGame implements HantoGame, IHantoRuleSet{
 	}
 
 	/**
-	 * REturns whether or not the red player has played the butterfly
+	 * Returns whether or not the red player has played the butterfly
 	 */
-	public boolean getRedPlayedButterfly() {
-		return redPlayedButterfly;
-	}
-
-	/**
-	 * Returns whether or not the blue player has played the butterfly
-	 */
-	public boolean getBluePlayedButterfly() {
-		return bluePlayedButterfly;
+	public boolean getCurrentPlayerPlayedButterfly() {
+		return currentPlayerState.getHasPlayedButterfly();
 	}
 
 	/**
@@ -242,11 +198,26 @@ public abstract class BaseHantoGame implements HantoGame, IHantoRuleSet{
 	public int getBlueTurns() {
 		return blueTurns;
 	}
+	
+	/**
+	 * returns the number of turns the current player has made
+	 * @return
+	 */
+	public int getCurrentPlayerTurns(){
+		return currentPlayerState.getColor() == HantoPlayerColor.BLUE ? blueTurns : redTurns;
+	};
 
 	/**
 	 * Gets the game board
 	 */
 	public IHantoBoard getBoard() {
 		return board;
+	}
+	
+	/**
+	 * Gets the current player state
+	 */
+	public HantoPlayerState getCurrentPlayerState(){
+		return currentPlayerState;
 	}
 }
