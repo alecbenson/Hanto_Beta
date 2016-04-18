@@ -12,7 +12,6 @@
 
 package student_abenson_pasalem.beta;
 
-import static common.HantoGameID.BETA_HANTO;
 import static common.HantoPieceType.BUTTERFLY;
 import static common.HantoPlayerColor.RED;
 
@@ -55,6 +54,7 @@ public class BetaHantoGame extends BaseHantoGame implements HantoGame {
 		IRuleValidator placeValidator = new BetaPlaceValidator();
 		placeValidator.validate(this, pieceType, from, to);
 		board.placePiece(piece, to);
+		currentPlayerState.getPieceFromInventory(pieceType);
 
 		// Indicate that the player has actually played the butterfly
 		if (currentPlayer == RED) {
