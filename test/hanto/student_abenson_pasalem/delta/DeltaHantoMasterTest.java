@@ -318,6 +318,16 @@ public class DeltaHantoMasterTest {
 				md(CRAB,0,-2,-1, 1), md(CRAB,5,0));
 	}
 	
+	@Test
+	public void walkCrabThroughSpaceValid() throws HantoException
+	{
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(SPARROW, 1, -1), md(SPARROW, 1, 1),
+				md(SPARROW, 2, -1), md(SPARROW, 0, 2),
+				md(CRAB, 3, -2), md(SPARROW, -1,2),
+				md(CRAB,3,-2 ,2, 0));
+	}
+	
 	@Test(expected=HantoException.class)
 	public void walkCrab3SpacesInvalid() throws HantoException
 	{
