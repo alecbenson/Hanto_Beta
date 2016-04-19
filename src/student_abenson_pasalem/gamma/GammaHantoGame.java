@@ -9,12 +9,6 @@ import common.*;
 import static common.HantoGameID.GAMMA_HANTO;
 
 import hanto.student_abenson_pasalem.common.BaseHantoGame;
-import hanto.student_abenson_pasalem.common.HantoPieceImpl;
-import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactory;
-import hanto.student_abenson_pasalem.common.RuleValidator.AdjacentOpposingPieceValidator;
-import hanto.student_abenson_pasalem.common.RuleValidator.IRuleValidator;
-import hanto.student_abenson_pasalem.common.RuleValidator.MovingValidPieceValidator;
-import hanto.student_abenson_pasalem.common.RuleValidator.GameRuleSets.PreTurnValidator;
 import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerStateFactory;
 
 /**

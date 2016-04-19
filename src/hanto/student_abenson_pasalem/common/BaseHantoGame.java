@@ -192,6 +192,7 @@ public abstract class BaseHantoGame implements HantoGame{
 	 * @param from the coordinate the player is moving from
 	 * @param to the coordinate the player is moving to
 	 * @return true if resignation received, false otherwise
+	 * @throws HantoException if game does not support resignation
 	 */
 	public boolean checkPlayerResigned(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 			throws HantoException{
