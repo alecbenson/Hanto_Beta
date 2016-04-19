@@ -1,18 +1,11 @@
 /*******************************************************************************
- * This files was developed for CS4233: Object-Oriented Analysis & Design.
+ * This file was developed by Alec Benson and Peter Salem for CS4233: Object-Oriented Analysis & Design.
  * The course was taken at Worcester Polytechnic Institute.
- *
- * Written by Alec Benson and Peter Salem
- *******************************************************************************/
-
+ ******************************************/
 package hanto.student_abenson_pasalem.common.Board;
-import java.util.ArrayList;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
-
 import common.HantoCoordinate;
 import common.HantoException;
 import common.HantoPiece;
@@ -96,7 +89,6 @@ public class HantoBoardImpl implements IHantoBoard {
 	 * @param a
 	 * @param b
 	 * @return euclidian distance between the coordinates
-	 * @throws HantoException 
 	 *
 	 */
 	public static boolean isAdjacentTo(HantoCoordinate a, HantoCoordinate b){

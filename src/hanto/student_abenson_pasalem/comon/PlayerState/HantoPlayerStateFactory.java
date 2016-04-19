@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * This file was developed by Alec Benson and Peter Salem for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ ******************************************/
 package hanto.student_abenson_pasalem.comon.PlayerState;
 
 import common.HantoException;
@@ -5,7 +9,16 @@ import common.HantoGameID;
 import common.HantoPieceType;
 import common.HantoPlayerColor;
 
+/**
+ * A factory for creating player states
+ */
 public class HantoPlayerStateFactory {
+	/**
+	 * A factory method for creating the player states for the different types of hanto
+	 * @param version the HantoGameID
+	 * @param player the playerColor to create the state for
+	 * @return the HantoPlayerState that was created
+	 */
 	public static HantoPlayerState makePlayerState(HantoGameID version, HantoPlayerColor player){
 		HantoPlayerState state = new HantoPlayerState(player);
 		try{

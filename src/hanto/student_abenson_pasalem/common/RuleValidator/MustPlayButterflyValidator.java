@@ -1,12 +1,8 @@
-/**
- * Validator for each player needing to play
- * their butterfly by their turn 4.
- */
-
+/*******************************************************************************
+ * This file was developed by Alec Benson and Peter Salem for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ ******************************************/
 package hanto.student_abenson_pasalem.common.RuleValidator;
-
-import static common.HantoPlayerColor.RED;
-import static common.HantoPieceType.BUTTERFLY;
 
 import common.HantoCoordinate;
 import common.HantoException;
@@ -15,7 +11,6 @@ import common.HantoPieceType;
 /**
  * Validator for needing to played the butterfly.
  * @author Peter
- *
  */
 public class MustPlayButterflyValidator implements IRuleValidator{
 

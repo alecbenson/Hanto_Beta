@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * This file was developed by Alec Benson and Peter Salem for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ ******************************************/
 package hanto.student_abenson_pasalem.common.PieceValidator;
 
 import java.util.ArrayList;
@@ -9,6 +13,11 @@ import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 import hanto.student_abenson_pasalem.common.Board.IHantoBoard;
 
+/**
+ * 
+ * @author alec
+ * Ensures that moved pieces are contiguous
+ */
 public class ContiguousMovementValidator implements IPieceValidator{
 
 	@Override

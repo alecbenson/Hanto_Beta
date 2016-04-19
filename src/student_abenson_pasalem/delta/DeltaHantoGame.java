@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * This file was developed by Alec Benson and Peter Salem for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ ******************************************/
 package student_abenson_pasalem.delta;
 
 import static common.HantoGameID.DELTA_HANTO;
@@ -20,6 +24,11 @@ import hanto.student_abenson_pasalem.common.RuleValidator.GammaMoveValidator;
 import hanto.student_abenson_pasalem.common.RuleValidator.IRuleValidator;
 import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerStateFactory;
 
+/**
+ * represents a game of delta hanto
+ * @author root
+ *
+ */
 public class DeltaHantoGame extends BaseHantoGame implements HantoGame {
 
 	public DeltaHantoGame(HantoPlayerColor movesFirst) {

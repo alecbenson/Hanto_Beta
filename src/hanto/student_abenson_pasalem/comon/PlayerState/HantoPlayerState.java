@@ -1,3 +1,8 @@
+
+/*******************************************************************************
+ * This file was developed by Alec Benson and Peter Salem for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ ******************************************/
 package hanto.student_abenson_pasalem.comon.PlayerState;
 
 import java.util.HashMap;
@@ -6,8 +11,11 @@ import java.util.Map;
 import common.*;
 import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactory;
 
+/**
+ * Manages state of players and keeps track of the player inventory, color, and whether the butterfly is in play
+ */
 public class HantoPlayerState {
-	public final HantoPlayerColor color;
+	private final HantoPlayerColor color;
 	private final Map<HantoPieceType, Integer> inventory;
 	private boolean hasPlayedButterfly;
 	
@@ -39,7 +47,7 @@ public class HantoPlayerState {
 	/**
 	 * Plays a piece from the player's inventory
 	 * @param pieceType
-	 * @return
+	 * @return the HantoPiece retrieved from the player's inventory
 	 * @throws HantoException
 	 */
 	public HantoPiece getPieceFromInventory(HantoPieceType pieceType) throws HantoException {
@@ -61,7 +69,7 @@ public class HantoPlayerState {
 	/**
 	 * Returns the number of pieces of the specified type in the player's inventory
 	 * @param pieceType
-	 * @return
+	 * @return the number of pieces of the specified type the player has left
 	 */
 	public int piecesLeftInInventory(HantoPieceType pieceType){
 		if(!inventory.containsKey(pieceType)){

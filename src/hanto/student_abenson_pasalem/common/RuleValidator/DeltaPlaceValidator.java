@@ -1,8 +1,7 @@
-/**
- * Master validator for all placing piece validators called in Gamma Hanto.
- */
-
-
+/*******************************************************************************
+ * This file was developed by Alec Benson and Peter Salem for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ ******************************************/
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
 import java.util.ArrayList;
@@ -13,14 +12,14 @@ import common.HantoException;
 import common.HantoPieceType;
 
 /**
- * Validator for Gamma Hanto placements.
+ * Validator for Delta Hanto placements.
  * @author Peter
  *
  */
 public class DeltaPlaceValidator implements IRuleValidator{
 
 	/**
-	 * Runs all validators for Gamma hanto when a piece is being placed
+	 * Runs all validators for Delta hanto when a piece is being placed
 	 */
 	public void validate(IHantoRuleSet game, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 			throws HantoException {

@@ -10,13 +10,9 @@
 
 package hanto.student_abenson_pasalem.common;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import common.*;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
-import hanto.student_abenson_pasalem.common.PieceValidator.ContiguousMovementValidator;
 import hanto.student_abenson_pasalem.common.PieceValidator.IPieceValidator;
 
 /**
@@ -61,14 +57,14 @@ public class HantoPieceImpl implements HantoPiece
 	
 	/**
 	 * Returns true if the piece can move from point A to point B, false otherwise. 
-	 * @param from
-	 * @param to
-	 * @return
+	 * @param from the place the piece is being moved from
+	 * @param to the place the piece is being moved to
+	 * @param board the game board
+	 * @throws HantoException
 	 */
-	public boolean checkCanMove(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) throws HantoException {
+	public void checkCanMove(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) throws HantoException {
 		for(IPieceValidator validator : validators){
 			validator.validate(board, from, to);
 		}
-		return false;
 	}
 }

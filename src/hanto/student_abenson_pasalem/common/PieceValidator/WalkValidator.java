@@ -1,3 +1,6 @@
+/**
+ * Validates the walking of pieces
+ */
 package hanto.student_abenson_pasalem.common.PieceValidator;
 
 import java.util.HashMap;
@@ -11,9 +14,18 @@ import common.HantoException;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 
+/**
+ * Ensures that pieces walk in accordance to the rules
+ * @author Alec
+ *
+ */
 public class WalkValidator implements IPieceValidator{
 	int maxDistance; 
 	
+	/**
+	 * Validates a walk movement that can move up to maxDistance hexes
+	 * @param maxDistance
+	 */
 	public WalkValidator(int maxDistance){
 		this.maxDistance = maxDistance;	
 	}
@@ -27,7 +39,8 @@ public class WalkValidator implements IPieceValidator{
 	 * @param board
 	 * @param from
 	 * @param to
-	 * @return
+	 * @return true if there is enough space to walk, false otherwise
+	 * @throws HantoException
 	 */
 	public boolean enoughSpaceToWalk(HantoBoardImpl board, 
 			HantoCoordinate from, HantoCoordinate to) throws HantoException{
@@ -48,6 +61,13 @@ public class WalkValidator implements IPieceValidator{
 		return false;
 	}
 	
+	/**
+	 * Ensures that a valid path exists for the piece to walk
+	 * @param board the game board
+	 * @param from the place the piece is moving from
+	 * @param to the place the piece is moving to 
+	 * @throws HantoException
+	 */
 	public void checkWalkablePathExists(HantoBoardImpl board, 
 			HantoCoordinate from, HantoCoordinate to) throws HantoException{	
 		Map<HantoCoordinateImpl, Integer> distMap = new HashMap<HantoCoordinateImpl, Integer>();

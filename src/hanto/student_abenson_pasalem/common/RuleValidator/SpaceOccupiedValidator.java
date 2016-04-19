@@ -1,7 +1,7 @@
-/**
- * Validator for moving to an occupied space.
- */
-
+/*******************************************************************************
+ * This file was developed by Alec Benson and Peter Salem for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ ******************************************/
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
 import common.HantoCoordinate;
@@ -9,9 +9,8 @@ import common.HantoException;
 import common.HantoPieceType;
 
 /**
- * Validator for if a space is occupied.
- * @author Peter
- *
+ * Validator for moving to an occupied space.
+ * @author Alec
  */
 public class SpaceOccupiedValidator implements IRuleValidator{
 

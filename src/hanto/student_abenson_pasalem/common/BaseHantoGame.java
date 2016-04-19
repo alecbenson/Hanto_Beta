@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * This file was developed by Alec Benson and Peter Salem for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ ******************************************/
 package hanto.student_abenson_pasalem.common;
 
 import static common.HantoPieceType.BUTTERFLY;
@@ -16,6 +20,10 @@ import hanto.student_abenson_pasalem.common.Board.IHantoBoard;
 import hanto.student_abenson_pasalem.common.RuleValidator.IHantoRuleSet;
 import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerState;
 
+/**
+ * An abstract class used for defining common characteristics of Hanto games
+ * @author alec
+ */
 public abstract class BaseHantoGame implements HantoGame, IHantoRuleSet{
 	protected int redTurns = 0, blueTurns = 0;
 	protected boolean isGameOver;
@@ -25,8 +33,12 @@ public abstract class BaseHantoGame implements HantoGame, IHantoRuleSet{
 	protected HantoBoardImpl board;
 	protected HantoPlayerState redPlayerState, bluePlayerState, currentPlayerState;
 	
+	/**
+	 * Default constructor for the hanto template
+	 * @param movesFirst - the player color that moves first
+	 */
 	public BaseHantoGame(HantoPlayerColor movesFirst){
-		this.currentPlayer = movesFirst;
+		currentPlayer = movesFirst;
 		board = new HantoBoardImpl();
 	}
 	

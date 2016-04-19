@@ -1,8 +1,7 @@
-/**
- * 
- * Validator for piece adjacency.
- */
-
+/*******************************************************************************
+ * This file was developed by Alec Benson and Peter Salem for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ ******************************************/
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
 import java.util.List;
@@ -12,12 +11,9 @@ import common.HantoException;
 import common.HantoPiece;
 import common.HantoPieceType;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
-import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 
 /**
- * Validator for placing adjacent to other pieces.
- * @author Peter
- *
+ * Validator for piece adjacency.
  */
 public class PieceAdjacentValidator implements IRuleValidator{
 

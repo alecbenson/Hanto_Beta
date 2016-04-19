@@ -1,11 +1,7 @@
-/**
- * Interface for the purpose of creating the Hanto board
- * with checking occupied spaces, getting piece locations,
- * moving pieces, placing pieces, and remove pieces. It 
- * also checks if the board is empty. 
- * 
- */
-
+/*******************************************************************************
+ * This file was developed by Alec Benson and Peter Salem for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ ******************************************/
 package hanto.student_abenson_pasalem.common.Board;
 
 import common.HantoCoordinate;

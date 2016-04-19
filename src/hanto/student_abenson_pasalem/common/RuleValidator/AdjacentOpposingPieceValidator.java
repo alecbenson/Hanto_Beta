@@ -1,9 +1,7 @@
-/**
- * Validator for not placing a piece adjacent 
- * to an opponent's piece.
- */
-
-
+/*******************************************************************************
+ * This file was developed by Alec Benson and Peter Salem for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ ******************************************/
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
 import java.util.List;
@@ -13,7 +11,6 @@ import common.HantoException;
 import common.HantoPiece;
 import common.HantoPieceType;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
-import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 
 /**
  * Validator for not placing a piece next to an opposing piece.

@@ -1,3 +1,6 @@
+/**
+ * Tests for delta hanto
+ */
 package hanto.student_abenson_pasalem.delta;
 
 import static common.HantoPieceType.*;
@@ -183,8 +186,7 @@ public class DeltaHantoMasterTest {
 				md(SPARROW, 0, -2), md(SPARROW, 0, 3),
 				md(SPARROW, 0, -3), md(SPARROW, 0, 4),
 				md(SPARROW, 0, -4), md(SPARROW, 0, 5),
-				md(SPARROW, 0, -5), md(SPARROW, 0, 6),
-				md(SPARROW, 0, -6));
+				md(SPARROW, 0, -5), md(SPARROW, 0, 6));
 	}
 	
 	@Test(expected=HantoException.class)

@@ -1,15 +1,13 @@
-/**
- * Implementation of a Hanto piece factory,
- * to handle all of the functionality for pieces.
- */
-
+/*******************************************************************************
+ * This file was developed by Alec Benson and Peter Salem for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ ******************************************/
 package hanto.student_abenson_pasalem.common.PieceFactory;
 
 import common.HantoException;
 import common.HantoPieceType;
 import common.HantoPlayerColor;
 import hanto.student_abenson_pasalem.common.HantoPieceImpl;
-import hanto.student_abenson_pasalem.common.PieceValidator.AdjacentSquareValidator;
 import hanto.student_abenson_pasalem.common.PieceValidator.ContiguousMovementValidator;
 import hanto.student_abenson_pasalem.common.PieceValidator.IPieceValidator;
 import hanto.student_abenson_pasalem.common.PieceValidator.WalkValidator;
@@ -23,6 +21,8 @@ public class HantoPieceFactory{
 	 * Factory method for creating different types of hanto pieces
 	 * @param color
 	 * @param type
+	 * @return the HantoPieceImpl game piece created by the factory
+	 * @throws HantoException
 	 */
 	public static HantoPieceImpl createPiece(HantoPlayerColor color, HantoPieceType type) throws HantoException{
 		IPieceValidator contiguousMoveValidator = new ContiguousMovementValidator();

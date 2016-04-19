@@ -1,10 +1,7 @@
-/**
- * Validator for that any piece played will be a 
- * butterfly or sparrow, as they are the only
- * valid pieces for Gamma Hanto.
- */
-
-
+/*******************************************************************************
+ * This file was developed by Alec Benson and Peter Salem for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ ******************************************/
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
 import static common.HantoPieceType.BUTTERFLY;
