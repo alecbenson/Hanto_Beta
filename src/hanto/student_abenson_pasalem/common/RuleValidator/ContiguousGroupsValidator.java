@@ -13,6 +13,7 @@ import java.util.List;
 import common.HantoCoordinate;
 import common.HantoException;
 import common.HantoPieceType;
+import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 import hanto.student_abenson_pasalem.common.Board.IHantoBoard;
 
@@ -46,7 +47,7 @@ public class ContiguousGroupsValidator implements IRuleValidator{
 	public List<HantoCoordinate> getContiguousGraph(IHantoBoard board, HantoCoordinate from, HantoCoordinate to, List<HantoCoordinate> visited){
 		visited.add(to);
 		
-		for(HantoCoordinate adjacent : HantoBoardImpl.getAdjacentSpaces(to)){
+		for(HantoCoordinate adjacent : new HantoCoordinateImpl(to).getAdjacentSpaces()){
 			if(adjacent.getX() == from.getX() && adjacent.getY() == from.getY()){
 				continue;
 			}

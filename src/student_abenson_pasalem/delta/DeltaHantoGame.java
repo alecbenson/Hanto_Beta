@@ -12,10 +12,11 @@ import common.HantoPieceType;
 import common.HantoPlayerColor;
 import common.MoveResult;
 import hanto.student_abenson_pasalem.common.BaseHantoGame;
+import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.HantoPieceImpl;
 import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactory;
+import hanto.student_abenson_pasalem.common.RuleValidator.DeltaPlaceValidator;
 import hanto.student_abenson_pasalem.common.RuleValidator.GammaMoveValidator;
-import hanto.student_abenson_pasalem.common.RuleValidator.GammaPlaceValidator;
 import hanto.student_abenson_pasalem.common.RuleValidator.IRuleValidator;
 import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerStateFactory;
 
@@ -50,7 +51,7 @@ public class DeltaHantoGame extends BaseHantoGame implements HantoGame {
 			board.movePiece(from, to);
 		} else{
 			piece = HantoPieceFactory.createPiece(currentPlayer, pieceType);
-			IRuleValidator placeValidator = new GammaPlaceValidator();
+			IRuleValidator placeValidator = new DeltaPlaceValidator();
 			placeValidator.validate(this, pieceType, from, to);
 			board.placePiece(piece, to);
 			currentPlayerState.getPieceFromInventory(pieceType);
@@ -59,11 +60,11 @@ public class DeltaHantoGame extends BaseHantoGame implements HantoGame {
 		// Indicate that the player has actually played the butterfly
 		if (currentPlayer == RED) {
 			if (piece.getType() == BUTTERFLY) {
-				redButterflyPos = to;
+				redButterflyPos = new HantoCoordinateImpl(to);
 			}
 		} else {
 			if (piece.getType() == BUTTERFLY) {
-				blueButterflyPos = to;
+				blueButterflyPos = new HantoCoordinateImpl(to);
 			}
 		}
 		switchTurn();

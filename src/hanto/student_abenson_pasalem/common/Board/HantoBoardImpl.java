@@ -115,25 +115,6 @@ public class HantoBoardImpl implements IHantoBoard {
 			return false;
 		}
 	}
-	
-	/**
-	 * 
-	 * @param space
-	 * @return array of adjacent spaces
-	 */
-	public static List<HantoCoordinate> getAdjacentSpaces(HantoCoordinate space){
-		List<HantoCoordinate> adjacentSquares = new ArrayList<HantoCoordinate>();
-		
-		HantoCoordinate north = new HantoCoordinateImpl(space.getX(), space.getY() + 1);
-		HantoCoordinate east = new HantoCoordinateImpl(space.getX() + 1, space.getY());
-		HantoCoordinate southeast = new HantoCoordinateImpl(space.getX() + 1, space.getY() - 1);
-		HantoCoordinate south = new HantoCoordinateImpl(space.getX(), space.getY() - 1);
-		HantoCoordinate southwest = new HantoCoordinateImpl(space.getX() - 1, space.getY());
-		HantoCoordinate west = new HantoCoordinateImpl(space.getX() - 1, space.getY() + 1);
-		
-		adjacentSquares.addAll(Arrays.asList(north, east, southeast, south, southwest, west));
-		return adjacentSquares;
-	}
 
 	/**
 	 * True if board is empty, false otherwise

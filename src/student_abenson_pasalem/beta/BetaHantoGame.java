@@ -17,6 +17,7 @@ import static common.HantoPlayerColor.RED;
 
 import common.*;
 import hanto.student_abenson_pasalem.common.BaseHantoGame;
+import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactory;
 import hanto.student_abenson_pasalem.common.RuleValidator.BetaPlaceValidator;
 import hanto.student_abenson_pasalem.common.RuleValidator.IRuleValidator;
@@ -59,11 +60,11 @@ public class BetaHantoGame extends BaseHantoGame implements HantoGame {
 		// Indicate that the player has actually played the butterfly
 		if (currentPlayer == RED) {
 			if (piece.getType() == BUTTERFLY) {
-				redButterflyPos = to;
+				redButterflyPos = new HantoCoordinateImpl(to);
 			}
 		} else {
 			if (piece.getType() == BUTTERFLY) {
-				blueButterflyPos = to;
+				blueButterflyPos = new HantoCoordinateImpl(to);
 			}
 		}
 		switchTurn();

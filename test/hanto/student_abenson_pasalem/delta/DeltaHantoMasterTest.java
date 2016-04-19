@@ -1,6 +1,5 @@
 package hanto.student_abenson_pasalem.delta;
 
-import static common.HantoPieceType.BUTTERFLY;
 import static common.HantoPieceType.*;
 import static common.HantoPlayerColor.*;
 import static common.MoveResult.DRAW;
@@ -9,6 +8,8 @@ import static common.MoveResult.RED_WINS;
 import static common.MoveResult.BLUE_WINS;
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -22,6 +23,7 @@ import common.HantoPiece;
 import common.HantoPieceType;
 import common.HantoPlayerColor;
 import common.MoveResult;
+import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.HantoGameFactory;
 
 public class DeltaHantoMasterTest {
@@ -276,15 +278,6 @@ public class DeltaHantoMasterTest {
 				md(SPARROW, -1, 0, -1, 1), md(SPARROW, 0, 3));
 	}
 	
-	@Test(expected=HantoException.class)
-	public void extraCreditMoveSparrowBeforeButterflyIsOnBoard() throws HantoException
-	{
-		makeMoves(md(SPARROW, 0, 0), md (BUTTERFLY, 0, 1));
-		final HantoPiece piece = game.getPieceAt(makeCoordinate(0, 0));
-		assertEquals(SPARROW, piece.getType());
-		assertEquals(BLUE, piece.getColor());
-	}
-	
 	// Helper methods
 	private HantoCoordinate makeCoordinate(int x, int y)
 	{
@@ -337,5 +330,41 @@ public class DeltaHantoMasterTest {
 			mr = game.makeMove(md.type, md.from, md.to);
 		}
 		return mr;
+	}
+	
+	@Test
+	public void walkCrab3SpacesValid() throws HantoException
+	{
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(SPARROW, 0, -1), md(SPARROW, 1, 1),
+				md(SPARROW, 1, -2), md(SPARROW, 2, 0),
+				md(SPARROW, 2, -2), md(SPARROW, 3,0),
+				md(CRAB, 0, -2), md(SPARROW, 4, 0),
+				md(CRAB,0,-2,-1, 1), md(CRAB,5,0));
+	}
+	
+	public void walkCrab3SpacesInvalid() throws HantoException
+	{
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(SPARROW, 0, -1), md(SPARROW, 1, 1),
+				md(SPARROW, 1, -2), md(SPARROW, 2, 0),
+				md(SPARROW, 2, -2), md(SPARROW, 3,0),
+				md(CRAB, 0, -2), md(SPARROW, 4, 0),
+				md(CRAB,0,-2, 3,-2), md(CRAB,5,0));
+	}
+	
+	@Test
+	public void testAdjacentSquares() throws HantoException
+	{
+		setup();
+		final List<HantoCoordinateImpl> commonAdj = new HantoCoordinateImpl(-1,0).getCommonNeighbors(
+				new HantoCoordinateImpl(-1,1));
+		
+		HantoCoordinateImpl north = new HantoCoordinateImpl(0,0);
+		HantoCoordinateImpl northWest = new HantoCoordinateImpl(-2,1);
+		List<HantoCoordinate> expectedCoords = new ArrayList<HantoCoordinate>();
+		expectedCoords.add(north);
+		expectedCoords.add(northWest);
+		assertEquals(expectedCoords,commonAdj);
 	}
 }

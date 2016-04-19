@@ -20,7 +20,7 @@ public abstract class BaseHantoGame implements HantoGame, IHantoRuleSet{
 	protected int redTurns = 0, blueTurns = 0;
 	protected boolean isGameOver;
 	protected int maxTurns = 0;
-	protected HantoCoordinate redButterflyPos = null, blueButterflyPos = null;
+	protected HantoCoordinateImpl redButterflyPos = null, blueButterflyPos = null;
 	protected HantoPlayerColor currentPlayer;
 	protected HantoBoardImpl board;
 	protected HantoPlayerState redPlayerState, bluePlayerState, currentPlayerState;
@@ -87,7 +87,7 @@ public abstract class BaseHantoGame implements HantoGame, IHantoRuleSet{
 	 * @return true if surrounded, false otherwise
 	 * @throws HantoException
 	 */
-	public boolean checkButterflySurrounded(HantoCoordinate butterflyPos) throws HantoException {
+	public boolean checkButterflySurrounded(HantoCoordinateImpl butterflyPos) throws HantoException {
 		if (butterflyPos == null) {
 			return false;
 		}
@@ -96,7 +96,7 @@ public abstract class BaseHantoGame implements HantoGame, IHantoRuleSet{
 		if (butterfly.getType().getClass() != BUTTERFLY.getClass()) {
 			throw new HantoException("provided coordinates to a non-butterfly piece in checkButterflySurrounded");
 		}
-		List<HantoCoordinate> adjacentSpaces = HantoBoardImpl.getAdjacentSpaces(butterflyPos);
+		List<HantoCoordinateImpl> adjacentSpaces = butterflyPos.getAdjacentSpaces();
 		for (HantoCoordinate space : adjacentSpaces) {
 			HantoPiece adjacentPiece = board.getPieceAt(space);
 			if (adjacentPiece == null) {

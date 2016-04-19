@@ -182,7 +182,7 @@ public class GammaHantoMasterTest {
 	public void testAdjacentSquares() throws HantoException
 	{
 		setup();
-		final List<HantoCoordinate> adjacencies = HantoBoardImpl.getAdjacentSpaces(makeCoordinate(-1,0));
+		final List<HantoCoordinateImpl> adjacencies = new HantoCoordinateImpl(-1,0).getAdjacentSpaces();
 		HantoCoordinateImpl north = new HantoCoordinateImpl(-1,1);
 		HantoCoordinateImpl east = new HantoCoordinateImpl(0,0);
 		HantoCoordinateImpl southEast = new HantoCoordinateImpl(0,-1);
@@ -713,6 +713,7 @@ public class GammaHantoMasterTest {
 		assertEquals(DRAW, mr);
 	}
 	
+	
 	@Test(expected=HantoException.class)
 	public void butterflyNotPlacedByFourthMoveByFirstPlayer() throws HantoException
 	{
@@ -739,15 +740,6 @@ public class GammaHantoMasterTest {
 				md(SPARROW, 1, -1), md(SPARROW, 0, 2),
 				md(SPARROW, 1, -1, 1, 0), md(SPARROW, -1, 2),
 				md(SPARROW, -1, 0, -1, 1), md(SPARROW, 0, 3));
-	}
-	
-	@Test(expected=HantoException.class)
-	public void extraCreditMoveSparrowBeforeButterflyIsOnBoard() throws HantoException
-	{
-		makeMoves(md(SPARROW, 0, 0), md (BUTTERFLY, 0, 1));
-		final HantoPiece piece = game.getPieceAt(makeCoordinate(0, 0));
-		assertEquals(SPARROW, piece.getType());
-		assertEquals(BLUE, piece.getColor());
 	}
 	
 	/**

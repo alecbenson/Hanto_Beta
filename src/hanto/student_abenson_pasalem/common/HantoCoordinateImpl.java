@@ -12,6 +12,10 @@
 
 package hanto.student_abenson_pasalem.common;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import common.HantoCoordinate;
 import common.HantoException;
 
@@ -108,6 +112,36 @@ public class HantoCoordinateImpl implements HantoCoordinate
 			return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * @param space
+	 * @return array of adjacent spaces
+	 */
+	public List<HantoCoordinateImpl> getAdjacentSpaces(){
+		List<HantoCoordinateImpl> adjacentSquares = new ArrayList<HantoCoordinateImpl>();
+		
+		HantoCoordinateImpl north = new HantoCoordinateImpl(this.getX(), this.getY() + 1);
+		HantoCoordinateImpl east = new HantoCoordinateImpl(this.getX() + 1, this.getY());
+		HantoCoordinateImpl southeast = new HantoCoordinateImpl(this.getX() + 1, this.getY() - 1);
+		HantoCoordinateImpl south = new HantoCoordinateImpl(this.getX(), this.getY() - 1);
+		HantoCoordinateImpl southwest = new HantoCoordinateImpl(this.getX() - 1, this.getY());
+		HantoCoordinateImpl west = new HantoCoordinateImpl(this.getX() - 1, this.getY() + 1);
+		
+		adjacentSquares.addAll(Arrays.asList(north, east, southeast, south, southwest, west));
+		return adjacentSquares;
+	}
+	
+	/**
+	 * Returns a list of adjacent HantoCoordinateImpls that are common between the two provided coords
+	 * @param to the coordinate to find common adjacencies against
+	 * @return a list of common adjacencies
+	 */
+	public List<HantoCoordinateImpl> getCommonNeighbors(HantoCoordinateImpl to){
+		List<HantoCoordinateImpl> toAdj = to.getAdjacentSpaces();
+		List<HantoCoordinateImpl> fromAdj = this.getAdjacentSpaces();
+		fromAdj.retainAll(toAdj);
+		return fromAdj;
 	}
 
 

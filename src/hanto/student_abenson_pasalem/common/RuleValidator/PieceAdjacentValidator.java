@@ -11,6 +11,7 @@ import common.HantoCoordinate;
 import common.HantoException;
 import common.HantoPiece;
 import common.HantoPieceType;
+import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 
 /**
@@ -29,7 +30,7 @@ public class PieceAdjacentValidator implements IRuleValidator{
 			return;
 		}
 		
-		List<HantoCoordinate> adjacentSpaces = HantoBoardImpl.getAdjacentSpaces(to);
+		List<HantoCoordinateImpl> adjacentSpaces = new HantoCoordinateImpl(to).getAdjacentSpaces();
 		for (HantoCoordinate space : adjacentSpaces) {
 			//If moving, don't consider the space we are coming from
 			if(from != null){
