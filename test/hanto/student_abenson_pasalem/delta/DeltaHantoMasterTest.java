@@ -223,33 +223,6 @@ public class DeltaHantoMasterTest {
 				md(SPARROW, -1, 0), md(SPARROW, -2, 0));
 	}
 	
-	@Test
-	public void drawAfterTwentyTurns() throws HantoException
-	{
-		MoveResult mr = makeMoves(
-				md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
-				md(SPARROW, 1, -1), md(SPARROW, -1, 2),
-				md(SPARROW, 1, -1, 0, -1), md(SPARROW, -1, 2, 0, 2),
-				md(SPARROW, 0, -1, 1, -1), md(SPARROW, 0, 2, -1, 2),
-				md(SPARROW, 1, -1, 0, -1), md(SPARROW, -1, 2, 0, 2),
-				md(SPARROW, 0, -1, 1, -1), md(SPARROW, 0, 2, -1, 2),
-				md(SPARROW, 1, -1, 0, -1), md(SPARROW, -1, 2, 0, 2),
-				md(SPARROW, 0, -1, 1, -1), md(SPARROW, 0, 2, -1, 2),
-				md(SPARROW, 1, -1, 0, -1), md(SPARROW, -1, 2, 0, 2),
-				md(SPARROW, 0, -1, 1, -1), md(SPARROW, 0, 2, -1, 2),
-				md(SPARROW, 1, -1, 0, -1), md(SPARROW, -1, 2, 0, 2),
-				md(SPARROW, 0, -1, 1, -1), md(SPARROW, 0, 2, -1, 2),
-				md(SPARROW, 1, -1, 0, -1), md(SPARROW, -1, 2, 0, 2),
-				md(SPARROW, 0, -1, 1, -1), md(SPARROW, 0, 2, -1, 2),
-				md(SPARROW, 1, -1, 0, -1), md(SPARROW, -1, 2, 0, 2),
-				md(SPARROW, 0, -1, 1, -1), md(SPARROW, 0, 2, -1, 2),
-				md(SPARROW, 1, -1, 0, -1), md(SPARROW, -1, 2, 0, 2),
-				md(SPARROW, 0, -1, 1, -1), md(SPARROW, 0, 2, -1, 2),
-				md(SPARROW, 1, -1, 0, -1), md(SPARROW, -1, 2, 0, 2),
-				md(SPARROW, 0, -1, 1, -1), md(SPARROW, 0, 2, -1, 2));
-		assertEquals(DRAW, mr);
-	}
-	
 	@Test(expected=HantoException.class)
 	public void butterflyNotPlacedByFourthMoveByFirstPlayer() throws HantoException
 	{

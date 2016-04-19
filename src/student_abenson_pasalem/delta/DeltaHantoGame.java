@@ -24,7 +24,7 @@ public class DeltaHantoGame extends BaseHantoGame implements HantoGame {
 
 	public DeltaHantoGame(HantoPlayerColor movesFirst) {
 		super(movesFirst);
-		maxTurns = 40;
+		maxTurns = Integer.MAX_VALUE;
 		HantoGameID version = DELTA_HANTO;
 		bluePlayerState = HantoPlayerStateFactory.makePlayerState(
 				version, HantoPlayerColor.BLUE);
