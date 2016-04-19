@@ -64,11 +64,9 @@ public class HantoPieceImpl implements HantoPiece
 	 * @param to
 	 * @return
 	 */
-	public boolean canMove(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) {
+	public boolean checkCanMove(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) throws HantoException {
 		for(IPieceValidator validator : validators){
-			if(validator.canMove(board, from, to)){
-				return true;
-			}
+			validator.validate(board, from, to);
 		}
 		return false;
 	}

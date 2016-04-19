@@ -24,23 +24,16 @@ public class AdjacentSquareValidator implements IPieceValidator{
 	}
 
 	/**
-	 * returns true if the space is adjacent to another space
 	 * @param from the space the piece is moving from
 	 * @param to the space the piece is moving to
 	 * @throws HantoException 
 	 */
-	public boolean canMove(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) {
+	public void validate(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) throws HantoException {
 		if(from == null || to == null){
-			return false;
+			throw new HantoException("Can't move with null to/from parameter");
 		}
-		try {
-			int dist = new HantoCoordinateImpl(from).distance(new HantoCoordinateImpl(to));
-			if(dist > maxDistance){
-				return false;
-			}
-			return HantoBoardImpl.isAdjacentTo(to,from);
-		} catch (HantoException e) {
-			return false;
-		}
+		if(!HantoBoardImpl.isAdjacentTo(to,from)){
+			throw new HantoException("Cannot move to adjacent hex: provided hexes are not adjacent");
+		};
 	}
 }

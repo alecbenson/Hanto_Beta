@@ -74,9 +74,10 @@ public abstract class BaseHantoGame implements HantoGame, IHantoRuleSet{
 	 */
 	public void checkPieceCanMove(HantoPieceImpl piece, HantoCoordinate from, HantoCoordinate to) throws HantoException {
 
-		if(piece == null || !piece.canMove(board, from, to)){
-			throw new HantoException("The piece cannot move in this way.");
+		if(piece == null){
+			throw new HantoException("Cannot move: provided piece was null.");
 		}
+		piece.checkCanMove(board, from, to);
 	}
 
 	/**

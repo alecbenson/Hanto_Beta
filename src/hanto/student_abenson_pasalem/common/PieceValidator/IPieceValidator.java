@@ -23,5 +23,5 @@ public interface IPieceValidator {
 	 * @param to
 	 * @return true if the piece can move
 	 */
-	boolean canMove(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to);
+	void validate(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) throws HantoException;
 }

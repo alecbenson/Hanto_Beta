@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Queue;
 
 import common.HantoCoordinate;
+import common.HantoException;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 
@@ -17,8 +18,8 @@ public class WalkValidator implements IPieceValidator{
 		this.maxDistance = maxDistance;	
 	}
 
-	public boolean canMove(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) {
-		return walkablePathExists(board, from, to);
+	public void validate(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) throws HantoException{
+		checkWalkablePathExists(board, from, to);
 	}
 	
 	/**
@@ -46,8 +47,8 @@ public class WalkValidator implements IPieceValidator{
 		return false;
 	}
 	
-	public boolean walkablePathExists(HantoBoardImpl board, 
-			HantoCoordinate from, HantoCoordinate to){	
+	public void checkWalkablePathExists(HantoBoardImpl board, 
+			HantoCoordinate from, HantoCoordinate to) throws HantoException{	
 		Map<HantoCoordinateImpl, Integer> distMap = new HashMap<HantoCoordinateImpl, Integer>();
 		Queue<HantoCoordinateImpl> visitQueue = new LinkedList<HantoCoordinateImpl>();
 		HantoCoordinateImpl fromKey = new HantoCoordinateImpl(from);
@@ -85,11 +86,13 @@ public class WalkValidator implements IPieceValidator{
 				if(neighbor.getX() == to.getX() && neighbor.getY() == to.getY()){
 					System.out.println("Got to " + to.getX() + "," + to.getY() + 
 							" in " + tentativeCost + " from " + current.getX() + "," + current.getY());
-					return true;
+					return;
 				}
 			}
 		}
-		return false;
+		throw new HantoException("There is no walkable path from " + 
+				from.getX() + "," + from.getY() + " to " + 
+				to.getX() + "," + to.getY());
 	}
 
 }
