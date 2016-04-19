@@ -7,6 +7,7 @@ package hanto.student_abenson_pasalem.common.RuleValidator;
 import common.HantoCoordinate;
 import common.HantoException;
 import common.HantoPieceType;
+import hanto.student_abenson_pasalem.common.BaseHantoGame;
 
 /**
  * Validator for first move placement at origin.
@@ -18,7 +19,7 @@ public class FirstTurnValidator implements IRuleValidator{
 	/**
 	 * Ensures the first move is made at (0,0)
 	 */
-	public void validate(IHantoRuleSet game, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
+	public void validate(BaseHantoGame game, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 			throws HantoException {
 		
 		if (game.getRedTurns() == 0 && game.getBlueTurns() == 0) {

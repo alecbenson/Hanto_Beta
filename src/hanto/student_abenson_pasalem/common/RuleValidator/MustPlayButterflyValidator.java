@@ -7,6 +7,7 @@ package hanto.student_abenson_pasalem.common.RuleValidator;
 import common.HantoCoordinate;
 import common.HantoException;
 import common.HantoPieceType;
+import hanto.student_abenson_pasalem.common.BaseHantoGame;
 
 /**
  * Validator for needing to played the butterfly.
@@ -17,7 +18,7 @@ public class MustPlayButterflyValidator implements IRuleValidator{
 	/**
 	 * Ensures that players play the butterfly by turn 4
 	 */
-	public void validate(IHantoRuleSet game, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
+	public void validate(BaseHantoGame game, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 			throws HantoException {
 		if (!game.getCurrentPlayerPlayedButterfly()){
 			if(game.getCurrentPlayerTurns() >= 3){

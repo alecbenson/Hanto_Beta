@@ -28,13 +28,7 @@ public class FlyValidator implements IPieceValidator{
 			throw new HantoException("Cannot move from " + from.getX() + "," + from.getY() + " to " +
 				to.getX() + "," + to.getY() + ": cannot fly more than " + maxDistance + " tiles." +
 					"distance was " + distance);
-		}
-		
-		if(board.spaceOccupied(to)){
-			throw new HantoException("Cannot move from " + from.getX() + "," + from.getY() + " to " +
-				to.getX() + "," + to.getY() + ": space is already occupied.");
-		}
-		
+		}		
 	}
 
 }

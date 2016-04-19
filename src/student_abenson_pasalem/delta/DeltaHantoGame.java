@@ -5,8 +5,6 @@
 package student_abenson_pasalem.delta;
 
 import static common.HantoGameID.DELTA_HANTO;
-import static common.HantoPieceType.BUTTERFLY;
-import static common.HantoPlayerColor.RED;
 
 import common.HantoCoordinate;
 import common.HantoException;
@@ -16,12 +14,12 @@ import common.HantoPieceType;
 import common.HantoPlayerColor;
 import common.MoveResult;
 import hanto.student_abenson_pasalem.common.BaseHantoGame;
-import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.HantoPieceImpl;
 import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactory;
-import hanto.student_abenson_pasalem.common.RuleValidator.DeltaPlaceValidator;
-import hanto.student_abenson_pasalem.common.RuleValidator.GammaMoveValidator;
+import hanto.student_abenson_pasalem.common.RuleValidator.AdjacentOpposingPieceValidator;
 import hanto.student_abenson_pasalem.common.RuleValidator.IRuleValidator;
+import hanto.student_abenson_pasalem.common.RuleValidator.MovingValidPieceValidator;
+import hanto.student_abenson_pasalem.common.RuleValidator.GameRuleSets.PreTurnValidator;
 import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerStateFactory;
 
 /**
@@ -50,18 +48,21 @@ public class DeltaHantoGame extends BaseHantoGame implements HantoGame {
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 			throws HantoException {
 		HantoPieceImpl piece;
+		IRuleValidator moveValidator = new PreTurnValidator();
+		moveValidator.validate(this, pieceType, from, to);
 		
-		//If no piece is provided, then we are moving a piece rather than placing one
-		if(from != null && to != null){
+		//Moving a piece
+		if(from != null){
+			IRuleValidator checkMovingValidPiece = new MovingValidPieceValidator();
+			checkMovingValidPiece.validate(this, pieceType, from, to);
 			piece = (HantoPieceImpl) board.getPieceAt(from);
 			checkPieceCanMove(piece, from, to);
-			IRuleValidator moveValidator = new GammaMoveValidator();
-			moveValidator.validate(this, pieceType, from, to);
 			board.movePiece(from, to);
+		//Placing a piece
 		} else{
+			IRuleValidator opposingAdjacentValidator = new AdjacentOpposingPieceValidator();
+			opposingAdjacentValidator.validate(this, pieceType, from, to);
 			piece = HantoPieceFactory.createPiece(currentPlayer, pieceType);
-			IRuleValidator placeValidator = new DeltaPlaceValidator();
-			placeValidator.validate(this, pieceType, from, to);
 			board.placePiece(piece, to);
 			currentPlayerState.getPieceFromInventory(pieceType);
 		}

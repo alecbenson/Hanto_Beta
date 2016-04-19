@@ -17,14 +17,13 @@ import java.util.List;
 import common.*;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 import hanto.student_abenson_pasalem.common.Board.IHantoBoard;
-import hanto.student_abenson_pasalem.common.RuleValidator.IHantoRuleSet;
 import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerState;
 
 /**
  * An abstract class used for defining common characteristics of Hanto games
  * @author alec
  */
-public abstract class BaseHantoGame implements HantoGame, IHantoRuleSet{
+public abstract class BaseHantoGame implements HantoGame{
 	protected int redTurns = 0, blueTurns = 0;
 	protected boolean isGameOver;
 	protected int maxTurns = 0;

@@ -10,6 +10,7 @@ import common.HantoCoordinate;
 import common.HantoException;
 import common.HantoPiece;
 import common.HantoPieceType;
+import hanto.student_abenson_pasalem.common.BaseHantoGame;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 
 /**
@@ -20,7 +21,7 @@ import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 public class AdjacentOpposingPieceValidator implements IRuleValidator{
 
 	@Override
-	public void validate(IHantoRuleSet game, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
+	public void validate(BaseHantoGame game, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 			throws HantoException {
 		
 		//Does not apply for first turns
