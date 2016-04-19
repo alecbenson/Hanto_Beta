@@ -9,6 +9,7 @@ import common.HantoPieceType;
 import common.HantoPlayerColor;
 import hanto.student_abenson_pasalem.common.HantoPieceImpl;
 import hanto.student_abenson_pasalem.common.PieceValidator.ContiguousMovementValidator;
+import hanto.student_abenson_pasalem.common.PieceValidator.FlyValidator;
 import hanto.student_abenson_pasalem.common.PieceValidator.IPieceValidator;
 import hanto.student_abenson_pasalem.common.PieceValidator.WalkValidator;
 
@@ -32,7 +33,7 @@ public class HantoPieceFactory{
 			IPieceValidator butterflyValidator = new WalkValidator(1);
 			return new HantoPieceImpl(color, type, contiguousMoveValidator, butterflyValidator);
 		case SPARROW:
-			IPieceValidator sparrowValidator = new WalkValidator(1);
+			IPieceValidator sparrowValidator = new FlyValidator(Integer.MAX_VALUE);
 			return new HantoPieceImpl(color, type, contiguousMoveValidator, sparrowValidator);
 		case CRAB:
 			IPieceValidator crabValidator = new WalkValidator(3);

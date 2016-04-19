@@ -353,6 +353,15 @@ public class DeltaHantoMasterTest {
 	}
 	
 	@Test
+	public void sparrowCanFly() throws HantoException
+	{
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(SPARROW, -1, 0), md(SPARROW, 1, 1),
+				md(SPARROW, 1,-1), md(SPARROW, 0, 2),
+				md(SPARROW, 1, -1, -1, 2));
+	}
+	
+	@Test
 	public void testAdjacentSquares() throws HantoException
 	{
 		setup();

@@ -19,9 +19,8 @@ import hanto.student_abenson_pasalem.common.Board.IHantoBoard;
  * Ensures that moved pieces are contiguous
  */
 public class ContiguousMovementValidator implements IPieceValidator{
-
 	@Override
-	public void validate(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) throws HantoException {
+	public void validate(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) throws HantoException {		
 		List<HantoCoordinate> visited = new ArrayList<HantoCoordinate>();
 		int totalPieces = board.pieceCount();
 		List<HantoCoordinate> contiguousGraph = getContiguousGraph(board, from, to, visited); 
