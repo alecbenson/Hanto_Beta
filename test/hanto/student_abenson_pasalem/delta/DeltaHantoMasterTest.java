@@ -28,6 +28,8 @@ import common.HantoPlayerColor;
 import common.MoveResult;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.HantoGameFactory;
+import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerState;
+import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerStateFactory;
 import student_abenson_pasalem.delta.DeltaHantoGame;
 
 public class DeltaHantoMasterTest {
@@ -405,4 +407,19 @@ public class DeltaHantoMasterTest {
 		assertEquals(true, ((DeltaHantoGame) game).getIsGameOver());
 	}
 	
+	
+	@Test
+	public void playerStateInvalidVersion() throws HantoException
+	{
+		HantoPlayerState playerState = HantoPlayerStateFactory.makePlayerState(null, BLUE);
+		assertEquals(null, playerState);
+		
+	}
+	
+	@Test(expected=HantoException.class)
+	public void setStartPieceCountAgain() throws HantoException
+	{
+		HantoPlayerState playerState2 = HantoPlayerStateFactory.makePlayerState(HantoGameID.DELTA_HANTO, BLUE);
+		playerState2.setStartPieceCount(HantoPieceType.SPARROW, 4);
+	}
 }

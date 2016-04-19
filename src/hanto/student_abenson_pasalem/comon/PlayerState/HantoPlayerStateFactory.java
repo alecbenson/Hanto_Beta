@@ -22,6 +22,9 @@ public class HantoPlayerStateFactory {
 	public static HantoPlayerState makePlayerState(HantoGameID version, HantoPlayerColor player){
 		HantoPlayerState state = new HantoPlayerState(player);
 		try{
+			if(version == null){
+				throw new HantoException("Player states not defined for this game type");
+			}
 			switch(version){
 				case BETA_HANTO:
 					state.setStartPieceCount(HantoPieceType.SPARROW, 5);
@@ -34,10 +37,11 @@ public class HantoPlayerStateFactory {
 					state.setStartPieceCount(HantoPieceType.CRAB, 4);
 					break;
 				default:
-					throw new HantoException("Player states not defined for this game type");
+					break;
 			}
 		}catch(HantoException e){
 			state = null;
+			
 		}
 		return state;
 	}
