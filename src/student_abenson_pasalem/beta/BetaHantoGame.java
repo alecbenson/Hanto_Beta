@@ -5,6 +5,10 @@
 
 package student_abenson_pasalem.beta;
 
+import static common.HantoPlayerColor.BLUE;
+import static common.MoveResult.BLUE_WINS;
+import static common.MoveResult.RED_WINS;
+
 import common.*;
 import hanto.student_abenson_pasalem.common.BaseHantoGame;
 import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactory;
@@ -18,13 +22,12 @@ import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerStateFactory;
 public class BetaHantoGame extends BaseHantoGame implements HantoGame {
 	/**
 	 * Constructor for BetaHantoGame.
-	 * 
 	 * @param startPlayer
-	 *            HantoPlayerColor
 	 */
 	public BetaHantoGame(HantoPlayerColor movesFirst) {
 		super(movesFirst);
 		maxTurns = 12;
+		canResign = false;
 		HantoGameID version = HantoGameID.BETA_HANTO;
 		bluePlayerState = HantoPlayerStateFactory.makePlayerState(
 				version, HantoPlayerColor.BLUE);
@@ -40,11 +43,19 @@ public class BetaHantoGame extends BaseHantoGame implements HantoGame {
 	@Override
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 		throws HantoException {
-		HantoPiece piece = HantoPieceFactory.createPiece(currentPlayer, pieceType);
-		IRuleValidator moveValidator = new PreTurnValidator();
-		moveValidator.validate(this, pieceType, from, to);
-		board.placePiece(piece, to);
-		currentPlayerState.getPieceFromInventory(pieceType);
+		
+		//Check if there was a resignation move
+		checkPlayerResigned(pieceType, from, to);
+		
+		if(from != null){
+			throw new HantoException("Cannot move in beta hanto");
+		} else{
+			HantoPiece piece = HantoPieceFactory.createPiece(currentPlayer, pieceType);
+			IRuleValidator moveValidator = new PreTurnValidator();
+			moveValidator.validate(this, pieceType, from, to);
+			board.placePiece(piece, to);
+			currentPlayerState.getPieceFromInventory(pieceType);
+		}
 		updateButterflyIfMoved(pieceType, to);
 		switchTurn();
 		return gameState();

@@ -32,6 +32,7 @@ public class DeltaHantoGame extends BaseHantoGame implements HantoGame {
 	public DeltaHantoGame(HantoPlayerColor movesFirst) {
 		super(movesFirst);
 		maxTurns = Integer.MAX_VALUE;
+		canResign = true;
 		HantoGameID version = DELTA_HANTO;
 		bluePlayerState = HantoPlayerStateFactory.makePlayerState(
 				version, HantoPlayerColor.BLUE);
@@ -47,28 +48,6 @@ public class DeltaHantoGame extends BaseHantoGame implements HantoGame {
 	@Override
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 			throws HantoException {
-		HantoPieceImpl piece;
-		IRuleValidator moveValidator = new PreTurnValidator();
-		moveValidator.validate(this, pieceType, from, to);
-		
-		//Moving a piece
-		if(from != null){
-			IRuleValidator checkMovingValidPiece = new MovingValidPieceValidator();
-			checkMovingValidPiece.validate(this, pieceType, from, to);
-			piece = (HantoPieceImpl) board.getPieceAt(from);
-			checkPieceCanMove(piece, from, to);
-			board.movePiece(from, to);
-		//Placing a piece
-		} else{
-			IRuleValidator opposingAdjacentValidator = new AdjacentOpposingPieceValidator();
-			opposingAdjacentValidator.validate(this, pieceType, from, to);
-			piece = HantoPieceFactory.createPiece(currentPlayer, pieceType);
-			board.placePiece(piece, to);
-			currentPlayerState.getPieceFromInventory(pieceType);
-		}
-		updateButterflyIfMoved(pieceType, to);
-		switchTurn();
-		return gameState();
+		return super.makeMove(pieceType, from, to);
 	}
-
 }

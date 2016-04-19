@@ -572,11 +572,31 @@ public class BetaHantoMasterTest
 		assertEquals(DRAW, game.makeMove(SPARROW, null, makeCoordinate(-1, 1)));
 	}
 	
-	@Test	// 17
+	@Test
 	public void placeNextToOpposingPieceOkayInBeta() throws HantoException
 	{
 		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));	// Move 1
 		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
 		game.makeMove(SPARROW, null, makeCoordinate(1, 1));	// Move 2
 	}
+	
+	@Test(expected=HantoException.class)
+	public void attemptResign() throws HantoException
+	{
+		setup();
+		final MoveResult mr = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		assertEquals(OK, mr);
+		game.makeMove(null, null, null);
+	}
+	
+	@Test(expected=HantoException.class)
+	public void attemptMovingPiece() throws HantoException
+	{
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
+		game.makeMove(SPARROW, null, makeCoordinate(0, -1));
+		game.makeMove(SPARROW, null, makeCoordinate(0, 2));
+		game.makeMove(SPARROW, makeCoordinate(1,1), makeCoordinate(1, -1));
+	}
+	
 }

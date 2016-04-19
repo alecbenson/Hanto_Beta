@@ -28,6 +28,7 @@ import common.HantoPlayerColor;
 import common.MoveResult;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.HantoGameFactory;
+import student_abenson_pasalem.delta.DeltaHantoGame;
 
 public class DeltaHantoMasterTest {
 	class MoveData {
@@ -393,4 +394,15 @@ public class DeltaHantoMasterTest {
 		expectedCoords.add(northWest);
 		assertEquals(expectedCoords,commonAdj);
 	}
+	
+	@Test
+	public void attemptResign() throws HantoException
+	{
+		setup();
+		final MoveResult mr = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		assertEquals(OK, mr);
+		game.makeMove(null, null, null);
+		assertEquals(true, ((DeltaHantoGame) game).getIsGameOver());
+	}
+	
 }

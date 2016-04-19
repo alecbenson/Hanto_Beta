@@ -693,6 +693,15 @@ public class GammaHantoMasterTest {
 				md(SPARROW, -1, 0), md(SPARROW, -2, 0));
 	}
 	
+	@Test(expected=HantoException.class)
+	public void attemptResign() throws HantoException
+	{
+		setup();
+		final MoveResult mr = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		assertEquals(OK, mr);
+		game.makeMove(null, null, null);
+	}
+	
 	@Test
 	public void drawAfterTwentyTurns() throws HantoException
 	{

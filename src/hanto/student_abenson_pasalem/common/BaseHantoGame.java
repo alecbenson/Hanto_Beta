@@ -17,6 +17,11 @@ import java.util.List;
 import common.*;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 import hanto.student_abenson_pasalem.common.Board.IHantoBoard;
+import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactory;
+import hanto.student_abenson_pasalem.common.RuleValidator.AdjacentOpposingPieceValidator;
+import hanto.student_abenson_pasalem.common.RuleValidator.IRuleValidator;
+import hanto.student_abenson_pasalem.common.RuleValidator.MovingValidPieceValidator;
+import hanto.student_abenson_pasalem.common.RuleValidator.GameRuleSets.PreTurnValidator;
 import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerState;
 
 /**
@@ -25,7 +30,7 @@ import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerState;
  */
 public abstract class BaseHantoGame implements HantoGame{
 	protected int redTurns = 0, blueTurns = 0;
-	protected boolean isGameOver;
+	protected boolean canResign, isGameOver;
 	protected int maxTurns = 0;
 	protected HantoCoordinateImpl redButterflyPos = null, blueButterflyPos = null;
 	protected HantoPlayerColor currentPlayer;
@@ -41,7 +46,6 @@ public abstract class BaseHantoGame implements HantoGame{
 		board = new HantoBoardImpl();
 	}
 	
-	
 	/*
 	 * @see hanto.common.HantoGame#makeMove(hanto.common.HantoPieceType,
 	 * hanto.common.HantoCoordinate, hanto.common.HantoCoordinate)
@@ -49,7 +53,34 @@ public abstract class BaseHantoGame implements HantoGame{
 	@Override
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 			throws HantoException {
-		throw new HantoException("Must be implemented by the game version");
+		//If there is a resignation, end the game
+		if(checkPlayerResigned(pieceType, from, to)){
+			isGameOver = true;
+			return currentPlayerState.getColor() == BLUE ? RED_WINS : BLUE_WINS;
+		}
+		
+		HantoPieceImpl piece;
+		IRuleValidator preturnValidator = new PreTurnValidator();
+		preturnValidator.validate(this, pieceType, from, to);
+		
+		//Moving a piece
+		if(from != null){
+			IRuleValidator checkMovingValidPiece = new MovingValidPieceValidator();
+			checkMovingValidPiece.validate(this, pieceType, from, to);
+			piece = (HantoPieceImpl) board.getPieceAt(from);
+			checkPieceCanMove(piece, from, to);
+			board.movePiece(from, to);
+		//Placing a piece
+		} else{
+			IRuleValidator opposingAdjacentValidator = new AdjacentOpposingPieceValidator();
+			opposingAdjacentValidator.validate(this, pieceType, from, to);
+			piece = HantoPieceFactory.createPiece(currentPlayer, pieceType);
+			board.placePiece(piece, to);
+			currentPlayerState.getPieceFromInventory(pieceType);
+		}
+		updateButterflyIfMoved(pieceType, to);
+		switchTurn();
+		return gameState();
 	}
 
 	/**
@@ -153,6 +184,24 @@ public abstract class BaseHantoGame implements HantoGame{
 				break;		
 			}
 		}
+	}
+	
+	/**
+	 * Returns true if a resignation is received
+	 * @param pieceType the piecetype being played
+	 * @param from the coordinate the player is moving from
+	 * @param to the coordinate the player is moving to
+	 * @return true if resignation received, false otherwise
+	 */
+	public boolean checkPlayerResigned(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
+			throws HantoException{
+		if(pieceType == null && from == null && to == null){
+			if(!canResign){
+				throw new HantoException("You cannot resign in this version of hanto");
+			}
+			return true;
+		}
+		return false;
 	}
 
 	/*
