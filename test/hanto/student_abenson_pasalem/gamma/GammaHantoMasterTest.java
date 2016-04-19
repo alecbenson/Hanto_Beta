@@ -318,7 +318,7 @@ public class GammaHantoMasterTest {
 		setup();
 		final MoveResult bluebutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
 		final MoveResult redbutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(1,0));
-		final MoveResult bluemovebutterfly = game.makeMove(null, makeCoordinate(0,0), makeCoordinate(1, -10));
+		final MoveResult bluemovebutterfly = game.makeMove(BUTTERFLY, makeCoordinate(0,0), makeCoordinate(1, -10));
 	}
 	
 	/**
@@ -328,7 +328,7 @@ public class GammaHantoMasterTest {
 	 * but it causes one of the sparrows in the line to be isolated. This should throw an exception
 	 * @throws HantoException
 	 */
-	@Test (expected = HantoException.class)  // 18
+	@Test (expected = HantoException.class) //18
 	public void blueIsolatesSparrow() throws HantoException
 	{
 		setup();
@@ -340,7 +340,7 @@ public class GammaHantoMasterTest {
 		final MoveResult redSparrow2 = game.makeMove(SPARROW, null, makeCoordinate(0,2));
 		final MoveResult blueSparrow3 = game.makeMove(SPARROW, null, makeCoordinate(0,-1));
 		final MoveResult redSparrow3 = game.makeMove(SPARROW, null, makeCoordinate(-1,2));
-		final MoveResult isolatingMove = game.makeMove(null, makeCoordinate(-1,0), makeCoordinate(-1,-1));
+		final MoveResult isolatingMove = game.makeMove(SPARROW, makeCoordinate(-1,0), makeCoordinate(-1,-1));
 	}
 	
 	
@@ -354,7 +354,7 @@ public class GammaHantoMasterTest {
 		setup();
 		final MoveResult bluebutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
 		final MoveResult redbutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(1,0));
-		final MoveResult bluemovebutterfly = game.makeMove(null, makeCoordinate(0,0), makeCoordinate(-1, 0));
+		final MoveResult bluemovebutterfly = game.makeMove(BUTTERFLY, makeCoordinate(0,0), makeCoordinate(-1, 0));
 	}
 	
 	/**

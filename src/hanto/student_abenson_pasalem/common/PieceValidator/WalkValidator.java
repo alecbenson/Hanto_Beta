@@ -29,7 +29,8 @@ public class WalkValidator implements IPieceValidator{
 	 * @param to
 	 * @return
 	 */
-	public boolean enoughSpaceToWalk(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to){
+	public boolean enoughSpaceToWalk(HantoBoardImpl board, 
+			HantoCoordinate from, HantoCoordinate to) throws HantoException{
 		List<HantoCoordinateImpl> commonAdjacencies = new HantoCoordinateImpl(from).getCommonNeighbors(
 				new HantoCoordinateImpl(to));
 		
@@ -68,11 +69,18 @@ public class WalkValidator implements IPieceValidator{
 			//Go through list of neighboring pieces
 			for(HantoCoordinate neighbor : neighbors){
 				HantoCoordinateImpl neighborKey = new HantoCoordinateImpl(neighbor);
+				IPieceValidator contiguousChecker = new ContiguousMovementValidator();
 				//Skip if we can't walk to this neighbor
 				if(!this.enoughSpaceToWalk(board, current, neighbor)){
-					//Or spaces that would cause isolation if moved to
 					continue;
 				}
+				//Skip if this movement causes isolation
+				try{
+					contiguousChecker.validate(board, from, to);
+				} catch(HantoException e){
+					continue;
+				}
+				
 				if(!distMap.containsKey(neighborKey)){
 						visitQueue.add(neighborKey);
 						distMap.put(neighborKey, tentativeCost);
@@ -84,8 +92,6 @@ public class WalkValidator implements IPieceValidator{
 				}
 				
 				if(neighbor.getX() == to.getX() && neighbor.getY() == to.getY()){
-					System.out.println("Got to " + to.getX() + "," + to.getY() + 
-							" in " + tentativeCost + " from " + current.getX() + "," + current.getY());
 					return;
 				}
 			}

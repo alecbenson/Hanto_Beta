@@ -343,6 +343,7 @@ public class DeltaHantoMasterTest {
 				md(CRAB,0,-2,-1, 1), md(CRAB,5,0));
 	}
 	
+	@Test(expected=HantoException.class)
 	public void walkCrab3SpacesInvalid() throws HantoException
 	{
 		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
@@ -351,6 +352,29 @@ public class DeltaHantoMasterTest {
 				md(SPARROW, 2, -2), md(SPARROW, 3,0),
 				md(CRAB, 0, -2), md(SPARROW, 4, 0),
 				md(CRAB,0,-2, 3,-2), md(CRAB,5,0));
+	}
+	
+	@Test(expected=HantoException.class)
+	public void walkCrab3SpacesCausesIsolation() throws HantoException
+	{
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(SPARROW, 0, -1), md(SPARROW, 1, 1),
+				md(SPARROW, 1, -2), md(SPARROW, 2, 0),
+				md(SPARROW, 2, -2), md(SPARROW, 3,0),
+				md(CRAB, 0, -2), md(SPARROW, 4, 0),
+				md(CRAB, 0, -3), md(CRAB, 5, 0),
+				md(CRAB,0,-2, -1,-1), md(CRAB,6,0));
+	}
+	
+	@Test (expected=HantoException.class)
+	public void cantWalkButterflyPinned() throws HantoException
+	{
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(SPARROW, -1, 0), md(SPARROW, 1, 1),
+				md(SPARROW, 1,-1), md(SPARROW, 0, 2),
+				md(CRAB,2,-1), md(CRAB,-1,2),
+				md(CRAB,2,-1, 1, 0), md(CRAB, 0, 3),
+				md(BUTTERFLY,0,0, -1,1));
 	}
 	
 	@Test
