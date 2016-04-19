@@ -34,8 +34,6 @@ public class BetaPlaceValidator implements IRuleValidator{
 		validators.add(butterflyValidator);
 		IRuleValidator firstMoveValidator = new FirstTurnValidator();
 		validators.add(firstMoveValidator);
-		IRuleValidator butterflySparrowValidator = new ButterflyOrSparrowValidator();
-		validators.add(butterflySparrowValidator);
 		IRuleValidator spaceoccupied = new SpaceOccupiedValidator();
 		validators.add(spaceoccupied);
 		

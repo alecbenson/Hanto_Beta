@@ -83,30 +83,6 @@ public class HantoBoardImpl implements IHantoBoard {
 		removePiece(from);
 		placePiece(piece, to);
 	}
-	
-	/**
-	 * Returns true if the space at coordinate A is adjacent to coordinate B
-	 * @param a
-	 * @param b
-	 * @return euclidian distance between the coordinates
-	 *
-	 */
-	public static boolean isAdjacentTo(HantoCoordinate a, HantoCoordinate b){
-		if(a == null || b == null){
-			return false;
-		}
-		
-		try{
-			HantoCoordinateImpl coordImplA = new HantoCoordinateImpl(a);
-			HantoCoordinateImpl coordImplB = new HantoCoordinateImpl(b);
-			int dist = coordImplA.distance(coordImplB);
-			//We use euclidian distance to verify that the pieces are adjacent
-			//If the pieces are adjacent, they will have a eucl. distance <= sqrt(2)
-			return dist <= Math.sqrt(2);
-		}catch(HantoException e){
-			return false;
-		}
-	}
 
 	/**
 	 * True if board is empty, false otherwise

@@ -67,19 +67,6 @@ public class HantoPlayerState {
 	}
 	
 	/**
-	 * Returns the number of pieces of the specified type in the player's inventory
-	 * @param pieceType
-	 * @return the number of pieces of the specified type the player has left
-	 */
-	public int piecesLeftInInventory(HantoPieceType pieceType){
-		if(!inventory.containsKey(pieceType)){
-			return 0;
-		} else{
-			return inventory.get(pieceType);
-		}
-	}
-	
-	/**
 	 * Returns true if the player has played the butterfly or not
 	 * @return
 	 */
