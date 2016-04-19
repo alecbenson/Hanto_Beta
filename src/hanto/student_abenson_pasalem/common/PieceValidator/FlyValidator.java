@@ -17,6 +17,10 @@ import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 public class FlyValidator implements IPieceValidator{
 	int maxDistance;
 	
+	/**
+	 * Default constructor for the fly validator
+	 * @param maxDistance the maximum distance the piece can fly
+	 */
 	public FlyValidator(int maxDistance){
 		this.maxDistance = maxDistance;
 	}

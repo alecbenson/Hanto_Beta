@@ -6,7 +6,6 @@
 
 package hanto.student_abenson_pasalem.gamma;
 
-import static common.HantoPieceType.BUTTERFLY;
 import static common.HantoPieceType.*;
 import static common.HantoPlayerColor.*;
 import static common.MoveResult.DRAW;
@@ -355,6 +354,14 @@ public class GammaHantoMasterTest {
 		final MoveResult bluebutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
 		final MoveResult redbutterfly = game.makeMove(BUTTERFLY, null, makeCoordinate(1,0));
 		final MoveResult bluemovebutterfly = game.makeMove(BUTTERFLY, makeCoordinate(0,0), makeCoordinate(-1, 0));
+	}
+	
+	@Test (expected = HantoException.class)
+	public void placeNextToOpposingPiece() throws HantoException
+	{
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));	// Move 1
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
+		game.makeMove(SPARROW, null, makeCoordinate(1, 1));	// Move 2
 	}
 	
 	/**

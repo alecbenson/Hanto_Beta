@@ -571,4 +571,12 @@ public class BetaHantoMasterTest
 		game.makeMove(SPARROW, null, makeCoordinate(-1, 2));	// Move 5
 		assertEquals(DRAW, game.makeMove(SPARROW, null, makeCoordinate(-1, 1)));
 	}
+	
+	@Test	// 17
+	public void placeNextToOpposingPieceOkayInBeta() throws HantoException
+	{
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));	// Move 1
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
+		game.makeMove(SPARROW, null, makeCoordinate(1, 1));	// Move 2
+	}
 }
