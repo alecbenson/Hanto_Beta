@@ -11,13 +11,14 @@
 package hanto.student_abenson_pasalem.common;
 
 import common.*;
+import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 import hanto.student_abenson_pasalem.common.PieceValidator.IPieceValidator;
 
 /**
  * Implementation of the HantoPiece.
  * @version Mar 2,2016
  */
-public class HantoPieceImpl implements HantoPiece, IPieceValidator
+public class HantoPieceImpl implements HantoPiece
 {
 	private final HantoPlayerColor color;
 	private final HantoPieceType type;
@@ -59,9 +60,9 @@ public class HantoPieceImpl implements HantoPiece, IPieceValidator
 	 * @param to
 	 * @return
 	 */
-	public boolean canMove(HantoCoordinate from, HantoCoordinate to) {
+	public boolean canMove(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) {
 		for(IPieceValidator validator : validators){
-			if(validator.canMove(from, to)){
+			if(validator.canMove(board, from, to)){
 				return true;
 			}
 		}

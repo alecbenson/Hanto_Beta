@@ -12,6 +12,7 @@ package hanto.student_abenson_pasalem.common;
 
 import common.*;
 import student_abenson_pasalem.beta.BetaHantoGame;
+import student_abenson_pasalem.delta.DeltaHantoGame;
 import student_abenson_pasalem.gamma.GammaHantoGame;
 
 /**
@@ -55,6 +56,9 @@ public class HantoGameFactory
 				break;
 			case GAMMA_HANTO:
 				game = new GammaHantoGame(movesFirst);
+				break;
+			case DELTA_HANTO:
+				game = new DeltaHantoGame(movesFirst);
 				break;
 		}
 		return game;

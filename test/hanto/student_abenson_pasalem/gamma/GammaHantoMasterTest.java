@@ -459,30 +459,6 @@ public class GammaHantoMasterTest {
 	}
 	
 	/**
-	 * 
-	 * Checks that a draw occurs when a move results in both the
-	 * red and blue butterflies to be surrounded.
-	 * @throws HantoException
-	 */
-	@Test	// 23
-	public void drawnGame() throws HantoException
-	{
-		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));	// Move 1
-		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
-		game.makeMove(SPARROW, null, makeCoordinate(-1, 0));	// Move 2
-		game.makeMove(SPARROW, null, makeCoordinate(-1, 2));
-		game.makeMove(SPARROW, null, makeCoordinate(0, -1));	// Move 3
-		game.makeMove(SPARROW, null, makeCoordinate(0, 2));
-		game.makeMove(SPARROW, null, makeCoordinate(1, -1));	// Move 4
-		game.makeMove(SPARROW, null, makeCoordinate(1, 1));
-		game.makeMove(SPARROW, null, makeCoordinate(2, -1));	// Move 5
-		game.makeMove(SPARROW, makeCoordinate(-1, 2), makeCoordinate(-1, 1));
-		game.makeMove(SPARROW, null, makeCoordinate(-2, 0)); 	// Move 6
-		game.makeMove(SPARROW, null, makeCoordinate(-1, 2));
-		assertEquals(DRAW, game.makeMove(SPARROW, makeCoordinate(2, -1), makeCoordinate(1, 0)));
-	}
-	
-	/**
 	 * Checks that the game ends when the blue butterfly is surrounded.
 	 * @throws HantoException
 	 */

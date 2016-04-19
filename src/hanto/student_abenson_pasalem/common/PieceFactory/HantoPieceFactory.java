@@ -11,6 +11,7 @@ import common.HantoPlayerColor;
 import hanto.student_abenson_pasalem.common.HantoPieceImpl;
 import hanto.student_abenson_pasalem.common.PieceValidator.AdjacentSquareValidator;
 import hanto.student_abenson_pasalem.common.PieceValidator.IPieceValidator;
+import hanto.student_abenson_pasalem.common.PieceValidator.WalkValidator;
 
 /**
  * Implementation of the hanto piece factory.
@@ -30,6 +31,9 @@ public class HantoPieceFactory{
 			return new HantoPieceImpl(color, type, adjacentValidator);
 		case SPARROW:
 			return new HantoPieceImpl(color, type, adjacentValidator);
+		case CRAB:
+			IPieceValidator crabValidator = new WalkValidator(3);
+			return new HantoPieceImpl(color, type, crabValidator);
 		default:
 			throw new HantoException("Move validators not defined for this type of piece");
 		}

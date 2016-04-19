@@ -29,7 +29,7 @@ public class AdjacentSquareValidator implements IPieceValidator{
 	 * @param to the space the piece is moving to
 	 * @throws HantoException 
 	 */
-	public boolean canMove(HantoCoordinate from, HantoCoordinate to) {
+	public boolean canMove(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) {
 		if(from == null || to == null){
 			return false;
 		}

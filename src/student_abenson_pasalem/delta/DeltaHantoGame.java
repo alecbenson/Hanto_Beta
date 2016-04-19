@@ -1,14 +1,16 @@
-/**
- * Gamma Hanto Game
- */
+package student_abenson_pasalem.delta;
 
-package student_abenson_pasalem.gamma;
-
-import common.*;
-import static common.HantoGameID.GAMMA_HANTO;
+import static common.HantoGameID.DELTA_HANTO;
 import static common.HantoPieceType.BUTTERFLY;
 import static common.HantoPlayerColor.RED;
 
+import common.HantoCoordinate;
+import common.HantoException;
+import common.HantoGame;
+import common.HantoGameID;
+import common.HantoPieceType;
+import common.HantoPlayerColor;
+import common.MoveResult;
 import hanto.student_abenson_pasalem.common.BaseHantoGame;
 import hanto.student_abenson_pasalem.common.HantoPieceImpl;
 import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactory;
@@ -17,16 +19,12 @@ import hanto.student_abenson_pasalem.common.RuleValidator.GammaPlaceValidator;
 import hanto.student_abenson_pasalem.common.RuleValidator.IRuleValidator;
 import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerStateFactory;
 
-/**
- * Gamma Hanto Game.
- * @author Peter
- *
- */
-public class GammaHantoGame extends BaseHantoGame implements HantoGame {
-	public GammaHantoGame(HantoPlayerColor movesFirst){
+public class DeltaHantoGame extends BaseHantoGame implements HantoGame {
+
+	public DeltaHantoGame(HantoPlayerColor movesFirst) {
 		super(movesFirst);
 		maxTurns = 40;
-		HantoGameID version = GAMMA_HANTO;
+		HantoGameID version = DELTA_HANTO;
 		bluePlayerState = HantoPlayerStateFactory.makePlayerState(
 				version, HantoPlayerColor.BLUE);
 		redPlayerState = HantoPlayerStateFactory.makePlayerState(
@@ -71,4 +69,5 @@ public class GammaHantoGame extends BaseHantoGame implements HantoGame {
 		switchTurn();
 		return gameState();
 	}
+
 }
