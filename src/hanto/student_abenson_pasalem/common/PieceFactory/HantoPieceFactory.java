@@ -11,6 +11,7 @@ import hanto.student_abenson_pasalem.common.HantoPieceImpl;
 import hanto.student_abenson_pasalem.common.PieceValidator.ContiguousMovementValidator;
 import hanto.student_abenson_pasalem.common.PieceValidator.FlyValidator;
 import hanto.student_abenson_pasalem.common.PieceValidator.IPieceValidator;
+import hanto.student_abenson_pasalem.common.PieceValidator.SameToFromValidator;
 import hanto.student_abenson_pasalem.common.PieceValidator.WalkValidator;
 
 /**
@@ -27,17 +28,21 @@ public class HantoPieceFactory{
 	 */
 	public static HantoPieceImpl createPiece(HantoPlayerColor color, HantoPieceType type) throws HantoException{
 		IPieceValidator contiguousMoveValidator = new ContiguousMovementValidator();
+		IPieceValidator sameToFromValidator = new SameToFromValidator();
 		
 		switch(type){
 		case BUTTERFLY:
 			IPieceValidator butterflyValidator = new WalkValidator(1);
-			return new HantoPieceImpl(color, type, contiguousMoveValidator, butterflyValidator);
+			return new HantoPieceImpl(color, type, 
+					contiguousMoveValidator, butterflyValidator, sameToFromValidator);
 		case SPARROW:
 			IPieceValidator sparrowValidator = new FlyValidator(Integer.MAX_VALUE);
-			return new HantoPieceImpl(color, type, contiguousMoveValidator, sparrowValidator);
+			return new HantoPieceImpl(color, type,
+					contiguousMoveValidator, sparrowValidator, sameToFromValidator);
 		case CRAB:
 			IPieceValidator crabValidator = new WalkValidator(3);
-			return new HantoPieceImpl(color, type, contiguousMoveValidator, crabValidator);
+			return new HantoPieceImpl(color, type,
+					contiguousMoveValidator, crabValidator, sameToFromValidator);
 		default:
 			throw new HantoException("Move validators not defined for this type of piece");
 		}

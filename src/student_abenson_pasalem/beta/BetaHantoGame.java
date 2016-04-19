@@ -49,17 +49,7 @@ public class BetaHantoGame extends BaseHantoGame implements HantoGame {
 		placeValidator.validate(this, pieceType, from, to);
 		board.placePiece(piece, to);
 		currentPlayerState.getPieceFromInventory(pieceType);
-
-		// Indicate that the player has actually played the butterfly
-		if (currentPlayer == RED) {
-			if (piece.getType() == BUTTERFLY) {
-				redButterflyPos = new HantoCoordinateImpl(to);
-			}
-		} else {
-			if (piece.getType() == BUTTERFLY) {
-				blueButterflyPos = new HantoCoordinateImpl(to);
-			}
-		}
+		updateButterflyIfMoved(pieceType, to);
 		switchTurn();
 		return gameState();
 	}

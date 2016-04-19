@@ -27,18 +27,14 @@ public class GammaMoveValidator implements IRuleValidator{
 		
 		IRuleValidator gameoverValidator = new IsGameOverValidator();
 		validators.add(gameoverValidator);
-		IRuleValidator movingPieceExists = new MovingPieceExistsValidator();
-		validators.add(movingPieceExists);
-		IRuleValidator movePieceTypeMatches = new MovePieceTypeMatchesValidator();
-		validators.add(movePieceTypeMatches);
+		IRuleValidator moveValidPiece = new MovingValidPieceValidator();
+		validators.add(moveValidPiece);
 		IRuleValidator adjacentValidator = new PieceAdjacentValidator();
 		validators.add(adjacentValidator);
 		IRuleValidator butterflyValidator = new MustPlayButterflyValidator();
 		validators.add(butterflyValidator);
 		IRuleValidator spaceoccupied = new SpaceOccupiedValidator();
 		validators.add(spaceoccupied);
-		IRuleValidator movesOwnPiece = new PlayerMovesOwnPieceValidator();
-		validators.add(movesOwnPiece);
 		
 		//Run all validators
 		for(IRuleValidator validator : validators){

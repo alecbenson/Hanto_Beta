@@ -135,6 +135,26 @@ public abstract class BaseHantoGame implements HantoGame, IHantoRuleSet{
 			redTurns++;
 		}
 	}
+	
+	/**
+	 * Update the butterfly position if it is moved
+	 * @param pieceType the type of the piece being moved
+	 * @param to the location the piece is being moved to
+	 */
+	public void updateButterflyIfMoved(HantoPieceType pieceType, HantoCoordinate to){
+		if(pieceType == BUTTERFLY){
+			switch(currentPlayerState.getColor()){
+			case RED:
+				redButterflyPos = new HantoCoordinateImpl(to);
+				break;
+			case BLUE:
+				blueButterflyPos = new HantoCoordinateImpl(to);
+				break;
+			default:
+				break;		
+			}
+		}
+	}
 
 	/*
 	 * @see hanto.common.HantoGame#getPieceAt(hanto.common.HantoCoordinate)

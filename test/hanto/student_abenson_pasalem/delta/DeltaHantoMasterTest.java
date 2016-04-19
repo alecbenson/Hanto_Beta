@@ -190,6 +190,14 @@ public class DeltaHantoMasterTest {
 	}
 	
 	@Test(expected=HantoException.class)
+	public void moveToSameLocation() throws HantoException
+	{
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1), 
+				md(SPARROW, 1, -1), md(SPARROW, 1, 1),
+				md(SPARROW, 1, -1, 1, -1));
+	}
+	
+	@Test(expected=HantoException.class)
 	public void tryToUsePieceNotInGame() throws HantoException
 	{
 		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1), 
