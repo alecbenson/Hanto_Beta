@@ -10,13 +10,13 @@ import java.util.List;
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoPieceType;
-import hanto.student_abenson_pasalem.BaseHantoGame;
 import hanto.student_abenson_pasalem.RuleValidator.FirstTurnValidator;
 import hanto.student_abenson_pasalem.RuleValidator.IRuleValidator;
 import hanto.student_abenson_pasalem.RuleValidator.IsGameOverValidator;
 import hanto.student_abenson_pasalem.RuleValidator.MustPlayButterflyValidator;
 import hanto.student_abenson_pasalem.RuleValidator.PieceAdjacentValidator;
 import hanto.student_abenson_pasalem.RuleValidator.SpaceOccupiedValidator;
+import hanto.student_abenson_pasalem.common.BaseHantoGame;
 
 /**
  * Validator that gets run before a turn.

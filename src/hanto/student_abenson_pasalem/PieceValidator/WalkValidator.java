@@ -12,8 +12,8 @@ import java.util.Queue;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
-import hanto.student_abenson_pasalem.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.Board.HantoBoardImpl;
+import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 
 /**
  * Ensures that pieces walk in accordance to the rules

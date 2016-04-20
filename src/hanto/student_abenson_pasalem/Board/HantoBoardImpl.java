@@ -10,7 +10,7 @@ import java.util.Map;
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoPiece;
-import hanto.student_abenson_pasalem.HantoCoordinateImpl;
+import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 
 
 /**

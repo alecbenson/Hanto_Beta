@@ -7,11 +7,11 @@ package hanto.student_abenson_pasalem.PieceFactory;
 import hanto.common.HantoException;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
-import hanto.student_abenson_pasalem.HantoPieceImpl;
 import hanto.student_abenson_pasalem.PieceValidator.ContiguousMovementValidator;
 import hanto.student_abenson_pasalem.PieceValidator.FlyValidator;
 import hanto.student_abenson_pasalem.PieceValidator.IPieceValidator;
 import hanto.student_abenson_pasalem.PieceValidator.WalkValidator;
+import hanto.student_abenson_pasalem.common.HantoPieceImpl;
 
 /**
  * Implementation of the hanto piece factory.

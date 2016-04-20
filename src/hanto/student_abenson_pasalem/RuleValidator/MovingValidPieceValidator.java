@@ -8,7 +8,7 @@ import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
-import hanto.student_abenson_pasalem.BaseHantoGame;
+import hanto.student_abenson_pasalem.common.BaseHantoGame;
 
 /**
  * Validates movement calls so that the pieceType matches the type on the board

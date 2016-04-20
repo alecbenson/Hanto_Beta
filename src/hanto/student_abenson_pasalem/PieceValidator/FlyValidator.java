@@ -6,8 +6,8 @@ package hanto.student_abenson_pasalem.PieceValidator;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
-import hanto.student_abenson_pasalem.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.Board.HantoBoardImpl;
+import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 
 /**
  * Validates movement of pieces that can fly

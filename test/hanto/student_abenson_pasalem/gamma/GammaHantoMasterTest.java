@@ -6,12 +6,12 @@
 
 package hanto.student_abenson_pasalem.gamma;
 
-import static common.HantoPieceType.*;
-import static common.HantoPlayerColor.*;
-import static common.MoveResult.DRAW;
-import static common.MoveResult.OK;
-import static common.MoveResult.RED_WINS;
-import static common.MoveResult.BLUE_WINS;
+import static hanto.common.HantoPieceType.*;
+import static hanto.common.HantoPlayerColor.*;
+import static hanto.common.MoveResult.BLUE_WINS;
+import static hanto.common.MoveResult.DRAW;
+import static hanto.common.MoveResult.OK;
+import static hanto.common.MoveResult.RED_WINS;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -22,18 +22,16 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import common.HantoCoordinate;
-import common.HantoException;
-import common.HantoGameID;
-import common.HantoPiece;
-import common.HantoPieceType;
-import common.HantoPlayerColor;
-import common.MoveResult;
+import hanto.common.HantoCoordinate;
+import hanto.common.HantoException;
+import hanto.common.HantoGameID;
+import hanto.common.HantoPiece;
+import hanto.common.HantoPieceType;
+import hanto.common.HantoPlayerColor;
+import hanto.common.MoveResult;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.HantoGameFactory;
-import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
-import student_abenson_pasalem.delta.DeltaHantoGame;
-import student_abenson_pasalem.gamma.GammaHantoGame;
+import hanto.student_abenson_pasalem.gamma.GammaHantoGame;
 
 /**
  * Gamma Hanto Test.
@@ -242,7 +240,7 @@ public class GammaHantoMasterTest {
 	 * Checking if first movement by blue is at the origin
 	 * @throws HantoException
 	 */
-	@Test (expected = common.HantoException.class) // 12
+	@Test (expected = hanto.common.HantoException.class) // 12
 	public void firstMoveIllegalSpot() throws HantoException
 	{
 		setup();
@@ -253,7 +251,7 @@ public class GammaHantoMasterTest {
 	 * Throws an exception when blue tries to play a butterfly twice	
 	 * @throws HantoException
 	 */
-	@Test (expected = common.HantoException.class) // 13
+	@Test (expected = hanto.common.HantoException.class) // 13
 	public void bluebutterflyPlayedTwice() throws HantoException
 	{
 		setup();
@@ -268,7 +266,7 @@ public class GammaHantoMasterTest {
 	 * Ensures that a player can't play the butterfly twice.
 	 * @throws HantoException
 	 */
-	@Test (expected = common.HantoException.class) // 14
+	@Test (expected = hanto.common.HantoException.class) // 14
 	public void redbutterflyPlayedTwice() throws HantoException
 	{
 		setup();
@@ -285,7 +283,7 @@ public class GammaHantoMasterTest {
 	 * Checking if a spot is moved to twice
 	 * @throws HantoException
 	 */
-	@Test (expected = common.HantoException.class) // 15
+	@Test (expected = hanto.common.HantoException.class) // 15
 	public void spotMovedToTwice() throws HantoException
 	{
 		setup();
@@ -707,9 +705,9 @@ public class GammaHantoMasterTest {
 	public void newGameRedMovesFirst() throws HantoException
 	{
 		game = new GammaHantoGame(RED);
-		assertEquals( ((GammaHantoGame) game).getCurrentPlayerState().getColor(), RED);
+		assertEquals( game.getCurrentPlayerState().getColor(), RED);
 		makeMoves(md(BUTTERFLY, 0, 0));
-		assertEquals( ((GammaHantoGame) game).getCurrentPlayerState().getColor(), BLUE);
+		assertEquals( game.getCurrentPlayerState().getColor(), BLUE);
 		
 	}
 	

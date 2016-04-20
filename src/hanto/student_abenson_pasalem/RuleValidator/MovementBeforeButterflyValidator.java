@@ -7,8 +7,8 @@ package hanto.student_abenson_pasalem.RuleValidator;
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoPieceType;
-import hanto.student_abenson_pasalem.BaseHantoGame;
 import hanto.student_abenson_pasalem.PlayerState.HantoPlayerState;
+import hanto.student_abenson_pasalem.common.BaseHantoGame;
 
 /**
  * Ensures that a player does not move until their butterfly is down

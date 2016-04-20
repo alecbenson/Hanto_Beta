@@ -10,16 +10,16 @@
 
 package hanto.student_abenson_pasalem.beta;
 
-import static common.HantoPieceType.*;
-import static common.HantoPlayerColor.*;
-import static common.MoveResult.*;
+import static hanto.common.HantoPieceType.*;
+import static hanto.common.HantoPlayerColor.*;
+import static hanto.common.MoveResult.*;
 import static org.junit.Assert.*;
 
 import org.junit.*;
 
-import common.*;
+import hanto.common.*;
+import hanto.student_abenson_pasalem.beta.BetaHantoGame;
 import hanto.student_abenson_pasalem.common.HantoGameFactory;
-import student_abenson_pasalem.beta.BetaHantoGame;
 
 /**
  * Test cases for Beta Hanto.
@@ -344,7 +344,7 @@ public class BetaHantoMasterTest
 	 * Checking if first movement by blue is at the origin
 	 * @throws HantoException
 	 */
-	@Test (expected = common.HantoException.class) // 11
+	@Test (expected = hanto.common.HantoException.class) // 11
 	public void firstMoveIllegalSpot() throws HantoException
 	{
 		setup();
@@ -355,7 +355,7 @@ public class BetaHantoMasterTest
 	 * Throws an exception when blue tries to play a butterfly twice	
 	 * @throws HantoException
 	 */
-	@Test (expected = common.HantoException.class) //12
+	@Test (expected = hanto.common.HantoException.class) //12
 	public void bluebutterflyPlayedTwice() throws HantoException
 	{
 		setup();
@@ -366,7 +366,7 @@ public class BetaHantoMasterTest
 		final MoveResult bluemove2 = game.makeMove(BUTTERFLY, null, makeCoordinate(1, 0));
 	}
 	
-	@Test (expected = common.HantoException.class) //14
+	@Test (expected = hanto.common.HantoException.class) //14
 	public void redbutterflyPlayedTwice() throws HantoException
 	{
 		setup();
@@ -383,7 +383,7 @@ public class BetaHantoMasterTest
 	 * Checking if a spot to is moved to twice
 	 * @throws HantoException
 	 */
-	@Test (expected = common.HantoException.class) //13
+	@Test (expected = hanto.common.HantoException.class) //13
 	public void spotMovedToTwice() throws HantoException
 	{
 		setup();

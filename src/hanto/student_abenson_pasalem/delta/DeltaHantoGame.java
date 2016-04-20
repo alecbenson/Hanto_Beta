@@ -13,8 +13,8 @@ import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
-import hanto.student_abenson_pasalem.BaseHantoGame;
 import hanto.student_abenson_pasalem.PlayerState.HantoPlayerStateFactory;
+import hanto.student_abenson_pasalem.common.BaseHantoGame;
 
 /**
  * represents a game of delta hanto

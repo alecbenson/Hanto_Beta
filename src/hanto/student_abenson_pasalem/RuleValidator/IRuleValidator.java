@@ -7,7 +7,7 @@ package hanto.student_abenson_pasalem.RuleValidator;
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoPieceType;
-import hanto.student_abenson_pasalem.BaseHantoGame;
+import hanto.student_abenson_pasalem.common.BaseHantoGame;
 
 /**
  * Interface for validator.

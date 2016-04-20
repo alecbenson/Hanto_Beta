@@ -3,12 +3,10 @@
  */
 package hanto.student_abenson_pasalem.delta;
 
-import static common.HantoPieceType.*;
-import static common.HantoPlayerColor.*;
-import static common.MoveResult.DRAW;
-import static common.MoveResult.OK;
-import static common.MoveResult.RED_WINS;
-import static common.MoveResult.BLUE_WINS;
+import static hanto.common.HantoPieceType.*;
+import static hanto.common.HantoPlayerColor.*;
+import static hanto.common.MoveResult.BLUE_WINS;
+import static hanto.common.MoveResult.OK;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
@@ -18,19 +16,19 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import common.HantoCoordinate;
-import common.HantoException;
-import common.HantoGame;
-import common.HantoGameID;
-import common.HantoPiece;
-import common.HantoPieceType;
-import common.HantoPlayerColor;
-import common.MoveResult;
+import hanto.common.HantoCoordinate;
+import hanto.common.HantoException;
+import hanto.common.HantoGame;
+import hanto.common.HantoGameID;
+import hanto.common.HantoPiece;
+import hanto.common.HantoPieceType;
+import hanto.common.HantoPlayerColor;
+import hanto.common.MoveResult;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.HantoGameFactory;
-import hanto.student_abenson_pasalem.common.PlayerState.HantoPlayerState;
-import hanto.student_abenson_pasalem.common.PlayerState.HantoPlayerStateFactory;
-import student_abenson_pasalem.delta.DeltaHantoGame;
+import hanto.student_abenson_pasalem.PlayerState.HantoPlayerState;
+import hanto.student_abenson_pasalem.PlayerState.HantoPlayerStateFactory;
+import hanto.student_abenson_pasalem.delta.DeltaHantoGame;
 
 public class DeltaHantoMasterTest {
 	class MoveData {

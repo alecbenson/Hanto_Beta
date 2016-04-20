@@ -10,8 +10,8 @@ import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
-import hanto.student_abenson_pasalem.BaseHantoGame;
-import hanto.student_abenson_pasalem.HantoCoordinateImpl;
+import hanto.student_abenson_pasalem.common.BaseHantoGame;
+import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 
 /**
  * Validator for not placing a piece next to an opposing piece.

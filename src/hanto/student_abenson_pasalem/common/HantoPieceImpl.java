@@ -8,7 +8,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package hanto.student_abenson_pasalem;
+package hanto.student_abenson_pasalem.common;
 
 
 import hanto.common.*;
