@@ -5,12 +5,12 @@
 
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
-import static common.HantoPlayerColor.RED;
-import static common.HantoPieceType.BUTTERFLY;
+import static hanto.common.HantoPieceType.BUTTERFLY;
+import static hanto.common.HantoPlayerColor.RED;
 
-import common.HantoCoordinate;
-import common.HantoException;
-import common.HantoPieceType;
+import hanto.common.HantoCoordinate;
+import hanto.common.HantoException;
+import hanto.common.HantoPieceType;
 
 /**
  * Validator for needing to played the butterfly.

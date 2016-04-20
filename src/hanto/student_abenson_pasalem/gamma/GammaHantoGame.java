@@ -2,24 +2,25 @@
  * Gamma Hanto Game
  */
 
-package student_abenson_pasalem.gamma;
+package hanto.student_abenson_pasalem.gamma;
 
-import static common.HantoPieceType.BUTTERFLY;
-import static common.HantoPlayerColor.BLUE;
-import static common.HantoPlayerColor.RED;
-import static common.MoveResult.BLUE_WINS;
-import static common.MoveResult.DRAW;
-import static common.MoveResult.OK;
-import static common.MoveResult.RED_WINS;
+import static hanto.common.HantoPieceType.BUTTERFLY;
+import static hanto.common.HantoPlayerColor.BLUE;
+import static hanto.common.HantoPlayerColor.RED;
+import static hanto.common.MoveResult.BLUE_WINS;
+import static hanto.common.MoveResult.DRAW;
+import static hanto.common.MoveResult.OK;
+import static hanto.common.MoveResult.RED_WINS;
+
 import java.util.List;
 
-import common.HantoCoordinate;
-import common.HantoException;
-import common.HantoGame;
-import common.HantoPiece;
-import common.HantoPieceType;
-import common.HantoPlayerColor;
-import common.MoveResult;
+import hanto.common.HantoCoordinate;
+import hanto.common.HantoException;
+import hanto.common.HantoGame;
+import hanto.common.HantoPiece;
+import hanto.common.HantoPieceType;
+import hanto.common.HantoPlayerColor;
+import hanto.common.MoveResult;
 import hanto.student_abenson_pasalem.common.HantoPieceImpl;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 import hanto.student_abenson_pasalem.common.Board.IHantoBoard;

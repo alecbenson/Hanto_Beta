@@ -8,14 +8,17 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package common;
+package hanto.common;
 
 /**
- * This enumeration identifies the players in Hanto.
- * 
- * @version Jan 12, 2013
+ * This enumeration provides symbolic constants for each variation of Hanto. Its 
+ * main purpose is to allow easy parameterization of the game creation in the
+ * HantoGameFactory class.
+ * @author gpollice
+ * @version Jan 30, 2013
  */
-public enum HantoPlayerColor
+public enum HantoGameID
 {
-	BLUE, RED;
+	ALPHA_HANTO, BETA_HANTO, GAMMA_HANTO, DELTA_HANTO, EPSILON_HANTO, 
+	THETA_HANTO, ZETA_HANTO, IOTA_HANTO;
 }

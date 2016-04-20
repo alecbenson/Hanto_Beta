@@ -5,8 +5,8 @@
 
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
-import common.HantoCoordinate;
-import common.HantoPlayerColor;
+import hanto.common.HantoCoordinate;
+import hanto.common.HantoPlayerColor;
 import hanto.student_abenson_pasalem.common.Board.IHantoBoard;
 
 /**

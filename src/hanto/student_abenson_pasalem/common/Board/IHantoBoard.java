@@ -8,9 +8,9 @@
 
 package hanto.student_abenson_pasalem.common.Board;
 
-import common.HantoCoordinate;
-import common.HantoException;
-import common.HantoPiece;
+import hanto.common.HantoCoordinate;
+import hanto.common.HantoException;
+import hanto.common.HantoPiece;
 
 /**
  */

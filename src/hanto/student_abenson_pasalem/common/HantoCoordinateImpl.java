@@ -12,7 +12,7 @@
 
 package hanto.student_abenson_pasalem.common;
 
-import common.HantoCoordinate;
+import hanto.common.HantoCoordinate;
 
 /**
  * The implementation for my version of Hanto.

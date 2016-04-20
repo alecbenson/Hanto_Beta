@@ -10,7 +10,7 @@
 
 package hanto.student_abenson_pasalem.common;
 
-import common.*;
+import hanto.common.*;
 import hanto.student_abenson_pasalem.common.PieceValidator.IPieceValidator;
 
 /**

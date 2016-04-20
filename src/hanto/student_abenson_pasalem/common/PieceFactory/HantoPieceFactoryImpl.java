@@ -5,9 +5,9 @@
 
 package hanto.student_abenson_pasalem.common.PieceFactory;
 
-import common.HantoException;
-import common.HantoPieceType;
-import common.HantoPlayerColor;
+import hanto.common.HantoException;
+import hanto.common.HantoPieceType;
+import hanto.common.HantoPlayerColor;
 import hanto.student_abenson_pasalem.common.HantoPieceImpl;
 import hanto.student_abenson_pasalem.common.PieceValidator.AdjacentSquareValidator;
 import hanto.student_abenson_pasalem.common.PieceValidator.IPieceValidator;

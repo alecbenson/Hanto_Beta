@@ -5,9 +5,9 @@
 
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
-import common.HantoCoordinate;
-import common.HantoException;
-import common.HantoPieceType;
+import hanto.common.HantoCoordinate;
+import hanto.common.HantoException;
+import hanto.common.HantoPieceType;
 
 /**
  * Validator for game over condition.

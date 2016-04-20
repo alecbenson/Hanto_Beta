@@ -10,8 +10,8 @@
 
 package hanto.student_abenson_pasalem.common;
 
-import common.*;
-import student_abenson_pasalem.gamma.GammaHantoGame;
+import hanto.common.*;
+import hanto.student_abenson_pasalem.gamma.GammaHantoGame;
 
 /**
  * This is a singleton class that provides a factory to create an instance of any version

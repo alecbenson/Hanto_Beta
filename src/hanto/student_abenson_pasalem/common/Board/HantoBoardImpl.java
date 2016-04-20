@@ -13,9 +13,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-import common.HantoCoordinate;
-import common.HantoException;
-import common.HantoPiece;
+import hanto.common.HantoCoordinate;
+import hanto.common.HantoException;
+import hanto.common.HantoPiece;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 
 

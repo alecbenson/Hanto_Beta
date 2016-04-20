@@ -8,21 +8,14 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package common;
+package hanto.common;
 
 /**
- * Description
- * @version Sep 1, 2014
+ * This is an enumeration of the possible outcomes of any legal move in Hanto.
+ * 
+ * @version Jan 12, 2013
  */
-public interface HantoPiece
+public enum MoveResult
 {
-	/**
-	 * @return the color
-	 */
-	HantoPlayerColor getColor();
-
-	/**
-	 * @return the type
-	 */
-	HantoPieceType getType();
+	OK, BLUE_WINS, RED_WINS, DRAW;
 }

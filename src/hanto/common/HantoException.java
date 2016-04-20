@@ -8,7 +8,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package common;
+package hanto.common;
 
 /**
  * The HantoException is the Exception that is thrown for any error that occurs during the

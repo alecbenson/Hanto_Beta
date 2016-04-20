@@ -7,16 +7,16 @@
 
 package hanto.student_abenson_pasalem.common.RuleValidator;
 
-import static common.HantoPieceType.BUTTERFLY;
-import static common.HantoPieceType.SPARROW;
+import static hanto.common.HantoPieceType.BUTTERFLY;
+import static hanto.common.HantoPieceType.SPARROW;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import common.HantoCoordinate;
-import common.HantoException;
-import common.HantoPieceType;
+import hanto.common.HantoCoordinate;
+import hanto.common.HantoException;
+import hanto.common.HantoPieceType;
 
 /**
  * Validator for the butterfly or sparrow being played.

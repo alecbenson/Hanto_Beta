@@ -10,9 +10,9 @@ package hanto.student_abenson_pasalem.common.RuleValidator;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.HantoCoordinate;
-import common.HantoException;
-import common.HantoPieceType;
+import hanto.common.HantoCoordinate;
+import hanto.common.HantoException;
+import hanto.common.HantoPieceType;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 import hanto.student_abenson_pasalem.common.Board.IHantoBoard;
 

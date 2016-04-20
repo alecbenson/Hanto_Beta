@@ -8,7 +8,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package common;
+package hanto.common;
 
 /**
  * This enumeration is used to define the pieces used in Hanto.
