@@ -9,7 +9,7 @@ import common.*;
 import static common.HantoGameID.GAMMA_HANTO;
 
 import hanto.student_abenson_pasalem.common.BaseHantoGame;
-import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerStateFactory;
+import hanto.student_abenson_pasalem.common.PlayerState.HantoPlayerStateFactory;
 
 /**
  * Gamma Hanto Game.

@@ -12,9 +12,9 @@ import static common.MoveResult.RED_WINS;
 import common.*;
 import hanto.student_abenson_pasalem.common.BaseHantoGame;
 import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactory;
+import hanto.student_abenson_pasalem.common.PlayerState.HantoPlayerStateFactory;
 import hanto.student_abenson_pasalem.common.RuleValidator.IRuleValidator;
 import hanto.student_abenson_pasalem.common.RuleValidator.GameRuleSets.PreTurnValidator;
-import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerStateFactory;
 
 /**
  * Constructor for the beta version of the hanto game

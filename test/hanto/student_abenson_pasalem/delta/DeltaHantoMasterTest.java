@@ -28,8 +28,8 @@ import common.HantoPlayerColor;
 import common.MoveResult;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.HantoGameFactory;
-import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerState;
-import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerStateFactory;
+import hanto.student_abenson_pasalem.common.PlayerState.HantoPlayerState;
+import hanto.student_abenson_pasalem.common.PlayerState.HantoPlayerStateFactory;
 import student_abenson_pasalem.delta.DeltaHantoGame;
 
 public class DeltaHantoMasterTest {
@@ -362,6 +362,21 @@ public class DeltaHantoMasterTest {
 				md(CRAB,0,-2, -1,-1), md(CRAB,6,0));
 	}
 	
+	@Test(expected=HantoException.class)
+	public void moveBlueBeforeButterflyDown() throws HantoException
+	{
+		makeMoves(md(SPARROW, 0, 0), md(BUTTERFLY, 0, 1),
+				md(SPARROW, 0, 0, 1, 0));
+	}
+	
+	@Test
+	public void blueHasNotPlacedButterflyRedCanStillMove() throws HantoException
+	{
+		makeMoves(md(SPARROW, 0, 0), md(BUTTERFLY, 0, 1),
+				md(SPARROW, 0, -1), md(SPARROW, 1, 1),
+				md(SPARROW,  0, -2), md(SPARROW, 1, 1, 0, 2));
+	}
+	
 	@Test (expected=HantoException.class)
 	public void cantWalkButterflyPinned() throws HantoException
 	{
@@ -380,6 +395,16 @@ public class DeltaHantoMasterTest {
 				md(SPARROW, -1, 0), md(SPARROW, 1, 1),
 				md(SPARROW, 1,-1), md(SPARROW, 0, 2),
 				md(SPARROW, 1, -1, -1, 2));
+	}
+	
+	@Test
+	public void newGameRedMovesFirst() throws HantoException
+	{
+		game = new DeltaHantoGame(RED);
+		assertEquals( ((DeltaHantoGame) game).getCurrentPlayerState().getColor(), RED);
+		makeMoves(md(BUTTERFLY, 0, 0));
+		assertEquals( ((DeltaHantoGame) game).getCurrentPlayerState().getColor(), BLUE);
+		
 	}
 	
 	@Test

@@ -32,6 +32,7 @@ import common.MoveResult;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.HantoGameFactory;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
+import student_abenson_pasalem.delta.DeltaHantoGame;
 import student_abenson_pasalem.gamma.GammaHantoGame;
 
 /**
@@ -700,6 +701,16 @@ public class GammaHantoMasterTest {
 		final MoveResult mr = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
 		assertEquals(OK, mr);
 		game.makeMove(null, null, null);
+	}
+	
+	@Test
+	public void newGameRedMovesFirst() throws HantoException
+	{
+		game = new GammaHantoGame(RED);
+		assertEquals( ((GammaHantoGame) game).getCurrentPlayerState().getColor(), RED);
+		makeMoves(md(BUTTERFLY, 0, 0));
+		assertEquals( ((GammaHantoGame) game).getCurrentPlayerState().getColor(), BLUE);
+		
 	}
 	
 	@Test

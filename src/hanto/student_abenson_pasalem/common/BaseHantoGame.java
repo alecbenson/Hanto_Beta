@@ -18,11 +18,12 @@ import common.*;
 import hanto.student_abenson_pasalem.common.Board.HantoBoardImpl;
 import hanto.student_abenson_pasalem.common.Board.IHantoBoard;
 import hanto.student_abenson_pasalem.common.PieceFactory.HantoPieceFactory;
+import hanto.student_abenson_pasalem.common.PlayerState.HantoPlayerState;
 import hanto.student_abenson_pasalem.common.RuleValidator.AdjacentOpposingPieceValidator;
 import hanto.student_abenson_pasalem.common.RuleValidator.IRuleValidator;
+import hanto.student_abenson_pasalem.common.RuleValidator.MovementBeforeButterflyValidator;
 import hanto.student_abenson_pasalem.common.RuleValidator.MovingValidPieceValidator;
 import hanto.student_abenson_pasalem.common.RuleValidator.GameRuleSets.PreTurnValidator;
-import hanto.student_abenson_pasalem.comon.PlayerState.HantoPlayerState;
 
 /**
  * An abstract class used for defining common characteristics of Hanto games
@@ -67,6 +68,8 @@ public abstract class BaseHantoGame implements HantoGame{
 		if(from != null){
 			IRuleValidator checkMovingValidPiece = new MovingValidPieceValidator();
 			checkMovingValidPiece.validate(this, pieceType, from, to);
+			IRuleValidator checkButterflyDown = new MovementBeforeButterflyValidator();
+			checkButterflyDown.validate(this, pieceType, from, to);
 			piece = (HantoPieceImpl) board.getPieceAt(from);
 			checkPieceCanMove(piece, from, to);
 			board.movePiece(from, to);
