@@ -28,16 +28,11 @@ public class FlyValidator implements IPieceValidator{
 	@Override
 	public void validate(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) throws HantoException {
 		int distance = new HantoCoordinateImpl(from).distance(new HantoCoordinateImpl(to));
-		// This functionality will be reenabled when a maxDistance parameter is needed by the game
-		// Currently we have not been told what the max is, so we will add it in and cover it
-		// when it is needed.
-		/**
 		if(distance > maxDistance){
 			throw new HantoException("Cannot move from " + from.getX() + "," + from.getY() + " to " +
 				to.getX() + "," + to.getY() + ": cannot fly more than " + maxDistance + " tiles." +
 					"distance was " + distance);
 		}	
-		**/
 	}
 
 }

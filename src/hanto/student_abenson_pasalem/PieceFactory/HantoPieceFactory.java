@@ -34,7 +34,7 @@ public class HantoPieceFactory{
 			return new HantoPieceImpl(color, type, 
 					contiguousMoveValidator, butterflyValidator);
 		case SPARROW:
-			IPieceValidator sparrowValidator = new FlyValidator(Integer.MAX_VALUE);
+			IPieceValidator sparrowValidator = new FlyValidator(5);
 			return new HantoPieceImpl(color, type,
 					contiguousMoveValidator, sparrowValidator);
 		case CRAB:
