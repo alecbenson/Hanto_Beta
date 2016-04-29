@@ -36,6 +36,10 @@ public class HantoPlayerStateFactory {
 					state.setStartPieceCount(HantoPieceType.SPARROW, 4);
 					state.setStartPieceCount(HantoPieceType.CRAB, 4);
 					break;
+				case EPSILON_HANTO:
+					state.setStartPieceCount(HantoPieceType.SPARROW, 2);
+					state.setStartPieceCount(HantoPieceType.CRAB, 6);
+					state.setStartPieceCount(HantoPieceType.HORSE, 4);
 				default:
 					break;
 			}

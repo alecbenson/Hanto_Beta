@@ -13,6 +13,7 @@ package hanto.student_abenson_pasalem.common;
 import hanto.common.*;
 import hanto.student_abenson_pasalem.beta.BetaHantoGame;
 import hanto.student_abenson_pasalem.delta.DeltaHantoGame;
+import hanto.student_abenson_pasalem.epsilon.EpsilonHantoGame;
 import hanto.student_abenson_pasalem.gamma.GammaHantoGame;
 
 /**
@@ -59,6 +60,9 @@ public class HantoGameFactory
 				break;
 			case DELTA_HANTO:
 				game = new DeltaHantoGame(movesFirst);
+				break;
+			case EPSILON_HANTO:
+				game = new EpsilonHantoGame(movesFirst);
 				break;
 		}
 		return game;
