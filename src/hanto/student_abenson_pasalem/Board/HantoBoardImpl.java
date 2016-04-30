@@ -5,9 +5,12 @@
 package hanto.student_abenson_pasalem.Board;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
@@ -124,6 +127,22 @@ public class HantoBoardImpl implements IHantoBoard {
 			}
 		}
 		return false;
+	}
+	
+	public HashMap<HantoCoordinate, HantoPiece> getAllPlayerPieces(HantoPlayerColor color){
+		HashMap<HantoCoordinate, HantoPiece> playerPieces = new HashMap<HantoCoordinate, HantoPiece>();
+		Iterator<Map.Entry<HantoCoordinate, HantoPiece>> it = board.entrySet().iterator();
+		//Go through all pieces on the board
+		while( it.hasNext() ){
+			Map.Entry<HantoCoordinate, HantoPiece> pair = (Map.Entry<HantoCoordinate, HantoPiece>)it.next();
+			HantoCoordinateImpl coord = new HantoCoordinateImpl(pair.getKey());
+			HantoPiece piece = pair.getValue();
+			//Skip if not our color
+			if(piece.getColor() == color){
+				((Map<HantoCoordinate, HantoPiece>) playerPieces).put(coord, piece);
+			}
+		}
+		return playerPieces;
 	}
 	
 	/**

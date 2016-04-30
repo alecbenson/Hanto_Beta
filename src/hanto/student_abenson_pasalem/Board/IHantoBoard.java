@@ -4,6 +4,8 @@
  ******************************************/
 package hanto.student_abenson_pasalem.Board;
 
+import java.util.HashMap;
+
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoPiece;
@@ -71,4 +73,11 @@ public interface IHantoBoard {
 	 * @return true if the player still has legal moves, false otherwise
 	 */
 	boolean canMovePieces(HantoPlayerColor color);
+	
+	/**
+	 * Retrieves a map of pieces owned by the specified player
+	 * @param color
+	 * @return a map of pieces owned by the player
+	 */
+	public HashMap<HantoCoordinate, HantoPiece> getAllPlayerPieces(HantoPlayerColor color);
 }
