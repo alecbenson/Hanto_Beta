@@ -4,6 +4,9 @@ import static hanto.common.HantoPieceType.*;
 import static hanto.common.HantoPlayerColor.BLUE;
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -268,6 +271,7 @@ public class EpsilonHantoMasterTest {
 		assertEquals(HantoDirection.NONE, origin.direction(other));
 	}
 	
+	//15
 	@Test (expected=HantoException.class)
 	public void jumpHorseNotStraightLine() throws HantoException
 	{
@@ -278,6 +282,7 @@ public class EpsilonHantoMasterTest {
 				md(HORSE, -1, 0, 1, -1));
 	}
 	
+	//16
 	@Test (expected=HantoException.class)
 	public void jumpHorseNotStraightLine2() throws HantoException
 	{
@@ -286,5 +291,34 @@ public class EpsilonHantoMasterTest {
 				md(CRAB, 0, -1), md(CRAB, 0, 2),
 				md(HORSE, -1, 0), md(SPARROW, 1,1),
 				md(HORSE, -1, 0, 0, 3));
+	}
+	
+	//17
+	@Test
+	public void getCoordsInRadius() throws HantoException
+	{
+		HantoCoordinateImpl origin = new HantoCoordinateImpl(0,0);
+		List<HantoCoordinateImpl> radius = origin.getCoordsInRadius(2);
+		List<HantoCoordinateImpl> shouldContain = Arrays.asList(
+				new HantoCoordinateImpl(0,2),
+				new HantoCoordinateImpl(1,1),
+				new HantoCoordinateImpl(1,0),
+				new HantoCoordinateImpl(0,0),
+				new HantoCoordinateImpl(-1,1),
+				new HantoCoordinateImpl(-1,2),
+				new HantoCoordinateImpl(2,0),
+				new HantoCoordinateImpl(2,-1),
+				new HantoCoordinateImpl(1,-1),
+				new HantoCoordinateImpl(0,1),
+				new HantoCoordinateImpl(2,-2),
+				new HantoCoordinateImpl(1,-2),
+				new HantoCoordinateImpl(0,-1),
+				new HantoCoordinateImpl(0,-2),
+				new HantoCoordinateImpl(-1,-1),
+				new HantoCoordinateImpl(-1,0),
+				new HantoCoordinateImpl(-2,0),
+				new HantoCoordinateImpl(-2,1),
+				new HantoCoordinateImpl(-2,2));
+		assertEquals(radius, shouldContain);
 	}
 }

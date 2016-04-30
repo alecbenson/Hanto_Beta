@@ -173,6 +173,33 @@ public class HantoCoordinateImpl implements HantoCoordinate
 	}
 	
 	/**
+	 * Returns a list of all coordinates within a radius of this one
+	 * @param radius
+	 * @return
+	 */
+	public List<HantoCoordinateImpl> getCoordsInRadius(int radius){
+		//Start with radius coords
+		List<HantoCoordinateImpl> currentSearchSet = this.getAdjacentSpaces();
+		List<HantoCoordinateImpl> toBeSearched = new ArrayList<HantoCoordinateImpl>();
+		for(int i = 1; i < radius; i++){
+			for(HantoCoordinateImpl adjacent : currentSearchSet){
+				List<HantoCoordinateImpl> newSearchItems = adjacent.getAdjacentSpaces();
+				for(HantoCoordinateImpl newSearchAdj : newSearchItems){
+					if(!toBeSearched.contains(newSearchAdj)){
+						toBeSearched.add(newSearchAdj);
+					}
+				}
+			}
+			currentSearchSet = new ArrayList<HantoCoordinateImpl>(toBeSearched);
+		}
+		
+		for(HantoCoordinateImpl coord : currentSearchSet){
+			System.out.println("new HantoCoordinateImpl(" + coord.getX() + "," + coord.getY() + "),");
+		}
+		return currentSearchSet;
+	}
+	
+	/**
 	 * Returns a list of adjacent HantoCoordinateImpls that are common between the two provided coords
 	 * @param to the coordinate to find common adjacencies against
 	 * @return a list of common adjacencies
