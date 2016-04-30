@@ -6,13 +6,13 @@
 package hanto.student_abenson_pasalem.beta;
 
 import hanto.common.*;
-import hanto.student_abenson_pasalem.PieceFactory.HantoPieceBuilder;
 import hanto.student_abenson_pasalem.PieceValidator.FlyValidator;
 import hanto.student_abenson_pasalem.PieceValidator.IPieceValidator;
 import hanto.student_abenson_pasalem.PlayerState.HantoPlayerStateFactory;
 import hanto.student_abenson_pasalem.RuleValidator.IRuleValidator;
 import hanto.student_abenson_pasalem.RuleValidator.GameRuleSets.PreTurnValidator;
 import hanto.student_abenson_pasalem.common.BaseHantoGame;
+import hanto.student_abenson_pasalem.common.HantoPieceBuilder;
 
 /**
  * Constructor for the beta version of the hanto game

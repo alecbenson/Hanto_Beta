@@ -8,11 +8,11 @@ package hanto.student_abenson_pasalem.gamma;
 import static hanto.common.HantoGameID.GAMMA_HANTO;
 
 import hanto.common.*;
-import hanto.student_abenson_pasalem.PieceFactory.HantoPieceBuilder;
 import hanto.student_abenson_pasalem.PieceValidator.IPieceValidator;
 import hanto.student_abenson_pasalem.PieceValidator.WalkValidator;
 import hanto.student_abenson_pasalem.PlayerState.HantoPlayerStateFactory;
 import hanto.student_abenson_pasalem.common.BaseHantoGame;
+import hanto.student_abenson_pasalem.common.HantoPieceBuilder;
 
 /**
  * Gamma Hanto Game.

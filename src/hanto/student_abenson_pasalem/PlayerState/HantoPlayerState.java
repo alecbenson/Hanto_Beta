@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import hanto.common.*;
-import hanto.student_abenson_pasalem.PieceFactory.HantoPieceBuilder;
+import hanto.student_abenson_pasalem.common.HantoPieceBuilder;
 
 /**
  * Manages state of players and keeps track of the player inventory, color, and whether the butterfly is in play

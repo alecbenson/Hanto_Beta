@@ -17,7 +17,6 @@ import java.util.List;
 import hanto.common.*;
 import hanto.student_abenson_pasalem.Board.HantoBoardImpl;
 import hanto.student_abenson_pasalem.Board.IHantoBoard;
-import hanto.student_abenson_pasalem.PieceFactory.HantoPieceBuilder;
 import hanto.student_abenson_pasalem.PieceValidator.FlyValidator;
 import hanto.student_abenson_pasalem.PieceValidator.IPieceValidator;
 import hanto.student_abenson_pasalem.PieceValidator.JumpValidator;

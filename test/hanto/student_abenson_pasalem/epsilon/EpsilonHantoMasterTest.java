@@ -197,4 +197,16 @@ public class EpsilonHantoMasterTest {
 				//This should work because blue has no pieces and cannot move without causing disconnects
 				game.makeMove(null, null, null);
 	}
+	
+	//6
+	@Test(expected=HantoException.class)
+	public void walkCrabTooFar() throws HantoException
+	{
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(SPARROW, 0, -1), md(SPARROW, 1, 1),
+				md(SPARROW, 1, -2), md(SPARROW, 2, 0),
+				md(CRAB, 2, -2), md(CRAB, 3,0),
+				md(CRAB, 0, -2), md(CRAB, 4, 0),
+				md(CRAB,0,-2,-1, 1), md(CRAB,5,0));
+	}
 }

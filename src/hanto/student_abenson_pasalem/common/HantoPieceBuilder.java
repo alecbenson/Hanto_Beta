@@ -2,14 +2,13 @@
  * This file was developed by Alec Benson and Peter Salem for CS4233: Object-Oriented Analysis & Design.
  * The course was taken at Worcester Polytechnic Institute.
  ******************************************/
-package hanto.student_abenson_pasalem.PieceFactory;
+package hanto.student_abenson_pasalem.common;
 
 import hanto.common.HantoException;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.student_abenson_pasalem.PieceValidator.ContiguousMovementValidator;
 import hanto.student_abenson_pasalem.PieceValidator.IPieceValidator;
-import hanto.student_abenson_pasalem.common.HantoPieceImpl;
 
 /**
  * Implementation of the hanto piece builder.
