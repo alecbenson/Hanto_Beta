@@ -344,12 +344,12 @@ public class DeltaHantoMasterTest {
 		List<HantoCoordinateImpl> validMoves = validator.getValidMoves(
 				(HantoBoardImpl) ((BaseHantoGame) game).getBoard(), new HantoCoordinateImpl(0, -2));
 		List<HantoCoordinateImpl> shouldContain = Arrays.asList(
-		new HantoCoordinateImpl(-1,-1),
-		new HantoCoordinateImpl(-1,0),
-		new HantoCoordinateImpl(2,-3),
 		new HantoCoordinateImpl(1,-3),
-		new HantoCoordinateImpl(-1,1),
-		new HantoCoordinateImpl(3,-3));
+		new HantoCoordinateImpl(-1,-1),
+		new HantoCoordinateImpl(2,-3),
+		new HantoCoordinateImpl(-1,0),
+		new HantoCoordinateImpl(3,-3),
+		new HantoCoordinateImpl(-1,1));
 		assertEquals(validMoves, shouldContain);
 	}
 	

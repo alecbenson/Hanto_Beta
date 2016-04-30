@@ -127,17 +127,20 @@ public class WalkValidator implements IPieceValidator{
 	@Override
 	public List<HantoCoordinateImpl> getValidMoves(HantoBoardImpl board, HantoCoordinate source) {
 		HantoCoordinateImpl sourceCoord = new HantoCoordinateImpl(source);
-		List<HantoCoordinateImpl> currentSearchSet = sourceCoord.getAdjacentSpaces();
-		List<HantoCoordinateImpl> toBeSearched = new ArrayList<HantoCoordinateImpl>();
+		List<HantoCoordinateImpl> searchSet = new ArrayList<HantoCoordinateImpl>();
+		searchSet.add(sourceCoord);
+		List<HantoCoordinateImpl> addedSet = new ArrayList<HantoCoordinateImpl>();
+		List<HantoCoordinateImpl> resultSet = new ArrayList<HantoCoordinateImpl>();
 		
-		for(int i = 1; i < maxDistance; i++){
-			for(HantoCoordinateImpl adjacent : currentSearchSet){
-				List<HantoCoordinateImpl> newSearchItems = adjacent.getAdjacentSpaces();
-				for(HantoCoordinateImpl newSearchAdj : newSearchItems){
+		for(int i = 0; i < maxDistance; i++){
+			addedSet.clear();
+			for(HantoCoordinateImpl adjacent : searchSet){
+				for(HantoCoordinateImpl adjacentSearchItem : adjacent.getAdjacentSpaces()){
 					try{
-						this.validate(board, sourceCoord, newSearchAdj);
-						if(!toBeSearched.contains(newSearchAdj)){
-							toBeSearched.add(newSearchAdj);
+						this.validate(board, sourceCoord, adjacentSearchItem);
+						if(!resultSet.contains(adjacentSearchItem)){
+							resultSet.add(adjacentSearchItem);
+							addedSet.add(adjacentSearchItem);
 						}
 					} catch(HantoException e){
 						continue;
@@ -145,11 +148,11 @@ public class WalkValidator implements IPieceValidator{
 				}
 			}
 			//Stop early if we get nothing past here
-			if(toBeSearched.isEmpty()){
+			if(addedSet.isEmpty()){
 				break;
 			}
-			currentSearchSet = new ArrayList<HantoCoordinateImpl>(toBeSearched);
+			searchSet = new ArrayList<HantoCoordinateImpl>(addedSet);
 		}
-		return currentSearchSet;
+		return resultSet;
 	}
 }

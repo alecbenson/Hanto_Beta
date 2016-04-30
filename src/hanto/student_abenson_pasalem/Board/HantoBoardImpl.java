@@ -5,12 +5,16 @@
 package hanto.student_abenson_pasalem.Board;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoPiece;
+import hanto.common.HantoPlayerColor;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
+import hanto.student_abenson_pasalem.common.HantoPieceImpl;
 
 
 /**
@@ -61,6 +65,65 @@ public class HantoBoardImpl implements IHantoBoard {
 	public void placePiece(HantoPiece piece, HantoCoordinate coordinate) throws HantoException {
 		HantoCoordinateImpl key = new HantoCoordinateImpl(coordinate.getX(), coordinate.getY());
 		board.put(key, piece);
+	}
+	
+	public boolean canPlacePieces(HantoPlayerColor color){
+		Iterator<Map.Entry<HantoCoordinate, HantoPiece>> it = board.entrySet().iterator();
+		//Go through all pieces on the board
+		while( it.hasNext() ){
+			Map.Entry<HantoCoordinate, HantoPiece> pair = (Map.Entry<HantoCoordinate, HantoPiece>)it.next();
+			HantoCoordinateImpl coord = new HantoCoordinateImpl(pair.getKey());
+			HantoPiece piece = pair.getValue();
+			//Skip if not our color
+			if(piece.getColor() != color){
+				continue;
+			}
+			//Go through all of the spots adjacent to the piece we are looking at
+			List<HantoCoordinateImpl> adjacencies = coord.getAdjacentSpaces();
+			for(HantoCoordinateImpl adj : adjacencies){
+				//If we found an empty spot next to the empty spot, skip
+				if(this.spaceOccupied(adj)){
+					continue;
+				}
+				//Look for neighboring hexes to the empty spot that are not adjacenet to
+				//pieces of the opposing color
+				if(!hexAdjacentOpposingPiece(color, adj)){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private boolean hexAdjacentOpposingPiece(HantoPlayerColor color, HantoCoordinateImpl coord){
+		List<HantoCoordinateImpl> hexesAdjacentToOpenSpot = coord.getAdjacentSpaces();
+		for(HantoCoordinateImpl neighbor: hexesAdjacentToOpenSpot){
+			//If there is an occupied space next to the open space and it's not our color, stop looking here
+			if(this.spaceOccupied(neighbor)){
+				if(this.getPieceAt(neighbor).getColor() != color){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public boolean canMovePieces(HantoPlayerColor color){
+		Iterator<Map.Entry<HantoCoordinate, HantoPiece>> it = board.entrySet().iterator();
+		//Go through all pieces on the board
+		while( it.hasNext() ){
+			Map.Entry<HantoCoordinate, HantoPiece> pair = (Map.Entry<HantoCoordinate, HantoPiece>)it.next();
+			HantoCoordinateImpl coord = new HantoCoordinateImpl(pair.getKey());
+			HantoPiece piece = pair.getValue();
+			//Skip if not our color
+			if(piece.getColor() != color){
+				continue;
+			}
+			if(((HantoPieceImpl) piece).hasLegalMoves(this, coord)){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**

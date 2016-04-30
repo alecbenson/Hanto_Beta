@@ -81,7 +81,24 @@ public class HantoPieceImpl implements HantoPiece
 		}
 	}
 	
-
+	/**
+	 * Determines if the piece has any legal moves
+	 * @param board
+	 * @param from
+	 * @return true if legal moves exist, false otherwise
+	 */
+	public boolean hasLegalMoves(HantoBoardImpl board, HantoCoordinate from){
+		List<HantoCoordinateImpl> validMoves = this.getAllLegalMoves(board, from);
+		return !validMoves.isEmpty();
+	}
+	
+	
+	/**
+	 * Returns a list of legal moves that the piece can make
+	 * @param board
+	 * @param from
+	 * @return a list of legal moves
+	 */
 	public List<HantoCoordinateImpl> getAllLegalMoves(HantoBoardImpl board, HantoCoordinate from){
 		List<HantoCoordinateImpl> validMoves = new ArrayList<HantoCoordinateImpl>();
 		for(IPieceValidator validator : validators){

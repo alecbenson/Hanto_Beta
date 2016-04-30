@@ -1,7 +1,7 @@
 package hanto.student_abenson_pasalem.epsilon;
 
 import static hanto.common.HantoPieceType.*;
-import static hanto.common.HantoPlayerColor.BLUE;
+import static hanto.common.HantoPlayerColor.*;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
@@ -152,6 +152,10 @@ public class EpsilonHantoMasterTest {
 		setup();
 		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
 		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
+		boolean canPlacePieces = ((BaseHantoGame) game).getBoard().canPlacePieces(BLUE);
+		boolean canMovePieces =  ((BaseHantoGame) game).getBoard().canMovePieces(BLUE);
+		assertEquals(true, canPlacePieces);
+		assertEquals(true, canMovePieces);
 		game.makeMove(null, null, null);
 	}
 	
@@ -204,6 +208,10 @@ public class EpsilonHantoMasterTest {
 				md(SPARROW, -1, 0), md(BUTTERFLY, 1, 0, 0, 1),
 				md(CRAB, 1, -2), md(BUTTERFLY, 0, 1, 1, 0),
 				md(SPARROW, -1, 0, 2, 0));
+				boolean canPlacePieces = ((BaseHantoGame) game).getBoard().canPlacePieces(RED);
+				boolean canMovePieces =  ((BaseHantoGame) game).getBoard().canMovePieces(RED);
+				assertEquals(false, canPlacePieces);
+				assertEquals(false, canMovePieces);
 				//This should work because blue has no pieces and cannot move without causing disconnects
 				game.makeMove(null, null, null);
 	}

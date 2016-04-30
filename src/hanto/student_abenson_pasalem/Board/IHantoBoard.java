@@ -7,6 +7,7 @@ package hanto.student_abenson_pasalem.Board;
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoPiece;
+import hanto.common.HantoPlayerColor;
 
 /**
  */
@@ -56,4 +57,18 @@ public interface IHantoBoard {
 	 * @return the number of pieces on the board
 	 */
 	int pieceCount();
+
+	/**
+	 * Determines if the player has any choices for placing pieces
+	 * @param blue
+	 * @return true if can place, false otherwise
+	 */
+	boolean canPlacePieces(HantoPlayerColor color);
+	
+	/**
+	 * Determines if the player has any choices for moving pieces
+	 * @param color
+	 * @return true if the player still has legal moves, false otherwise
+	 */
+	boolean canMovePieces(HantoPlayerColor color);
 }
