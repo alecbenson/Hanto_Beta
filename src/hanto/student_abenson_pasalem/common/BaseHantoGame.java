@@ -64,7 +64,6 @@ public abstract class BaseHantoGame implements HantoGame{
 			isGameOver = true;
 			return currentPlayerState.getColor() == BLUE ? RED_WINS : BLUE_WINS;
 		}
-		
 		IRuleValidator preturnValidator = new PreTurnValidator();
 		preturnValidator.validate(this, pieceType, from, to);
 		

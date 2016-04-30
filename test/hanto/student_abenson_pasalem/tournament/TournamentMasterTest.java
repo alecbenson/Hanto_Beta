@@ -141,16 +141,4 @@ public class TournamentMasterTest {
 		// By default, blue moves first.
 		game = factory.makeHantoGame(HantoGameID.EPSILON_HANTO, BLUE);
 	}
-	
-	//1
-	@Test
-	public void hantoAIGetValidMoveList() throws HantoException{
-		setup();
-		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
-				md(CRAB, 0, -1), md(CRAB, 0, 2),
-				md(HORSE, -1, 0), md(SPARROW, 1,1));
-		HantoAI ai = new HantoAI((BaseHantoGame) game);
-		List<HantoMoveRecord> moveList = ai.getAllLegalMovementsForPlayer(BLUE);
-		assertEquals(4, moveList.size());
-	}
 }

@@ -6,11 +6,9 @@
 package hanto.student_abenson_pasalem.PlayerState;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import hanto.common.*;
 import hanto.student_abenson_pasalem.common.HantoPieceBuilder;
@@ -84,7 +82,14 @@ public class HantoPlayerState {
 	 * @return
 	 */
 	public List<HantoPieceType> piecesInInventory(){
-		return new ArrayList<HantoPieceType>(inventory.keySet());
+		List<HantoPieceType> resultList = new ArrayList<HantoPieceType>();
+		List<HantoPieceType> invPieces = new ArrayList<HantoPieceType>(inventory.keySet());
+		for(HantoPieceType piece : invPieces){
+			for(int i = 0; i < inventory.get(piece); i++){
+				resultList.add(piece);
+			}
+		}
+		return resultList;
 	}
 	
 	/**
@@ -92,7 +97,12 @@ public class HantoPlayerState {
 	 * @return
 	 */
 	public int numPiecesLeftInInventory(){
-		return inventory.size();
+		int total = 0;
+		List<HantoPieceType> invPieces = new ArrayList<HantoPieceType>(inventory.keySet());
+		for(HantoPieceType piece : invPieces){
+			total += inventory.get(piece);
+		}
+		return total;
 	}
 	
 	/**

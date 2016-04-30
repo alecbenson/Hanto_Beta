@@ -10,6 +10,7 @@ import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
+import hanto.common.HantoPlayerColor;
 import hanto.student_abenson_pasalem.common.BaseHantoGame;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 
@@ -23,6 +24,7 @@ public class PieceAdjacentValidator implements IRuleValidator{
 			throws HantoException {
 		
 		//This rule does not apply for the first turn
+		
 		if(game.getRedTurns() == 0 && game.getBlueTurns() == 0){
 			return;
 		}

@@ -20,7 +20,7 @@ public class MustPlayButterflyValidator implements IRuleValidator{
 	 */
 	public void validate(BaseHantoGame game, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 			throws HantoException {
-		if (!game.getCurrentPlayerPlayedButterfly()){
+		if (!game.getCurrentPlayerPlayedButterfly() && pieceType != HantoPieceType.BUTTERFLY){
 			if(game.getCurrentPlayerTurns() >= 3){
 				throw new HantoException(game.getCurrentPlayer() + "  must play the butterfly!");
 			}

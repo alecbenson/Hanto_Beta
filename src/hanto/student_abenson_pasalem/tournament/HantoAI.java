@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import hanto.common.HantoCoordinate;
-import hanto.common.HantoGame;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
@@ -27,14 +27,12 @@ import hanto.tournament.HantoMoveRecord;
  *
  */
 public class HantoAI {
-	private HantoGame game;
 	
 	/**
 	 * Default constructor for the Hanto AI
 	 * @param game - the game to use. 
 	 */
-	public HantoAI(HantoGame game){
-		this.game = game;
+	public HantoAI(){
 	}
 	
 	/**
@@ -42,7 +40,7 @@ public class HantoAI {
 	 * @param color
 	 * @return a list of HantoMoveRecords
 	 */
-	public List<HantoMoveRecord> getAllLegalMovementsForPlayer(HantoPlayerColor color){
+	public List<HantoMoveRecord> getAllLegalMovementsForPlayer(BaseHantoGame game, HantoPlayerColor color){
 		List<HantoMoveRecord> moveList = new ArrayList<HantoMoveRecord>();
 		Map<HantoCoordinate, HantoPiece> playerPieces = ((BaseHantoGame) game).getBoard().getAllPlayerPieces(color);
 		
@@ -67,14 +65,14 @@ public class HantoAI {
 	 * @param color
 	 * @return a list of HantoMoveRecords
 	 */
-	public List<HantoMoveRecord> getAllLegalPlacementsForPlayer(HantoPlayerColor color){
+	public List<HantoMoveRecord> getAllLegalPlacementsForPlayer(BaseHantoGame game, HantoPlayerColor color){
 		List<HantoMoveRecord> validPlacementOptions = new ArrayList<HantoMoveRecord>();
 		List<HantoPieceType> pieceList = ((BaseHantoGame) game).getCurrentPlayerState().piecesInInventory();
 		List<HantoCoordinateImpl> validHexes = ((BaseHantoGame) game).getBoard().getAllPlaceableHexes(color);
+		int turnCount = ((BaseHantoGame) game).getCurrentPlayerTurns();
 		
-		if(((BaseHantoGame) game).getCurrentPlayerTurns() == 0){
-			
-			//Special cases for first turns
+		//Special cases for first turns
+		if(turnCount == 0){
 			if(color == HantoPlayerColor.BLUE){
 				validPlacementOptions.add(new HantoMoveRecord(
 						HantoPieceType.BUTTERFLY,null, new HantoCoordinateImpl(0,0)));
@@ -83,6 +81,14 @@ public class HantoAI {
 			}
 		}
 		
+		//Force butterfly if necessary
+		boolean playedButterfly = ((BaseHantoGame) game).getCurrentPlayerPlayedButterfly();
+		if(!playedButterfly && turnCount >= 3){
+			pieceList.clear();
+			pieceList.add(HantoPieceType.BUTTERFLY);
+		}
+		
+		//Otherwise generate full list of options
 		for(HantoPieceType type : pieceList){
 			for(HantoCoordinateImpl coord : validHexes){
 				HantoMoveRecord placementRecord = new HantoMoveRecord(type, null, coord);
@@ -90,5 +96,22 @@ public class HantoAI {
 			}
 		}
 		return validPlacementOptions;
+	}
+	
+	public HantoMoveRecord decideMove(BaseHantoGame game, HantoMoveRecord opponentMove){
+		//Get pieces left in inventory, make sure we can place pieces
+		int piecesLeftInInventory = game.getCurrentPlayerState().numPiecesLeftInInventory();
+		boolean canPlace = game.canPlacePiece();
+		HantoPlayerColor currentPlayer = game.getCurrentPlayer();
+		
+		//Try to place a piece if possible
+		if( canPlace && piecesLeftInInventory > 0 ){
+			List<HantoMoveRecord> placeList = this.getAllLegalPlacementsForPlayer(game, currentPlayer);
+			return placeList.get(new Random().nextInt(placeList.size()));
+		} else{
+			//Otherwise move a piece on the board
+			List<HantoMoveRecord> moveList = this.getAllLegalMovementsForPlayer(game, currentPlayer);
+			return moveList.get(new Random().nextInt(moveList.size()));
+		}
 	}
 }
