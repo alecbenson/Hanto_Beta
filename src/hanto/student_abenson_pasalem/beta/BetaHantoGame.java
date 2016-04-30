@@ -50,11 +50,10 @@ public class BetaHantoGame extends BaseHantoGame implements HantoGame {
 		if(from != null){
 			throw new HantoException("Cannot move in beta hanto");
 		} else{
-			HantoPiece piece = HantoPieceFactory.createPiece(currentPlayer, pieceType);
 			IRuleValidator moveValidator = new PreTurnValidator();
 			moveValidator.validate(this, pieceType, from, to);
+			HantoPiece piece = currentPlayerState.getPieceFromInventory(pieceType);
 			board.placePiece(piece, to);
-			currentPlayerState.getPieceFromInventory(pieceType);
 		}
 		updateButterflyIfMoved(pieceType, to);
 		switchTurn();

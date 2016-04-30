@@ -60,7 +60,6 @@ public abstract class BaseHantoGame implements HantoGame{
 			return currentPlayerState.getColor() == BLUE ? RED_WINS : BLUE_WINS;
 		}
 		
-		HantoPieceImpl piece;
 		IRuleValidator preturnValidator = new PreTurnValidator();
 		preturnValidator.validate(this, pieceType, from, to);
 		
@@ -70,16 +69,15 @@ public abstract class BaseHantoGame implements HantoGame{
 			checkMovingValidPiece.validate(this, pieceType, from, to);
 			IRuleValidator checkButterflyDown = new MovementBeforeButterflyValidator();
 			checkButterflyDown.validate(this, pieceType, from, to);
-			piece = (HantoPieceImpl) board.getPieceAt(from);
+			HantoPieceImpl piece = (HantoPieceImpl) board.getPieceAt(from);
 			checkPieceCanMove(piece, from, to);
 			board.movePiece(from, to);
 		//Placing a piece
 		} else{
 			IRuleValidator opposingAdjacentValidator = new AdjacentOpposingPieceValidator();
 			opposingAdjacentValidator.validate(this, pieceType, from, to);
-			piece = HantoPieceFactory.createPiece(currentPlayer, pieceType);
+			HantoPiece piece = currentPlayerState.getPieceFromInventory(pieceType);
 			board.placePiece(piece, to);
-			currentPlayerState.getPieceFromInventory(pieceType);
 		}
 		updateButterflyIfMoved(pieceType, to);
 		switchTurn();
