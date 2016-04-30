@@ -207,7 +207,7 @@ public abstract class BaseHantoGame implements HantoGame{
 				throw new HantoException("You cannot resign in this version of hanto");
 			}
 			//Only resign if the player has no moves
-			if(board.canMovePieces(currentPlayer) || board.canPlacePieces(currentPlayer)){
+			if(this.canMovePiece() || this.canPlacePiece()){
 				throw new HantoPrematureResignationException();
 			}
 			return true;
@@ -311,6 +311,31 @@ public abstract class BaseHantoGame implements HantoGame{
 	 */
 	public HantoPlayerState getCurrentPlayerState(){
 		return currentPlayerState;
+	}
+	
+	/**
+	 * Indicates whether or not the current player has a legal placement option
+	 * @return
+	 */
+	public boolean canPlacePiece(){
+		
+		if(this.getCurrentPlayerTurns() == 0){
+			return true;
+		}
+		
+		int numPiecesInInventory = this.getCurrentPlayerState().numPiecesLeftInInventory();
+		return board.canPlacePieces(currentPlayer) && numPiecesInInventory > 0;
+	}
+	
+	/**
+	 * Indicates whether or not the current player has a legal move
+	 * @return
+	 */
+	public boolean canMovePiece(){
+		if(this.getCurrentPlayerTurns() == 0){
+			return false;
+		}
+		return board.canMovePieces(currentPlayer);
 	}
 	
 	/**

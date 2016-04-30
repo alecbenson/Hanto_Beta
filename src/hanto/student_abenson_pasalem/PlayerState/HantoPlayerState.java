@@ -5,8 +5,12 @@
  ******************************************/
 package hanto.student_abenson_pasalem.PlayerState;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import hanto.common.*;
 import hanto.student_abenson_pasalem.common.HantoPieceBuilder;
@@ -73,6 +77,22 @@ public class HantoPlayerState {
 	 */
 	public boolean getHasPlayedButterfly(){
 		return hasPlayedButterfly;
+	}
+	
+	/**
+	 * Gets a list of all piece types left in the inventory
+	 * @return
+	 */
+	public List<HantoPieceType> piecesInInventory(){
+		return new ArrayList<HantoPieceType>(inventory.keySet());
+	}
+	
+	/**
+	 * Gets a count of all piece types left in the inventory
+	 * @return
+	 */
+	public int numPiecesLeftInInventory(){
+		return inventory.size();
 	}
 	
 	/**

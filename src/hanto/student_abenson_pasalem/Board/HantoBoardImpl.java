@@ -4,6 +4,7 @@
  ******************************************/
 package hanto.student_abenson_pasalem.Board;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -140,6 +141,35 @@ public class HantoBoardImpl implements IHantoBoard {
 			}
 		}
 		return playerPieces;
+	}
+	
+	public List<HantoCoordinateImpl> getAllPlaceableHexes(HantoPlayerColor color){
+		List<HantoCoordinateImpl> validHexes = new ArrayList<HantoCoordinateImpl>();
+		Iterator<Map.Entry<HantoCoordinate, HantoPiece>> it = board.entrySet().iterator();
+		//Go through all pieces on the board
+		while( it.hasNext() ){
+			Map.Entry<HantoCoordinate, HantoPiece> pair = it.next();
+			HantoCoordinateImpl coord = new HantoCoordinateImpl(pair.getKey());
+			HantoPiece piece = pair.getValue();
+			//Skip if not our color
+			if(piece.getColor() != color){
+				continue;
+			}
+			//Go through all of the spots adjacent to the piece we are looking at
+			List<HantoCoordinateImpl> adjacencies = coord.getAdjacentSpaces();
+			for(HantoCoordinateImpl adj : adjacencies){
+				//If we found an empty spot next to the empty spot, skip
+				if(this.spaceOccupied(adj)){
+					continue;
+				}
+				//Look for neighboring hexes to the empty spot that are not adjacenet to
+				//pieces of the opposing color
+				if(!hexAdjacentOpposingPiece(color, adj)){
+					validHexes.add(adj);
+				}
+			}
+		}
+		return validHexes;
 	}
 	
 	/**

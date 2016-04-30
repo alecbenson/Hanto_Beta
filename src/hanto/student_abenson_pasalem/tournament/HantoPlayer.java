@@ -51,9 +51,39 @@ public class HantoPlayer implements HantoGamePlayer
 	@Override
 	public HantoMoveRecord makeMove(HantoMoveRecord opponentsMove)
 	{
+		HantoMoveRecord myMove;
 		HantoAI ai = new HantoAI(game);
-		List<HantoMoveRecord> moveList = ai.getAllLegalMovementsForPlayer(game.getCurrentPlayer());
-		return moveList.get(new Random().nextInt(moveList.size()));
+		try {
+			//Record the opponent move
+			if(opponentsMove != null){
+				game.makeMove(opponentsMove.getPiece(), opponentsMove.getFrom(), opponentsMove.getTo());
+			}
+			
+			System.out.println("YOUR TURN: MOVE # " + game.getCurrentPlayerTurns());
+			
+			//Get pieces left in inventory, make sure we can place pieces
+			int piecesLeftInInventory = game.getCurrentPlayerState().numPiecesLeftInInventory();
+			boolean canPlace = game.canPlacePiece();
+			
+			//Try to place a piece if possible
+			System.out.println("Can place : " + canPlace);
+			if( canPlace && piecesLeftInInventory > 0 ){
+				List<HantoMoveRecord> placeList = ai.getAllLegalPlacementsForPlayer(game.getCurrentPlayer());
+				myMove = placeList.get(new Random().nextInt(placeList.size()));
+				game.makeMove(myMove.getPiece(), myMove.getFrom(), myMove.getTo());
+				return myMove;
+			} else{
+				//Otherwise move a piece on the board
+				List<HantoMoveRecord> moveList = ai.getAllLegalMovementsForPlayer(game.getCurrentPlayer());
+				myMove = moveList.get(new Random().nextInt(moveList.size()));
+				game.makeMove(myMove.getPiece(), myMove.getFrom(), myMove.getTo());
+				return myMove;
+			}
+		} catch (HantoException e) {
+			e.printStackTrace();
+		}
+		//Something went horribly wrong
+		return new HantoMoveRecord(null, null, null);
 	}
 
 }

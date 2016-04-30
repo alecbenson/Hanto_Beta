@@ -16,6 +16,7 @@ package hanto.common;
  * @author gpollice
  * @version Jan 12, 2013
  */
+@SuppressWarnings("serial")
 public class HantoException extends Exception
 {
 	/**

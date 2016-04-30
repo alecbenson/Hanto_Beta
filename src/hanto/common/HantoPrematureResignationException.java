@@ -15,6 +15,7 @@ package hanto.common;
  * move available for that player.
  * @version Oct 6, 2014
  */
+@SuppressWarnings("serial")
 public class HantoPrematureResignationException extends HantoException
 {
 	public HantoPrematureResignationException()

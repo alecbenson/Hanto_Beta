@@ -12,6 +12,7 @@ import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
+import hanto.common.HantoPrematureResignationException;
 import hanto.common.MoveResult;
 import hanto.student_abenson_pasalem.PieceValidator.FlyValidator;
 import hanto.student_abenson_pasalem.PieceValidator.IPieceValidator;
@@ -61,5 +62,24 @@ public class DeltaHantoGame extends BaseHantoGame implements HantoGame {
 		pieceBuilder.setButterflyValidators(butterflyValidator);
 		pieceBuilder.setSparrowValidators(sparrowValidator);
 		pieceBuilder.setCrabValidators(crabValidator);
+	}
+	
+	/**
+	 * Returns true if a resignation is received
+	 * @param pieceType the piecetype being played
+	 * @param from the coordinate the player is moving from
+	 * @param to the coordinate the player is moving to
+	 * @return true if resignation received, false otherwise
+	 * @throws HantoException if game does not support resignation
+	 */
+	public boolean checkPlayerResigned(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
+			throws HantoException{
+		if(pieceType == null && from == null && to == null){
+			if(!canResign){
+				throw new HantoException("You cannot resign in this version of hanto");
+			}
+			return true;
+		}
+		return false;
 	}
 }

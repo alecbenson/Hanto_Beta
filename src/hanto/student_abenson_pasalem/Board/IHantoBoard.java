@@ -4,11 +4,13 @@
  ******************************************/
 package hanto.student_abenson_pasalem.Board;
 
+import java.util.List;
 import java.util.Map;
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPlayerColor;
+import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 
 /**
  */
@@ -79,4 +81,11 @@ public interface IHantoBoard {
 	 * @return a map of pieces owned by the player
 	 */
 	Map<HantoCoordinate, HantoPiece> getAllPlayerPieces(HantoPlayerColor color);
+	
+	/**
+	 * Return a list of all places on the board that a piece can be placed by the given player
+	 * @param color
+	 * @return a list of valid placeable hexes
+	 */
+	List<HantoCoordinateImpl> getAllPlaceableHexes(HantoPlayerColor color);
 }

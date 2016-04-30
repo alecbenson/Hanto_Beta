@@ -13,6 +13,7 @@ import java.util.Map;
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoGame;
 import hanto.common.HantoPiece;
+import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.student_abenson_pasalem.Board.HantoBoardImpl;
 import hanto.student_abenson_pasalem.common.BaseHantoGame;
@@ -67,22 +68,27 @@ public class HantoAI {
 	 * @return a list of HantoMoveRecords
 	 */
 	public List<HantoMoveRecord> getAllLegalPlacementsForPlayer(HantoPlayerColor color){
-		List<HantoMoveRecord> moveList = new ArrayList<HantoMoveRecord>();
-		Map<HantoCoordinate, HantoPiece> playerPieces = ((BaseHantoGame) game).getBoard().getAllPlayerPieces(color);
+		List<HantoMoveRecord> validPlacementOptions = new ArrayList<HantoMoveRecord>();
+		List<HantoPieceType> pieceList = ((BaseHantoGame) game).getCurrentPlayerState().piecesInInventory();
+		List<HantoCoordinateImpl> validHexes = ((BaseHantoGame) game).getBoard().getAllPlaceableHexes(color);
 		
-		Iterator<Map.Entry<HantoCoordinate, HantoPiece>> it = playerPieces.entrySet().iterator();
-		//Go through all pieces on the board
-		while( it.hasNext() ){
-			Map.Entry<HantoCoordinate, HantoPiece> pair = it.next();
-			HantoCoordinateImpl coord = new HantoCoordinateImpl(pair.getKey());
-			HantoPiece piece = pair.getValue();
-			List<HantoCoordinateImpl> legalHexList = ((HantoPieceImpl) piece).getAllLegalMoves
-					((HantoBoardImpl) ((BaseHantoGame) game).getBoard(), coord);
-			for(HantoCoordinate legalHex : legalHexList){
-				HantoMoveRecord legalMove = new HantoMoveRecord(piece.getType(), coord, legalHex);
-				moveList.add(legalMove);
+		if(((BaseHantoGame) game).getCurrentPlayerTurns() == 0){
+			
+			//Special cases for first turns
+			if(color == HantoPlayerColor.BLUE){
+				validPlacementOptions.add(new HantoMoveRecord(
+						HantoPieceType.BUTTERFLY,null, new HantoCoordinateImpl(0,0)));
+			} else{
+				validHexes = new HantoCoordinateImpl(0,0).getAdjacentSpaces();
 			}
 		}
-		return moveList;
+		
+		for(HantoPieceType type : pieceList){
+			for(HantoCoordinateImpl coord : validHexes){
+				HantoMoveRecord placementRecord = new HantoMoveRecord(type, null, coord);
+				validPlacementOptions.add(placementRecord);
+			}
+		}
+		return validPlacementOptions;
 	}
 }
