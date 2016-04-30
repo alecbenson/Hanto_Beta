@@ -17,7 +17,7 @@ import hanto.common.HantoException;
  */
 public class HantoCoordinateImpl implements HantoCoordinate
 {
-	final private int x, y;
+	private int x, y;
 	
 	/**
 	 * The only constructor.
@@ -52,6 +52,22 @@ public class HantoCoordinateImpl implements HantoCoordinate
 	}
 	
 	/**
+	 * Sets the value of the y coordinate
+	 * @param y
+	 */
+	public void setY(int y){
+		this.y = y;
+	}
+	
+	/**
+	 * Sets the value of the x coordinate
+	 * @param x
+	 */
+	public void setX(int x){
+		this.x = x;
+	}
+	
+	/**
 	 * Gets the euclidian distance between two hexes on the board
 	 * @param other another HantoCoordinate to get the distance between
 	 * @return the distance as an integer
@@ -66,6 +82,39 @@ public class HantoCoordinateImpl implements HantoCoordinate
 		double dist = Math.sqrt(Math.pow(other.getY() - this.getY(), 2) + 
 				Math.pow(other.getX() - this.getX(), 2));
 		return (int) dist;
+	}
+	
+	public HantoDirection direction(HantoCoordinate other){
+		if(other == null){
+			return HantoDirection.NONE;
+		}
+		int yOffset = other.getY() - this.getY();
+		int xOffset = other.getX() - this.getX();
+		
+		if(yOffset == 0){
+			if(xOffset == 0){
+				return HantoDirection.NONE;
+			} else if (xOffset < 0){
+				return HantoDirection.WEST;
+			} else{
+				return HantoDirection.EAST;
+			}
+		}
+		
+		if(xOffset == 0){
+			if (yOffset > 0){
+				return HantoDirection.NORTH;
+			} else{
+				return HantoDirection.SOUTH;
+			}
+		}
+		
+		if(xOffset < 0 && yOffset > 0){
+			return xOffset + yOffset == 0 ? HantoDirection.NORTHWEST : HantoDirection.NONE;
+		} else if(xOffset > 0 && yOffset < 0){
+			return xOffset + yOffset == 0 ? HantoDirection.SOUTHEAST : HantoDirection.NONE;
+		}
+		return HantoDirection.NONE;	
 	}
 	
 	/*

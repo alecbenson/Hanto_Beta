@@ -17,6 +17,8 @@ import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.HantoPrematureResignationException;
 import hanto.common.MoveResult;
+import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
+import hanto.student_abenson_pasalem.common.HantoDirection;
 import hanto.student_abenson_pasalem.common.HantoGameFactory;
 
 public class EpsilonHantoMasterTest {
@@ -208,5 +210,81 @@ public class EpsilonHantoMasterTest {
 				md(CRAB, 2, -2), md(CRAB, 3,0),
 				md(CRAB, 0, -2), md(CRAB, 4, 0),
 				md(CRAB,0,-2,-1, 1), md(CRAB,5,0));
+	}
+	
+	//7
+	@Test
+	public void northWestDirection(){
+		HantoCoordinateImpl origin = new HantoCoordinateImpl(1,-2);
+		HantoCoordinateImpl other = new HantoCoordinateImpl(-1,0);
+		assertEquals(HantoDirection.NORTHWEST, origin.direction(other));
+	}
+	
+	//9
+	@Test
+	public void southEastDirection(){
+		HantoCoordinateImpl origin = new HantoCoordinateImpl(-1,2);
+		HantoCoordinateImpl other = new HantoCoordinateImpl(0,1);
+		assertEquals(HantoDirection.SOUTHEAST, origin.direction(other));
+	}
+	
+	//10
+	@Test
+	public void northDirection(){
+		HantoCoordinateImpl origin = new HantoCoordinateImpl(0,0);
+		HantoCoordinateImpl other = new HantoCoordinateImpl(0,1);
+		assertEquals(HantoDirection.NORTH, origin.direction(other));
+	}
+	
+	//11
+	@Test
+	public void southDirection(){
+		HantoCoordinateImpl origin = new HantoCoordinateImpl(0,0);
+		HantoCoordinateImpl other = new HantoCoordinateImpl(0,-1);
+		assertEquals(HantoDirection.SOUTH, origin.direction(other));
+	}
+	
+	//12
+	@Test
+	public void westDirection(){
+		HantoCoordinateImpl origin = new HantoCoordinateImpl(0,0);
+		HantoCoordinateImpl other = new HantoCoordinateImpl(-1,0);
+		assertEquals(HantoDirection.WEST, origin.direction(other));
+	}
+	
+	//13
+	@Test
+	public void eastDirection(){
+		HantoCoordinateImpl origin = new HantoCoordinateImpl(0,0);
+		HantoCoordinateImpl other = new HantoCoordinateImpl(1,0);
+		assertEquals(HantoDirection.EAST, origin.direction(other));
+	}
+	
+	//14
+	@Test
+	public void noDirection(){
+		HantoCoordinateImpl origin = new HantoCoordinateImpl(0,0);
+		HantoCoordinateImpl other = new HantoCoordinateImpl(1,1);
+		assertEquals(HantoDirection.NONE, origin.direction(other));
+	}
+	
+	@Test (expected=HantoException.class)
+	public void jumpHorseNotStraightLine() throws HantoException
+	{
+		setup();
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(CRAB, 0, -1), md(CRAB, 0, 2),
+				md(HORSE, -1, 0), md(SPARROW, 1,1),
+				md(HORSE, -1, 0, 1, -1));
+	}
+	
+	@Test (expected=HantoException.class)
+	public void jumpHorseNotStraightLine2() throws HantoException
+	{
+		setup();
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(CRAB, 0, -1), md(CRAB, 0, 2),
+				md(HORSE, -1, 0), md(SPARROW, 1,1),
+				md(HORSE, -1, 0, 0, 3));
 	}
 }
