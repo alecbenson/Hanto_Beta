@@ -5,12 +5,9 @@
 package hanto.student_abenson_pasalem.Board;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
@@ -178,10 +175,6 @@ public class HantoBoardImpl implements IHantoBoard {
 	 * Returns the total number of pieces on the board
 	 */
 	public int pieceCount() {
-		int total = 0;
-		for(HantoPiece pieces : board.values()){
-			total++;
-		}
-		return total;
+		return board.values().size();
 	}
 }
