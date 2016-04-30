@@ -5,12 +5,10 @@
 
 package hanto.student_abenson_pasalem.beta;
 
-import static hanto.common.HantoPlayerColor.BLUE;
-import static hanto.common.MoveResult.BLUE_WINS;
-import static hanto.common.MoveResult.RED_WINS;
-
 import hanto.common.*;
-import hanto.student_abenson_pasalem.PieceFactory.HantoPieceFactory;
+import hanto.student_abenson_pasalem.PieceFactory.HantoPieceBuilder;
+import hanto.student_abenson_pasalem.PieceValidator.FlyValidator;
+import hanto.student_abenson_pasalem.PieceValidator.IPieceValidator;
 import hanto.student_abenson_pasalem.PlayerState.HantoPlayerStateFactory;
 import hanto.student_abenson_pasalem.RuleValidator.IRuleValidator;
 import hanto.student_abenson_pasalem.RuleValidator.GameRuleSets.PreTurnValidator;
@@ -52,12 +50,23 @@ public class BetaHantoGame extends BaseHantoGame implements HantoGame {
 		} else{
 			IRuleValidator moveValidator = new PreTurnValidator();
 			moveValidator.validate(this, pieceType, from, to);
-			HantoPiece piece = currentPlayerState.getPieceFromInventory(pieceType);
+			HantoPiece piece = currentPlayerState.getPieceFromInventory(pieceType, pieceBuilder);
 			board.placePiece(piece, to);
 		}
 		updateButterflyIfMoved(pieceType, to);
 		switchTurn();
 		return gameState();
+	}
+	
+	/**
+	 * Set rules for each piece
+	 */
+	@Override
+	public void setPieceRules(){
+		pieceBuilder = new HantoPieceBuilder();
+		IPieceValidator noMoveValidator = new FlyValidator(0);
+		pieceBuilder.setButterflyValidators(noMoveValidator);
+		pieceBuilder.setSparrowValidators(noMoveValidator);
 	}
 	
 }

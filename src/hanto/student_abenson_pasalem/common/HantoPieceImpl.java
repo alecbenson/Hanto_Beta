@@ -11,6 +11,10 @@
 package hanto.student_abenson_pasalem.common;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import hanto.common.*;
 import hanto.student_abenson_pasalem.Board.HantoBoardImpl;
 import hanto.student_abenson_pasalem.PieceValidator.IPieceValidator;
@@ -23,7 +27,7 @@ public class HantoPieceImpl implements HantoPiece
 {
 	private final HantoPlayerColor color;
 	private final HantoPieceType type;
-	private final IPieceValidator[] validators;
+	private List<IPieceValidator> validators;
 	
 	/**
 	 * Default constructor
@@ -35,7 +39,8 @@ public class HantoPieceImpl implements HantoPiece
 	{
 		this.color = color;
 		this.type = type;
-		this.validators = validators;
+		this.validators = new ArrayList<IPieceValidator>();
+		this.validators.addAll(Arrays.asList(validators));
 	}
 	/*
 	 * @see hanto.common.HantoPiece#getColor()
@@ -53,6 +58,14 @@ public class HantoPieceImpl implements HantoPiece
 	public HantoPieceType getType()
 	{
 		return type;
+	}
+	
+	/**
+	 * Add additional validators for the piece
+	 * @param validators
+	 */
+	public void addValidators(IPieceValidator... newValidators){
+		validators.addAll(Arrays.asList(newValidators));
 	}
 	
 	/**

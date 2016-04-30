@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import hanto.common.*;
-import hanto.student_abenson_pasalem.PieceFactory.HantoPieceFactory;
+import hanto.student_abenson_pasalem.PieceFactory.HantoPieceBuilder;
 
 /**
  * Manages state of players and keeps track of the player inventory, color, and whether the butterfly is in play
@@ -47,10 +47,11 @@ public class HantoPlayerState {
 	/**
 	 * Plays a piece from the player's inventory
 	 * @param pieceType
+	 * @param pieceBuilder 
 	 * @return the HantoPiece retrieved from the player's inventory
 	 * @throws HantoException
 	 */
-	public HantoPiece getPieceFromInventory(HantoPieceType pieceType) throws HantoException {
+	public HantoPiece getPieceFromInventory(HantoPieceType pieceType, HantoPieceBuilder pieceBuilder) throws HantoException {
 		if(!inventory.containsKey(pieceType)){
 			throw new HantoException(pieceType + " is not in use in this game");
 		}
@@ -63,7 +64,7 @@ public class HantoPlayerState {
 		if(pieceType == HantoPieceType.BUTTERFLY){
 			hasPlayedButterfly = true;
 		}
-		return HantoPieceFactory.createPiece(color, pieceType);
+		return pieceBuilder.getResult(color, pieceType);
 	}
 	
 	/**

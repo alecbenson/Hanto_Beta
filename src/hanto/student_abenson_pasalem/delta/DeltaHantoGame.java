@@ -13,6 +13,10 @@ import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
+import hanto.student_abenson_pasalem.PieceFactory.HantoPieceBuilder;
+import hanto.student_abenson_pasalem.PieceValidator.FlyValidator;
+import hanto.student_abenson_pasalem.PieceValidator.IPieceValidator;
+import hanto.student_abenson_pasalem.PieceValidator.WalkValidator;
 import hanto.student_abenson_pasalem.PlayerState.HantoPlayerStateFactory;
 import hanto.student_abenson_pasalem.common.BaseHantoGame;
 
@@ -43,5 +47,19 @@ public class DeltaHantoGame extends BaseHantoGame implements HantoGame {
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 			throws HantoException {
 		return super.makeMove(pieceType, from, to);
+	}
+	
+	/**
+	 * Set rules for each piece
+	 */
+	@Override
+	public void setPieceRules(){
+		pieceBuilder = new HantoPieceBuilder();
+		IPieceValidator butterflyValidator = new WalkValidator(1);
+		IPieceValidator sparrowValidator = new FlyValidator(Integer.MAX_VALUE);
+		IPieceValidator crabValidator = new WalkValidator(3);
+		pieceBuilder.setButterflyValidators(butterflyValidator);
+		pieceBuilder.setSparrowValidators(sparrowValidator);
+		pieceBuilder.setCrabValidators(crabValidator);
 	}
 }

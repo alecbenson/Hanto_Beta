@@ -17,7 +17,11 @@ import java.util.List;
 import hanto.common.*;
 import hanto.student_abenson_pasalem.Board.HantoBoardImpl;
 import hanto.student_abenson_pasalem.Board.IHantoBoard;
-import hanto.student_abenson_pasalem.PieceFactory.HantoPieceFactory;
+import hanto.student_abenson_pasalem.PieceFactory.HantoPieceBuilder;
+import hanto.student_abenson_pasalem.PieceValidator.FlyValidator;
+import hanto.student_abenson_pasalem.PieceValidator.IPieceValidator;
+import hanto.student_abenson_pasalem.PieceValidator.JumpValidator;
+import hanto.student_abenson_pasalem.PieceValidator.WalkValidator;
 import hanto.student_abenson_pasalem.PlayerState.HantoPlayerState;
 import hanto.student_abenson_pasalem.RuleValidator.AdjacentOpposingPieceValidator;
 import hanto.student_abenson_pasalem.RuleValidator.IRuleValidator;
@@ -37,6 +41,7 @@ public abstract class BaseHantoGame implements HantoGame{
 	protected HantoPlayerColor currentPlayer;
 	protected HantoBoardImpl board;
 	protected HantoPlayerState redPlayerState, bluePlayerState, currentPlayerState;
+	protected HantoPieceBuilder pieceBuilder;
 	
 	/**
 	 * Default constructor for the hanto template
@@ -45,6 +50,7 @@ public abstract class BaseHantoGame implements HantoGame{
 	public BaseHantoGame(HantoPlayerColor movesFirst){
 		currentPlayer = movesFirst;
 		board = new HantoBoardImpl();
+		setPieceRules();
 	}
 	
 	/*
@@ -76,7 +82,7 @@ public abstract class BaseHantoGame implements HantoGame{
 		} else{
 			IRuleValidator opposingAdjacentValidator = new AdjacentOpposingPieceValidator();
 			opposingAdjacentValidator.validate(this, pieceType, from, to);
-			HantoPiece piece = currentPlayerState.getPieceFromInventory(pieceType);
+			HantoPiece piece = currentPlayerState.getPieceFromInventory(pieceType, pieceBuilder);
 			board.placePiece(piece, to);
 		}
 		updateButterflyIfMoved(pieceType, to);
@@ -302,5 +308,20 @@ public abstract class BaseHantoGame implements HantoGame{
 	 */
 	public HantoPlayerState getCurrentPlayerState(){
 		return currentPlayerState;
+	}
+	
+	/**
+	 * Set rules for each piece
+	 */
+	public void setPieceRules(){
+		pieceBuilder = new HantoPieceBuilder();
+		IPieceValidator butterflyValidator = new WalkValidator(1);
+		IPieceValidator sparrowValidator = new FlyValidator(4);
+		IPieceValidator crabValidator = new WalkValidator(1);
+		IPieceValidator horseValidator = new JumpValidator(Integer.MAX_VALUE);
+		pieceBuilder.setButterflyValidators(butterflyValidator);
+		pieceBuilder.setSparrowValidators(sparrowValidator);
+		pieceBuilder.setCrabValidators(crabValidator);
+		pieceBuilder.setHorseValidators(horseValidator);
 	}
 }

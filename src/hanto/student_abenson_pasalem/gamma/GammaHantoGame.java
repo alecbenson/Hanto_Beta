@@ -8,6 +8,9 @@ package hanto.student_abenson_pasalem.gamma;
 import static hanto.common.HantoGameID.GAMMA_HANTO;
 
 import hanto.common.*;
+import hanto.student_abenson_pasalem.PieceFactory.HantoPieceBuilder;
+import hanto.student_abenson_pasalem.PieceValidator.IPieceValidator;
+import hanto.student_abenson_pasalem.PieceValidator.WalkValidator;
 import hanto.student_abenson_pasalem.PlayerState.HantoPlayerStateFactory;
 import hanto.student_abenson_pasalem.common.BaseHantoGame;
 
@@ -37,5 +40,17 @@ public class GammaHantoGame extends BaseHantoGame implements HantoGame {
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 			throws HantoException {
 		return super.makeMove(pieceType, from, to);
+	}
+	
+	/**
+	 * Set rules for each piece
+	 */
+	@Override
+	public void setPieceRules(){
+		pieceBuilder = new HantoPieceBuilder();
+		IPieceValidator butterflyValidator = new WalkValidator(1);
+		IPieceValidator sparrowValidator = new WalkValidator(1);
+		pieceBuilder.setButterflyValidators(butterflyValidator);
+		pieceBuilder.setSparrowValidators(sparrowValidator);
 	}
 }
