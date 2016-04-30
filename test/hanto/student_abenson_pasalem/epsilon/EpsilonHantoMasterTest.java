@@ -147,7 +147,7 @@ public class EpsilonHantoMasterTest {
 	
 	//2
 	@Test(expected=HantoException.class)
-	public void flySparrowMoreThan5Spaces() throws HantoException
+	public void flySparrowMoreThan4Spaces() throws HantoException
 	{
 		setup();
 		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
@@ -156,5 +156,45 @@ public class EpsilonHantoMasterTest {
 				md(CRAB, 0, -2), md(CRAB, 0, 3),
 				md(SPARROW, 1, -2), md(SPARROW, -1, 3),
 				md(SPARROW, 1, -2, 0, 4));
+	}
+	
+	//3
+	//This should throw an exception because you cannot jump over an empty square. 
+	@Test(expected=HantoException.class)
+	public void jumpHorseOverEmptySpaces() throws HantoException
+	{
+		setup();
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(CRAB, 0, -1), md(CRAB, 0, 2),
+				md(HORSE, -1, 0), md(SPARROW, 1,1),
+				md(HORSE, -1, 0, -1, 2));
+	}
+	
+	//4
+	//This should NOT throw an exception
+	@Test
+	public void jumpHorseOverButterflyValid() throws HantoException
+	{
+		setup();
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(CRAB, 0, -1), md(CRAB, 0, 2),
+				md(HORSE, -1, 0), md(SPARROW, 1,1),
+				md(HORSE, -1, 0, 1, 0));
+	}
+	
+	//5
+	//Resignation no moves left
+	@Test
+	public void validResignationNoMovesLeft() throws HantoException
+	{
+		setup();
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 1, 0),
+				md(SPARROW, -1, 1), md(BUTTERFLY, 1, 0, 0, 1),
+				md(CRAB, 0, -1), md(BUTTERFLY, 0, 1, 1, 0),
+				md(SPARROW, -1, 0), md(BUTTERFLY, 1, 0, 0, 1),
+				md(CRAB, 1, -2), md(BUTTERFLY, 0, 1, 1, 0),
+				md(SPARROW, -1, 0, 2, 0));
+				//This should work because blue has no pieces and cannot move without causing disconnects
+				game.makeMove(null, null, null);
 	}
 }

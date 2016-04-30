@@ -5,11 +5,13 @@
 package hanto.student_abenson_pasalem.PieceFactory;
 
 import hanto.common.HantoException;
+import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.student_abenson_pasalem.PieceValidator.ContiguousMovementValidator;
 import hanto.student_abenson_pasalem.PieceValidator.FlyValidator;
 import hanto.student_abenson_pasalem.PieceValidator.IPieceValidator;
+import hanto.student_abenson_pasalem.PieceValidator.JumpValidator;
 import hanto.student_abenson_pasalem.PieceValidator.WalkValidator;
 import hanto.student_abenson_pasalem.common.HantoPieceImpl;
 
@@ -34,13 +36,17 @@ public class HantoPieceFactory{
 			return new HantoPieceImpl(color, type, 
 					contiguousMoveValidator, butterflyValidator);
 		case SPARROW:
-			IPieceValidator sparrowValidator = new FlyValidator(5);
+			IPieceValidator sparrowValidator = new FlyValidator(4);
 			return new HantoPieceImpl(color, type,
 					contiguousMoveValidator, sparrowValidator);
 		case CRAB:
 			IPieceValidator crabValidator = new WalkValidator(3);
 			return new HantoPieceImpl(color, type,
 					contiguousMoveValidator, crabValidator);
+		case HORSE:
+			IPieceValidator jumpValidator = new JumpValidator(Integer.MAX_VALUE);
+			return new HantoPieceImpl(color, type, 
+					contiguousMoveValidator, jumpValidator);
 		default:
 			throw new HantoException("Move validators not defined for this type of piece");
 		}
