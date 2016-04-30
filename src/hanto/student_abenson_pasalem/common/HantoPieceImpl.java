@@ -80,4 +80,18 @@ public class HantoPieceImpl implements HantoPiece
 			validator.validate(board, from, to);
 		}
 	}
+	
+
+	public List<HantoCoordinateImpl> getAllLegalMoves(HantoBoardImpl board, HantoCoordinate from){
+		List<HantoCoordinateImpl> validMoves = new ArrayList<HantoCoordinateImpl>();
+		for(IPieceValidator validator : validators){
+			List<HantoCoordinateImpl> validSubset = validator.getValidMoves(board, from);
+			for(HantoCoordinateImpl validMove : validSubset){
+				if(!validMoves.contains(validMove)){
+					validMoves.add(validMove);
+				}
+			}
+		}
+		return validMoves;
+	}
 }

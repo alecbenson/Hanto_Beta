@@ -248,7 +248,7 @@ public abstract class BaseHantoGame implements HantoGame{
 	public HantoCoordinate getRedButterflyPos() {
 		return redButterflyPos;
 	}
-
+	
 	/**
 	 * Returns the blue butterfly position
 	 */

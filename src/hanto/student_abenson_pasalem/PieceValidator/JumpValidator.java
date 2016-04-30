@@ -4,9 +4,13 @@
  ******************************************/
 package hanto.student_abenson_pasalem.PieceValidator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.student_abenson_pasalem.Board.HantoBoardImpl;
+import hanto.student_abenson_pasalem.Board.IHantoBoard;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.HantoDirection;
 
@@ -27,7 +31,7 @@ public class JumpValidator implements IPieceValidator{
 	}
 
 	@Override
-	public void validate(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) throws HantoException {
+	public void validate(IHantoBoard board, HantoCoordinate from, HantoCoordinate to) throws HantoException {
 		int distance = new HantoCoordinateImpl(from).distance(new HantoCoordinateImpl(to));
 		if(distance > maxDistance){
 			throw new HantoException("Cannot move from " + from.getX() + "," + from.getY() + " to " +
@@ -46,7 +50,7 @@ public class JumpValidator implements IPieceValidator{
 	}
 	
 	public void checkJumpSpacesOccupied(HantoCoordinate from, HantoCoordinate to,
-			HantoBoardImpl board) throws HantoException{
+			IHantoBoard board) throws HantoException{
 		int yOffset = to.getY() - from.getY();
 		int xOffset = to.getX() - from.getX();
 		int yIncrement = Integer.signum(yOffset);
@@ -63,6 +67,8 @@ public class JumpValidator implements IPieceValidator{
 		}
 	}
 	
-	
-
+	@Override
+	public List<HantoCoordinateImpl> getValidMoves(HantoBoardImpl board, HantoCoordinate source) {
+		return new ArrayList();
+	}
 }

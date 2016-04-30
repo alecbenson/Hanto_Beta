@@ -4,6 +4,7 @@
  ******************************************/
 package hanto.student_abenson_pasalem.PieceValidator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Queue;
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.student_abenson_pasalem.Board.HantoBoardImpl;
+import hanto.student_abenson_pasalem.Board.IHantoBoard;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 
 /**
@@ -31,7 +33,7 @@ public class WalkValidator implements IPieceValidator{
 		this.maxDistance = maxDistance;	
 	}
 
-	public void validate(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) throws HantoException{
+	public void validate(IHantoBoard board, HantoCoordinate from, HantoCoordinate to) throws HantoException{
 		checkWalkablePathExists(board, from, to);
 	}
 	
@@ -43,7 +45,7 @@ public class WalkValidator implements IPieceValidator{
 	 * @return true if there is enough space to walk, false otherwise
 	 * @throws HantoException
 	 */
-	public boolean enoughSpaceToWalk(HantoBoardImpl board, 
+	public boolean enoughSpaceToWalk(IHantoBoard board, 
 			HantoCoordinate from, HantoCoordinate to) throws HantoException{
 		List<HantoCoordinateImpl> commonAdjacencies = new HantoCoordinateImpl(from).getCommonNeighbors(
 				new HantoCoordinateImpl(to));
@@ -69,7 +71,7 @@ public class WalkValidator implements IPieceValidator{
 	 * @param to the place the piece is moving to 
 	 * @throws HantoException
 	 */
-	public void checkWalkablePathExists(HantoBoardImpl board, 
+	public void checkWalkablePathExists(IHantoBoard board, 
 			HantoCoordinate from, HantoCoordinate to) throws HantoException{	
 		Map<HantoCoordinateImpl, Integer> distMap = new HashMap<HantoCoordinateImpl, Integer>();
 		Queue<HantoCoordinateImpl> visitQueue = new LinkedList<HantoCoordinateImpl>();
@@ -122,4 +124,28 @@ public class WalkValidator implements IPieceValidator{
 				to.getX() + "," + to.getY());
 	}
 
+	@Override
+	public List<HantoCoordinateImpl> getValidMoves(HantoBoardImpl board, HantoCoordinate source) {
+		HantoCoordinateImpl sourceCoord = new HantoCoordinateImpl(source);
+		List<HantoCoordinateImpl> currentSearchSet = sourceCoord.getAdjacentSpaces();
+		List<HantoCoordinateImpl> toBeSearched = new ArrayList<HantoCoordinateImpl>();
+		
+		for(int i = 1; i < maxDistance; i++){
+			for(HantoCoordinateImpl adjacent : currentSearchSet){
+				List<HantoCoordinateImpl> newSearchItems = adjacent.getAdjacentSpaces();
+				for(HantoCoordinateImpl newSearchAdj : newSearchItems){
+					try{
+						this.validate(board, sourceCoord, newSearchAdj);
+						if(!toBeSearched.contains(newSearchAdj)){
+							toBeSearched.add(newSearchAdj);
+						}
+					} catch(HantoException e){
+						continue;
+					}
+				}
+			}
+			currentSearchSet = new ArrayList<HantoCoordinateImpl>(toBeSearched);
+		}
+		return currentSearchSet;
+	}
 }

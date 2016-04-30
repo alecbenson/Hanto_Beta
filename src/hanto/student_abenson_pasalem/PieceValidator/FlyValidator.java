@@ -4,9 +4,13 @@
  ******************************************/
 package hanto.student_abenson_pasalem.PieceValidator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.student_abenson_pasalem.Board.HantoBoardImpl;
+import hanto.student_abenson_pasalem.Board.IHantoBoard;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 
 /**
@@ -26,13 +30,29 @@ public class FlyValidator implements IPieceValidator{
 	}
 
 	@Override
-	public void validate(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) throws HantoException {
+	public void validate(IHantoBoard board, HantoCoordinate from, HantoCoordinate to) throws HantoException {
 		int distance = new HantoCoordinateImpl(from).distance(new HantoCoordinateImpl(to));
 		if(distance > maxDistance){
 			throw new HantoException("Cannot move from " + from.getX() + "," + from.getY() + " to " +
 				to.getX() + "," + to.getY() + ": cannot fly more than " + maxDistance + " tiles." +
 					"distance was " + distance);
 		}	
+	}
+	
+	@Override
+	public List<HantoCoordinateImpl> getValidMoves(HantoBoardImpl board, HantoCoordinate source) {
+		HantoCoordinateImpl sourceCoord = new HantoCoordinateImpl(source);
+		List<HantoCoordinateImpl> radiusCoords = sourceCoord.getCoordsInRadius(maxDistance);
+		List<HantoCoordinateImpl> validMoves = new ArrayList<HantoCoordinateImpl>();
+		for(HantoCoordinateImpl radiusCoord : radiusCoords){
+			try{
+				this.validate(board, source, radiusCoord);
+				validMoves.add(sourceCoord);
+			}catch(HantoException e){
+				continue;
+			}
+		}
+		return validMoves;
 	}
 
 }

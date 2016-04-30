@@ -192,10 +192,6 @@ public class HantoCoordinateImpl implements HantoCoordinate
 			}
 			currentSearchSet = new ArrayList<HantoCoordinateImpl>(toBeSearched);
 		}
-		
-		for(HantoCoordinateImpl coord : currentSearchSet){
-			System.out.println("new HantoCoordinateImpl(" + coord.getX() + "," + coord.getY() + "),");
-		}
 		return currentSearchSet;
 	}
 	

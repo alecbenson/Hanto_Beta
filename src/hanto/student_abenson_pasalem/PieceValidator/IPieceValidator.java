@@ -4,9 +4,13 @@
  ******************************************/
 package hanto.student_abenson_pasalem.PieceValidator;
 
+import java.util.List;
+
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.student_abenson_pasalem.Board.HantoBoardImpl;
+import hanto.student_abenson_pasalem.Board.IHantoBoard;
+import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 
 
 /**
@@ -23,5 +27,14 @@ public interface IPieceValidator {
 	 * @param board the gaem board
 	 * @throws HantoException
 	 */
-	void validate(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) throws HantoException;
+	void validate(IHantoBoard board, HantoCoordinate from, HantoCoordinate to) throws HantoException;
+	
+	
+	/**
+	 * Returns a list of any valid moves that the piece can make with this validator
+	 * @param board
+	 * @param source
+	 * @return a list of valid moves
+	 */
+	List<HantoCoordinateImpl> getValidMoves(HantoBoardImpl board, HantoCoordinate source);
 }

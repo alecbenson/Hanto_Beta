@@ -10,6 +10,7 @@ import static hanto.common.MoveResult.OK;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
@@ -24,8 +25,12 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
+import hanto.student_abenson_pasalem.common.BaseHantoGame;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.HantoGameFactory;
+import hanto.student_abenson_pasalem.Board.HantoBoardImpl;
+import hanto.student_abenson_pasalem.PieceValidator.IPieceValidator;
+import hanto.student_abenson_pasalem.PieceValidator.WalkValidator;
 import hanto.student_abenson_pasalem.PlayerState.HantoPlayerState;
 import hanto.student_abenson_pasalem.PlayerState.HantoPlayerStateFactory;
 import hanto.student_abenson_pasalem.delta.DeltaHantoGame;
@@ -325,6 +330,27 @@ public class DeltaHantoMasterTest {
 				md(SPARROW, 2, -2), md(SPARROW, 3,0),
 				md(CRAB, 0, -2), md(SPARROW, 4, 0),
 				md(CRAB,0,-2,-1, 1), md(CRAB,5,0));
+	}
+	
+	@Test
+	public void getValidMovesCrabWalk() throws HantoException
+	{
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(SPARROW, 0, -1), md(SPARROW, 1, 1),
+				md(SPARROW, 1, -2), md(SPARROW, 2, 0),
+				md(SPARROW, 2, -2), md(SPARROW, 3,0),
+				md(CRAB, 0, -2), md(SPARROW, 4, 0));
+		IPieceValidator validator = new WalkValidator(3);
+		List<HantoCoordinateImpl> validMoves = validator.getValidMoves(
+				(HantoBoardImpl) ((BaseHantoGame) game).getBoard(), new HantoCoordinateImpl(0, -2));
+		List<HantoCoordinateImpl> shouldContain = Arrays.asList(
+		new HantoCoordinateImpl(-1,-1),
+		new HantoCoordinateImpl(-1,0),
+		new HantoCoordinateImpl(2,-3),
+		new HantoCoordinateImpl(1,-3),
+		new HantoCoordinateImpl(-1,1),
+		new HantoCoordinateImpl(3,-3));
+		assertEquals(validMoves, shouldContain);
 	}
 	
 	@Test

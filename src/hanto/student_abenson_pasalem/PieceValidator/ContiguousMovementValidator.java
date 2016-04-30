@@ -20,7 +20,7 @@ import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
  */
 public class ContiguousMovementValidator implements IPieceValidator{
 	@Override
-	public void validate(HantoBoardImpl board, HantoCoordinate from, HantoCoordinate to) throws HantoException {		
+	public void validate(IHantoBoard board, HantoCoordinate from, HantoCoordinate to) throws HantoException {		
 		List<HantoCoordinate> visited = new ArrayList<HantoCoordinate>();
 		int totalPieces = board.pieceCount();
 		List<HantoCoordinate> contiguousGraph = getContiguousGraph(board, from, to, visited); 
@@ -57,6 +57,11 @@ public class ContiguousMovementValidator implements IPieceValidator{
 			}
 		}
 		return visited;
+	}
+
+	@Override
+	public List<HantoCoordinateImpl> getValidMoves(HantoBoardImpl board, HantoCoordinate source) {
+		return new ArrayList<HantoCoordinateImpl>();
 	}
 
 }
