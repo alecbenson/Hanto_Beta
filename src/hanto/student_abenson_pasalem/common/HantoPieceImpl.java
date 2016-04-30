@@ -62,7 +62,7 @@ public class HantoPieceImpl implements HantoPiece
 	
 	/**
 	 * Add additional validators for the piece
-	 * @param validators
+	 * @param newValidators
 	 */
 	public void addValidators(IPieceValidator... newValidators){
 		validators.addAll(Arrays.asList(newValidators));

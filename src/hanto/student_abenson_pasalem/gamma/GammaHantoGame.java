@@ -46,7 +46,7 @@ public class GammaHantoGame extends BaseHantoGame implements HantoGame {
 	 * Set rules for each piece
 	 */
 	@Override
-	public void setPieceRules(){
+	public void definePieceRules(){
 		pieceBuilder = new HantoPieceBuilder();
 		IPieceValidator butterflyValidator = new WalkValidator(1);
 		IPieceValidator sparrowValidator = new WalkValidator(1);

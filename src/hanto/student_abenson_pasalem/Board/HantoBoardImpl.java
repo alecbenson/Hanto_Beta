@@ -74,7 +74,7 @@ public class HantoBoardImpl implements IHantoBoard {
 		Iterator<Map.Entry<HantoCoordinate, HantoPiece>> it = board.entrySet().iterator();
 		//Go through all pieces on the board
 		while( it.hasNext() ){
-			Map.Entry<HantoCoordinate, HantoPiece> pair = (Map.Entry<HantoCoordinate, HantoPiece>)it.next();
+			Map.Entry<HantoCoordinate, HantoPiece> pair = it.next();
 			HantoCoordinateImpl coord = new HantoCoordinateImpl(pair.getKey());
 			HantoPiece piece = pair.getValue();
 			//Skip if not our color
@@ -115,7 +115,7 @@ public class HantoBoardImpl implements IHantoBoard {
 		Iterator<Map.Entry<HantoCoordinate, HantoPiece>> it = board.entrySet().iterator();
 		//Go through all pieces on the board
 		while( it.hasNext() ){
-			Map.Entry<HantoCoordinate, HantoPiece> pair = (Map.Entry<HantoCoordinate, HantoPiece>)it.next();
+			Map.Entry<HantoCoordinate, HantoPiece> pair = it.next();
 			HantoCoordinateImpl coord = new HantoCoordinateImpl(pair.getKey());
 			HantoPiece piece = pair.getValue();
 			//Skip if not our color
@@ -129,17 +129,17 @@ public class HantoBoardImpl implements IHantoBoard {
 		return false;
 	}
 	
-	public HashMap<HantoCoordinate, HantoPiece> getAllPlayerPieces(HantoPlayerColor color){
-		HashMap<HantoCoordinate, HantoPiece> playerPieces = new HashMap<HantoCoordinate, HantoPiece>();
+	public Map<HantoCoordinate, HantoPiece> getAllPlayerPieces(HantoPlayerColor color){
+		Map<HantoCoordinate, HantoPiece> playerPieces = new HashMap<HantoCoordinate, HantoPiece>();
 		Iterator<Map.Entry<HantoCoordinate, HantoPiece>> it = board.entrySet().iterator();
 		//Go through all pieces on the board
 		while( it.hasNext() ){
-			Map.Entry<HantoCoordinate, HantoPiece> pair = (Map.Entry<HantoCoordinate, HantoPiece>)it.next();
+			Map.Entry<HantoCoordinate, HantoPiece> pair = it.next();
 			HantoCoordinateImpl coord = new HantoCoordinateImpl(pair.getKey());
 			HantoPiece piece = pair.getValue();
 			//Skip if not our color
 			if(piece.getColor() == color){
-				((Map<HantoCoordinate, HantoPiece>) playerPieces).put(coord, piece);
+				playerPieces.put(coord, piece);
 			}
 		}
 		return playerPieces;

@@ -150,7 +150,7 @@ public class TournamentMasterTest {
 				md(CRAB, 0, -1), md(CRAB, 0, 2),
 				md(HORSE, -1, 0), md(SPARROW, 1,1));
 		HantoAI ai = new HantoAI((BaseHantoGame) game);
-		List<HantoMoveRecord> moveList = ai.getAllLegalMovesForPlayer(BLUE);
+		List<HantoMoveRecord> moveList = ai.getAllLegalMovementsForPlayer(BLUE);
 		assertEquals(4, moveList.size());
 	}
 }

@@ -62,7 +62,7 @@ public class BetaHantoGame extends BaseHantoGame implements HantoGame {
 	 * Set rules for each piece
 	 */
 	@Override
-	public void setPieceRules(){
+	public void definePieceRules(){
 		pieceBuilder = new HantoPieceBuilder();
 		IPieceValidator noMoveValidator = new FlyValidator(0);
 		pieceBuilder.setButterflyValidators(noMoveValidator);

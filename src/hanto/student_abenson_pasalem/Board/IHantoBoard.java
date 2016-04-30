@@ -4,8 +4,7 @@
  ******************************************/
 package hanto.student_abenson_pasalem.Board;
 
-import java.util.HashMap;
-
+import java.util.Map;
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoPiece;
@@ -62,7 +61,7 @@ public interface IHantoBoard {
 
 	/**
 	 * Determines if the player has any choices for placing pieces
-	 * @param blue
+	 * @param color
 	 * @return true if can place, false otherwise
 	 */
 	boolean canPlacePieces(HantoPlayerColor color);
@@ -79,5 +78,5 @@ public interface IHantoBoard {
 	 * @param color
 	 * @return a map of pieces owned by the player
 	 */
-	public HashMap<HantoCoordinate, HantoPiece> getAllPlayerPieces(HantoPlayerColor color);
+	Map<HantoCoordinate, HantoPiece> getAllPlayerPieces(HantoPlayerColor color);
 }

@@ -52,7 +52,14 @@ public class JumpValidator implements IPieceValidator{
 		checkJumpSpacesOccupied(from, to, board);
 	}
 	
-	public void checkJumpSpacesOccupied(HantoCoordinate from, HantoCoordinate to,
+	/**
+	 * A helper method used to determine if a jump contains is over occupied spaces or not
+	 * @param from the location jumping from
+	 * @param to location jumping to
+	 * @param board 
+	 * @throws HantoException
+	 */
+	private void checkJumpSpacesOccupied(HantoCoordinate from, HantoCoordinate to,
 			IHantoBoard board) throws HantoException{
 		int yOffset = to.getY() - from.getY();
 		int xOffset = to.getX() - from.getX();
@@ -80,10 +87,6 @@ public class JumpValidator implements IPieceValidator{
 		validMoves.addAll(getValidMovesInDirection(board, source, HantoDirection.SOUTH));
 		validMoves.addAll(getValidMovesInDirection(board, source, HantoDirection.SOUTHEAST));
 		validMoves.addAll(getValidMovesInDirection(board, source, HantoDirection.EAST));
-		
-		for(HantoCoordinateImpl mov : validMoves){
-			System.out.println(mov.getX() + "," + mov.getY());
-		}
 		return validMoves;
 	}
 	
@@ -123,7 +126,7 @@ public class JumpValidator implements IPieceValidator{
 				validMoves.add(dest);
 			}
 		}catch(HantoException e){
-			//Do nothing
+			return validMoves;
 		}
 		return validMoves;
 	}

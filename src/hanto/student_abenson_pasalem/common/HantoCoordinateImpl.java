@@ -84,6 +84,11 @@ public class HantoCoordinateImpl implements HantoCoordinate
 		return (int) dist;
 	}
 	
+	/**
+	 * Gets the direction vector between the current coordinate and the specified oner
+	 * @param other
+	 * @return HantoDirection
+	 */
 	public HantoDirection direction(HantoCoordinate other){
 		if(other == null){
 			return HantoDirection.NONE;
@@ -190,7 +195,7 @@ public class HantoCoordinateImpl implements HantoCoordinate
 	/**
 	 * Returns a list of all coordinates within a radius of this one
 	 * @param radius
-	 * @return
+	 * @return a list of coordinates within the specified radius
 	 */
 	public List<HantoCoordinateImpl> getCoordsInRadius(int radius){
 		//Start with radius coords

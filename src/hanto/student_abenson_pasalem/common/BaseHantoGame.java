@@ -49,7 +49,7 @@ public abstract class BaseHantoGame implements HantoGame{
 	public BaseHantoGame(HantoPlayerColor movesFirst){
 		currentPlayer = movesFirst;
 		board = new HantoBoardImpl();
-		setPieceRules();
+		definePieceRules();
 	}
 	
 	/*
@@ -316,7 +316,7 @@ public abstract class BaseHantoGame implements HantoGame{
 	/**
 	 * Set rules for each piece
 	 */
-	public void setPieceRules(){
+	public void definePieceRules(){
 		pieceBuilder = new HantoPieceBuilder();
 		IPieceValidator butterflyValidator = new WalkValidator(1);
 		IPieceValidator sparrowValidator = new FlyValidator(4);

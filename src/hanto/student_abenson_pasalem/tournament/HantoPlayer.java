@@ -10,15 +10,23 @@
 
 package hanto.student_abenson_pasalem.tournament;
 
+import java.util.List;
+import java.util.Random;
+
 import hanto.common.*;
+import hanto.student_abenson_pasalem.common.BaseHantoGame;
+import hanto.student_abenson_pasalem.common.HantoGameFactory;
 import hanto.tournament.*;
 
 /**
- * Description
- * @version Oct 13, 2014
+ * Defines how a hanto tournament game is played
+ * @author Alec
+ *
  */
 public class HantoPlayer implements HantoGamePlayer
 {
+	protected boolean doIMoveFirst;
+	protected BaseHantoGame game;
 
 	/*
 	 * @see hanto.tournament.HantoGamePlayer#startGame(hanto.common.HantoGameID, hanto.common.HantoPlayerColor, boolean)
@@ -27,7 +35,14 @@ public class HantoPlayer implements HantoGamePlayer
 	public void startGame(HantoGameID version, HantoPlayerColor myColor,
 			boolean doIMoveFirst)
 	{
-		System.out.println("startGame");
+        this.doIMoveFirst = doIMoveFirst;
+        //Determine color of starting player
+        HantoPlayerColor startColor = doIMoveFirst ? myColor
+                : myColor.equals(HantoPlayerColor.BLUE) ? 
+                		HantoPlayerColor.RED : HantoPlayerColor.BLUE;
+        
+        game = (BaseHantoGame) HantoGameFactory.getInstance().makeHantoGame(version,
+                startColor);
 	}
 
 	/*
@@ -36,7 +51,9 @@ public class HantoPlayer implements HantoGamePlayer
 	@Override
 	public HantoMoveRecord makeMove(HantoMoveRecord opponentsMove)
 	{
-		return new HantoMoveRecord(null, null, null);
+		HantoAI ai = new HantoAI(game);
+		List<HantoMoveRecord> moveList = ai.getAllLegalMovementsForPlayer(game.getCurrentPlayer());
+		return moveList.get(new Random().nextInt(moveList.size()));
 	}
 
 }

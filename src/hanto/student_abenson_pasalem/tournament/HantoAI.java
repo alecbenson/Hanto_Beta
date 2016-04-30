@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import hanto.common.HantoCoordinate;
+import hanto.common.HantoGame;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPlayerColor;
 import hanto.student_abenson_pasalem.Board.HantoBoardImpl;
@@ -19,14 +20,19 @@ import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.HantoPieceImpl;
 import hanto.tournament.HantoMoveRecord;
 
+/**
+ *  A constructor for the class responsible for making move decisions
+ * @author Alec
+ *
+ */
 public class HantoAI {
-	private BaseHantoGame game;
+	private HantoGame game;
 	
 	/**
 	 * Default constructor for the Hanto AI
 	 * @param game - the game to use. 
 	 */
-	public HantoAI(BaseHantoGame game){
+	public HantoAI(HantoGame game){
 		this.game = game;
 	}
 	
@@ -35,18 +41,43 @@ public class HantoAI {
 	 * @param color
 	 * @return a list of HantoMoveRecords
 	 */
-	public List<HantoMoveRecord> getAllLegalMovesForPlayer(HantoPlayerColor color){
+	public List<HantoMoveRecord> getAllLegalMovementsForPlayer(HantoPlayerColor color){
 		List<HantoMoveRecord> moveList = new ArrayList<HantoMoveRecord>();
-		Map<HantoCoordinate, HantoPiece> playerPieces = game.getBoard().getAllPlayerPieces(color);
+		Map<HantoCoordinate, HantoPiece> playerPieces = ((BaseHantoGame) game).getBoard().getAllPlayerPieces(color);
 		
 		Iterator<Map.Entry<HantoCoordinate, HantoPiece>> it = playerPieces.entrySet().iterator();
 		//Go through all pieces on the board
 		while( it.hasNext() ){
-			Map.Entry<HantoCoordinate, HantoPiece> pair = (Map.Entry<HantoCoordinate, HantoPiece>)it.next();
+			Map.Entry<HantoCoordinate, HantoPiece> pair = it.next();
 			HantoCoordinateImpl coord = new HantoCoordinateImpl(pair.getKey());
 			HantoPiece piece = pair.getValue();
 			List<HantoCoordinateImpl> legalHexList = ((HantoPieceImpl) piece).getAllLegalMoves
-					((HantoBoardImpl) game.getBoard(), coord);
+					((HantoBoardImpl) ((BaseHantoGame) game).getBoard(), coord);
+			for(HantoCoordinate legalHex : legalHexList){
+				HantoMoveRecord legalMove = new HantoMoveRecord(piece.getType(), coord, legalHex);
+				moveList.add(legalMove);
+			}
+		}
+		return moveList;
+	}
+	
+	/**
+	 * Gets a list of HantoMoveRecords that correspond to legal moves that a player can make
+	 * @param color
+	 * @return a list of HantoMoveRecords
+	 */
+	public List<HantoMoveRecord> getAllLegalPlacementsForPlayer(HantoPlayerColor color){
+		List<HantoMoveRecord> moveList = new ArrayList<HantoMoveRecord>();
+		Map<HantoCoordinate, HantoPiece> playerPieces = ((BaseHantoGame) game).getBoard().getAllPlayerPieces(color);
+		
+		Iterator<Map.Entry<HantoCoordinate, HantoPiece>> it = playerPieces.entrySet().iterator();
+		//Go through all pieces on the board
+		while( it.hasNext() ){
+			Map.Entry<HantoCoordinate, HantoPiece> pair = it.next();
+			HantoCoordinateImpl coord = new HantoCoordinateImpl(pair.getKey());
+			HantoPiece piece = pair.getValue();
+			List<HantoCoordinateImpl> legalHexList = ((HantoPieceImpl) piece).getAllLegalMoves
+					((HantoBoardImpl) ((BaseHantoGame) game).getBoard(), coord);
 			for(HantoCoordinate legalHex : legalHexList){
 				HantoMoveRecord legalMove = new HantoMoveRecord(piece.getType(), coord, legalHex);
 				moveList.add(legalMove);
