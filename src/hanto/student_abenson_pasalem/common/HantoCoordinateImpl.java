@@ -173,6 +173,21 @@ public class HantoCoordinateImpl implements HantoCoordinate
 	}
 	
 	/**
+	 * Determines if a coordinate is adjacent to another one
+	 * @param other
+	 * @return true if adjacent hexes, false otherwise
+	 */
+	public boolean isAdjacent(HantoCoordinateImpl other){
+		List<HantoCoordinateImpl> adjacentSquares = this.getAdjacentSpaces();
+		for(HantoCoordinateImpl adj : adjacentSquares){
+			if(other.getX() == adj.getX() && other.getY() == adj.getY()){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
 	 * Returns a list of all coordinates within a radius of this one
 	 * @param radius
 	 * @return

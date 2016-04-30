@@ -41,6 +41,9 @@ public class JumpValidator implements IPieceValidator{
 		
 		HantoCoordinateImpl fromKey = new HantoCoordinateImpl(from);
 		HantoCoordinateImpl toKey = new HantoCoordinateImpl(to);
+		if(fromKey.isAdjacent(toKey)){
+			throw new HantoException("Must jump over at least one piece!");
+		}
 		HantoDirection dir = fromKey.direction(toKey);
 		if(dir == HantoDirection.NONE){
 			throw new HantoException("Cannot move from " + from.getX() + "," + from.getY() + " to " +
@@ -55,20 +58,74 @@ public class JumpValidator implements IPieceValidator{
 		int xOffset = to.getX() - from.getX();
 		int yIncrement = Integer.signum(yOffset);
 		int xIncrement = Integer.signum(xOffset);
-		
+				
 		HantoCoordinateImpl checkedLoc = new HantoCoordinateImpl(from);
 		while((checkedLoc.getX() + xIncrement) != to.getX() || (checkedLoc.getY() + yIncrement) != to.getY()){
 			checkedLoc.setX(checkedLoc.getX() + xIncrement);
 			checkedLoc.setY(checkedLoc.getY() + yIncrement);
 			if(!board.spaceOccupied(checkedLoc)){
 				throw new HantoException("Cannot move to " + to.getX() + ","
-						+ to.getY() + ": space not occupied at " + checkedLoc.getX() + "," + checkedLoc.getY());
+						+ to.getY() + ": intermediate space not occupied at "
+						+ checkedLoc.getX() + "," + checkedLoc.getY());
 			}
 		}
 	}
 	
 	@Override
 	public List<HantoCoordinateImpl> getValidMoves(HantoBoardImpl board, HantoCoordinate source) {
-		return new ArrayList();
+		List<HantoCoordinateImpl> validMoves = new ArrayList<HantoCoordinateImpl>();
+		validMoves.addAll(getValidMovesInDirection(board, source, HantoDirection.NORTH));
+		validMoves.addAll(getValidMovesInDirection(board, source, HantoDirection.NORTHWEST));
+		validMoves.addAll(getValidMovesInDirection(board, source, HantoDirection.WEST));
+		validMoves.addAll(getValidMovesInDirection(board, source, HantoDirection.SOUTH));
+		validMoves.addAll(getValidMovesInDirection(board, source, HantoDirection.SOUTHEAST));
+		validMoves.addAll(getValidMovesInDirection(board, source, HantoDirection.EAST));
+		
+		for(HantoCoordinateImpl mov : validMoves){
+			System.out.println(mov.getX() + "," + mov.getY());
+		}
+		return validMoves;
 	}
+	
+	private List<HantoCoordinateImpl> getValidMovesInDirection(HantoBoardImpl board, 
+			HantoCoordinate source, HantoDirection dir) {
+		
+		List<HantoCoordinateImpl> validMoves = new ArrayList<HantoCoordinateImpl>();
+		try{
+			for(int i = 1; i < maxDistance; i++){
+				HantoCoordinateImpl dest = new HantoCoordinateImpl(0,0);
+				switch(dir){
+				case NORTH:
+					dest = new HantoCoordinateImpl(source.getX(), source.getY() + i);
+					break;
+				case NORTHWEST:
+					dest = new HantoCoordinateImpl(source.getX() - i, source.getY() + i);
+					break;
+				case WEST:
+					dest = new HantoCoordinateImpl(source.getX() - i, source.getY());
+					break;
+				case SOUTH:
+					dest = new HantoCoordinateImpl(source.getX(), source.getY() - i);
+					break;
+				case SOUTHEAST:
+					dest = new HantoCoordinateImpl(source.getX() + i, source.getY() - i);
+					break;
+				case EAST:
+					dest = new HantoCoordinateImpl(source.getX() + i, source.getY());
+					break;
+				default:
+					break;	
+				}
+				if(board.spaceOccupied(dest)){
+					continue;
+				}
+				this.validate(board, source, dest);
+				validMoves.add(dest);
+			}
+		}catch(HantoException e){
+			//Do nothing
+		}
+		return validMoves;
+	}
+	
 }

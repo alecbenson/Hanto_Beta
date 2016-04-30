@@ -144,6 +144,10 @@ public class WalkValidator implements IPieceValidator{
 					}
 				}
 			}
+			//Stop early if we get nothing past here
+			if(toBeSearched.isEmpty()){
+				break;
+			}
 			currentSearchSet = new ArrayList<HantoCoordinateImpl>(toBeSearched);
 		}
 		return currentSearchSet;

@@ -20,6 +20,11 @@ import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.HantoPrematureResignationException;
 import hanto.common.MoveResult;
+import hanto.student_abenson_pasalem.Board.HantoBoardImpl;
+import hanto.student_abenson_pasalem.PieceValidator.IPieceValidator;
+import hanto.student_abenson_pasalem.PieceValidator.JumpValidator;
+import hanto.student_abenson_pasalem.PieceValidator.WalkValidator;
+import hanto.student_abenson_pasalem.common.BaseHantoGame;
 import hanto.student_abenson_pasalem.common.HantoCoordinateImpl;
 import hanto.student_abenson_pasalem.common.HantoDirection;
 import hanto.student_abenson_pasalem.common.HantoGameFactory;
@@ -171,8 +176,8 @@ public class EpsilonHantoMasterTest {
 		setup();
 		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
 				md(CRAB, 0, -1), md(CRAB, 0, 2),
-				md(HORSE, -1, 0), md(SPARROW, 1,1),
-				md(HORSE, -1, 0, -1, 2));
+				md(HORSE, -1, 0), md(SPARROW, 1,1));
+		game.makeMove(HORSE, new HantoCoordinateImpl(-1, 0), new HantoCoordinateImpl(-1, 2));
 	}
 	
 	//4
@@ -320,5 +325,39 @@ public class EpsilonHantoMasterTest {
 				new HantoCoordinateImpl(-2,1),
 				new HantoCoordinateImpl(-2,2));
 		assertEquals(radius, shouldContain);
+	}
+	
+	//18
+	public void getValidJumpMoves() throws HantoException{
+		setup();
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(CRAB, 0, -1), md(CRAB, 0, 2),
+				md(HORSE, -1, 0), md(SPARROW, 1,1));
+		
+		IPieceValidator validator = new JumpValidator(Integer.MAX_VALUE);
+		List<HantoCoordinateImpl> validMoves = validator.getValidMoves(
+				(HantoBoardImpl) ((BaseHantoGame) game).getBoard(), new HantoCoordinateImpl(-1, 0));
+		List<HantoCoordinateImpl> shouldContain = Arrays.asList(
+		new HantoCoordinateImpl(1,-2),
+		new HantoCoordinateImpl(1,0));
+		assertEquals(validMoves, shouldContain);
+	}
+	
+	//19
+	@Test
+	public void getValidJumpMoves2() throws HantoException{
+		setup();
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(CRAB, 0, -1), md(CRAB, 0, 2),
+				md(HORSE, -1, 0), md(SPARROW, 1,1),
+				md(CRAB, 1, -1), md(SPARROW, 1,1,1,0));
+		
+		IPieceValidator validator = new JumpValidator(Integer.MAX_VALUE);
+		List<HantoCoordinateImpl> validMoves = validator.getValidMoves(
+				(HantoBoardImpl) ((BaseHantoGame) game).getBoard(), new HantoCoordinateImpl(-1, 0));
+		List<HantoCoordinateImpl> shouldContain = Arrays.asList(
+		new HantoCoordinateImpl(1,-2),
+		new HantoCoordinateImpl(2,0));
+		assertEquals(validMoves, shouldContain);
 	}
 }
