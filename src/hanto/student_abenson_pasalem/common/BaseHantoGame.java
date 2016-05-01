@@ -314,7 +314,7 @@ public abstract class BaseHantoGame implements HantoGame{
 	
 	/**
 	 * Indicates whether or not the current player has a legal placement option
-	 * @return
+	 * @return true if a piece can be placed, false otherwise
 	 */
 	public boolean canPlacePiece(){
 		
@@ -328,7 +328,7 @@ public abstract class BaseHantoGame implements HantoGame{
 	
 	/**
 	 * Indicates whether or not the current player has a legal move
-	 * @return
+	 * @return true if a piece can be moved, false otherwise
 	 */
 	public boolean canMovePiece(){
 		if(this.getCurrentPlayerTurns() == 0){

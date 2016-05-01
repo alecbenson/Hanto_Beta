@@ -79,7 +79,7 @@ public class HantoPlayerState {
 	
 	/**
 	 * Gets a list of all piece types left in the inventory
-	 * @return
+	 * @return a list of pieces in the player inventory
 	 */
 	public List<HantoPieceType> piecesInInventory(){
 		List<HantoPieceType> resultList = new ArrayList<HantoPieceType>();
@@ -94,7 +94,7 @@ public class HantoPlayerState {
 	
 	/**
 	 * Gets a count of all piece types left in the inventory
-	 * @return
+	 * @return the total number of pieces in the inventory
 	 */
 	public int numPiecesLeftInInventory(){
 		int total = 0;

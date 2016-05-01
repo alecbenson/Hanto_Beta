@@ -12,7 +12,6 @@ import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
-import hanto.common.HantoPrematureResignationException;
 import hanto.common.MoveResult;
 import hanto.student_abenson_pasalem.PieceValidator.FlyValidator;
 import hanto.student_abenson_pasalem.PieceValidator.IPieceValidator;
