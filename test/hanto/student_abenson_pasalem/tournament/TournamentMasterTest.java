@@ -3,10 +3,9 @@ import static hanto.common.HantoPieceType.BUTTERFLY;
 import static hanto.common.HantoPieceType.CRAB;
 import static hanto.common.HantoPieceType.HORSE;
 import static hanto.common.HantoPieceType.SPARROW;
-import static hanto.common.HantoPlayerColor.BLUE;
+import static hanto.common.HantoPlayerColor.*;
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
@@ -140,5 +139,65 @@ public class TournamentMasterTest {
 	{
 		// By default, blue moves first.
 		game = factory.makeHantoGame(HantoGameID.EPSILON_HANTO, BLUE);
+	}
+	
+	//1
+	@Test
+	public void HantoAINullOppMove(){
+		HantoPlayer player = new HantoPlayer();
+		player.startGame(HantoGameID.EPSILON_HANTO, RED, false);
+		HantoMoveRecord record = player.makeMove(null);
+		assertEquals(HantoPieceType.BUTTERFLY, record.getPiece());
+		assertEquals(0, record.getTo().getX());
+		assertEquals(0, record.getTo().getY());
+	}
+	
+	//2
+	@Test
+	public void HantoAIIMakeMove(){
+		HantoPlayer player = new HantoPlayer();
+		player.startGame(HantoGameID.EPSILON_HANTO, BLUE, true);
+		HantoMoveRecord record = player.makeMove(null);
+		assertEquals(HantoPieceType.BUTTERFLY, record.getPiece());
+		assertEquals(0, record.getTo().getX());
+		assertEquals(0, record.getTo().getY());
+	}
+	
+	//3
+	@Test
+	public void HantoAIgetLegalMovements() throws HantoException{
+		HantoAI ai = new HantoAI();
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(CRAB, 0, -1), md(CRAB, 0, 2),
+				md(HORSE, -1, 0), md(SPARROW, 1,1));
+		List<HantoMoveRecord> moves = 
+				ai.getAllLegalMovementsForPlayer((BaseHantoGame) game, HantoPlayerColor.BLUE);
+		assertEquals(4, moves.size());
+		
+	}
+	
+	//4
+	@Test
+	public void HantoAIMustPlayButterfly() throws HantoException{
+		HantoAI ai = new HantoAI();
+		makeMoves(md(CRAB, 0, 0), md(CRAB, 0, 1),
+				md(CRAB, 0, -1), md(CRAB, 0, 2),
+				md(HORSE, -1, 0), md(SPARROW, 1,1));
+		List<HantoMoveRecord> moves = 
+				ai.getAllLegalPlacementsForPlayer((BaseHantoGame) game, HantoPlayerColor.RED);
+		assertEquals(HantoPieceType.BUTTERFLY, moves.get(0).getPiece());
+		
+	}
+	
+	//4
+	@Test
+	public void HantoAISecondMoveAdjacentToButterfly() throws HantoException{
+		HantoAI ai = new HantoAI();
+		makeMoves(md(BUTTERFLY, 0, 0));
+		List<HantoMoveRecord> moves = 
+				ai.getAllLegalPlacementsForPlayer((BaseHantoGame) game, HantoPlayerColor.RED);
+		assertEquals(true, new HantoCoordinateImpl(
+				moves.get(0).getTo()).isAdjacent(new HantoCoordinateImpl(0,0)));
+		
 	}
 }

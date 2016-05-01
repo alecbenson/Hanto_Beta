@@ -5,7 +5,9 @@ import static hanto.common.HantoPlayerColor.*;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -21,6 +23,7 @@ import hanto.common.HantoPlayerColor;
 import hanto.common.HantoPrematureResignationException;
 import hanto.common.MoveResult;
 import hanto.student_abenson_pasalem.Board.HantoBoardImpl;
+import hanto.student_abenson_pasalem.PieceValidator.FlyValidator;
 import hanto.student_abenson_pasalem.PieceValidator.IPieceValidator;
 import hanto.student_abenson_pasalem.PieceValidator.JumpValidator;
 import hanto.student_abenson_pasalem.PieceValidator.WalkValidator;
@@ -366,5 +369,74 @@ public class EpsilonHantoMasterTest {
 		new HantoCoordinateImpl(1,-2),
 		new HantoCoordinateImpl(2,0));
 		assertEquals(validMoves, shouldContain);
+	}
+	
+	//17
+	@Test
+	public void getAllPlayerPiecesTest() throws HantoException
+	{
+		setup();
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(CRAB, 0, -1), md(CRAB, 0, 2),
+				md(HORSE, -1, 0), md(SPARROW, 1,1),
+				md(HORSE, -1, 0, 1, -2));
+		Map<HantoCoordinate, HantoPiece> playerPieces = ((BaseHantoGame) game).getBoard().getAllPlayerPieces(BLUE);
+		assertEquals(3, playerPieces.size());
+	}
+	
+	//18
+	@Test
+	public void getAllPlaceableHexes() throws HantoException
+	{ 
+		setup();
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(CRAB, 0, -1), md(CRAB, 0, 2),
+				md(HORSE, -1, 0), md(SPARROW, 1,1),
+				md(HORSE, -1, 0, 1, -2));
+		List<HantoCoordinateImpl> legalHexes = ((BaseHantoGame) game).getBoard().getAllPlaceableHexes(BLUE);
+		assertEquals(11, legalHexes.size());
+	}
+	
+	//19
+	@Test
+	public void inventoryCountTest() throws HantoException
+	{ 
+		setup();
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(CRAB, 0, -1), md(CRAB, 0, 2),
+				md(HORSE, -1, 0), md(SPARROW, 1,1),
+				md(HORSE, -1, 0, 1, -2));
+		int legalHexes = ((BaseHantoGame) game).getCurrentPlayerState().
+				numPiecesLeftInInventory();
+		assertEquals(10, legalHexes);
+	}
+	
+	//20
+	@Test
+	public void piecesInInventoryTest() throws HantoException
+	{ 
+		setup();
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(CRAB, 0, -1), md(CRAB, 0, 2),
+				md(HORSE, -1, 0), md(SPARROW, 1,1),
+				md(HORSE, -1, 0, 1, -2));
+		List<HantoPieceType> gamePieces = ((BaseHantoGame) game).getCurrentPlayerState()
+				.piecesInInventory();
+		assertEquals(10, gamePieces.size());
+	}
+	
+	//21
+	@Test
+	public void validFlyMoves() throws HantoException
+	{ 
+		setup();
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(CRAB, 0, -1), md(CRAB, 0, 2),
+				md(HORSE, -1, 0), md(SPARROW, 1,1),
+				md(HORSE, -1, 0, 1, -2));
+		IPieceValidator flyValid = new FlyValidator(4);
+		List<HantoPieceType> gamePieces = ((BaseHantoGame) game).getCurrentPlayerState()
+				.piecesInInventory();
+		assertEquals(10, gamePieces.size());
 	}
 }
