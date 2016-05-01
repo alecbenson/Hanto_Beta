@@ -30,12 +30,7 @@ public class FlyValidator implements IPieceValidator{
 	}
 
 	@Override
-	public void validate(IHantoBoard board, HantoCoordinate from, HantoCoordinate to) throws HantoException {
-		if(from.getX() == to.getX() && from.getY() == to.getY()){
-			throw new HantoException("Cannot fly from " + from.getX() + "," + from.getY() + " to " +
-					to.getX() + "," + to.getY() + ": cannot fly in place.");
-		}
-		
+	public void validate(IHantoBoard board, HantoCoordinate from, HantoCoordinate to) throws HantoException {		
 		int distance = new HantoCoordinateImpl(from).distance(new HantoCoordinateImpl(to));
 		if(distance > maxDistance){
 			throw new HantoException("Cannot fly from " + from.getX() + "," + from.getY() + " to " +

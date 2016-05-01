@@ -427,7 +427,7 @@ public class EpsilonHantoMasterTest {
 	
 	//21
 	@Test
-	public void validFlyMoves() throws HantoException
+	public void validFlyMovesCount() throws HantoException
 	{ 
 		setup();
 		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
@@ -435,8 +435,28 @@ public class EpsilonHantoMasterTest {
 				md(HORSE, -1, 0), md(SPARROW, 1,1),
 				md(HORSE, -1, 0, 1, -2));
 		IPieceValidator flyValid = new FlyValidator(4);
-		List<HantoPieceType> gamePieces = ((BaseHantoGame) game).getCurrentPlayerState()
-				.piecesInInventory();
-		assertEquals(10, gamePieces.size());
+		assertEquals(11,flyValid.getValidMoves(
+				(HantoBoardImpl)((BaseHantoGame) game).getBoard(), 
+				new HantoCoordinateImpl(1, 1)).size());
+	}
+	
+	//22
+	@Test
+	public void epsilonRedStartsFirst() throws HantoException
+	{ 
+		setup();
+		game = HantoGameFactory.getInstance().makeHantoGame(
+				HantoGameID.EPSILON_HANTO, HantoPlayerColor.RED);
+		assertEquals(HantoPlayerColor.RED, ((BaseHantoGame) game).getCurrentPlayer());
+	}
+	
+	//23
+	@Test (expected=HantoException.class)
+	public void flyInPlaceException() throws HantoException
+	{ 
+		setup();
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(SPARROW, 0, -1), md(CRAB, 0, 2),
+				md(SPARROW, 0, -1, 0, -1));
 	}
 }
