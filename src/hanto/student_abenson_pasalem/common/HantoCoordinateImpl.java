@@ -81,7 +81,7 @@ public class HantoCoordinateImpl implements HantoCoordinate
 		//If the pieces are adjacent, they will have a eucl. distance <= sqrt(2)
 		double dist = Math.sqrt(Math.pow(other.getY() - this.getY(), 2) + 
 				Math.pow(other.getX() - this.getX(), 2));
-		return (int) dist;
+		return (int) Math.floor(dist);
 	}
 	
 	/**
@@ -201,7 +201,7 @@ public class HantoCoordinateImpl implements HantoCoordinate
 		//Start with radius coords
 		List<HantoCoordinateImpl> currentSearchSet = this.getAdjacentSpaces();
 		List<HantoCoordinateImpl> toBeSearched = new ArrayList<HantoCoordinateImpl>();
-		for(int i = 1; i < radius; i++){
+		for(int i = 1; i < (radius/2); i++){
 			for(HantoCoordinateImpl adjacent : currentSearchSet){
 				List<HantoCoordinateImpl> newSearchItems = adjacent.getAdjacentSpaces();
 				for(HantoCoordinateImpl newSearchAdj : newSearchItems){

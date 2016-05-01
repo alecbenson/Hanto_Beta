@@ -175,6 +175,19 @@ public class EpsilonHantoMasterTest {
 				md(SPARROW, 1, -2, 0, 4));
 	}
 	
+	//2b
+	@Test
+	public void flySparrow4Spaces() throws HantoException
+	{
+		setup();
+		makeMoves(md(BUTTERFLY, 0, 0), md(BUTTERFLY, 0, 1),
+				md(SPARROW, -1, 0), md(SPARROW, 1, 1),
+				md(CRAB, 0, -1), md(CRAB, 0, 2),
+				md(CRAB, 0, -2), md(CRAB, 0, 3),
+				md(SPARROW, 1, -2), md(SPARROW, -1, 3),
+				md(SPARROW, 1, -2, 1, 2));
+	}
+	
 	//3
 	//This should throw an exception because you cannot jump over an empty square. 
 	@Test(expected=HantoException.class)
@@ -316,24 +329,12 @@ public class EpsilonHantoMasterTest {
 		HantoCoordinateImpl origin = new HantoCoordinateImpl(0,0);
 		List<HantoCoordinateImpl> radius = origin.getCoordsInRadius(2);
 		List<HantoCoordinateImpl> shouldContain = Arrays.asList(
-				new HantoCoordinateImpl(0,2),
-				new HantoCoordinateImpl(1,1),
-				new HantoCoordinateImpl(1,0),
-				new HantoCoordinateImpl(-1,1),
-				new HantoCoordinateImpl(-1,2),
-				new HantoCoordinateImpl(2,0),
-				new HantoCoordinateImpl(2,-1),
-				new HantoCoordinateImpl(1,-1),
 				new HantoCoordinateImpl(0,1),
-				new HantoCoordinateImpl(2,-2),
-				new HantoCoordinateImpl(1,-2),
+				new HantoCoordinateImpl(1,0),
+				new HantoCoordinateImpl(1,-1),
 				new HantoCoordinateImpl(0,-1),
-				new HantoCoordinateImpl(0,-2),
-				new HantoCoordinateImpl(-1,-1),
 				new HantoCoordinateImpl(-1,0),
-				new HantoCoordinateImpl(-2,0),
-				new HantoCoordinateImpl(-2,1),
-				new HantoCoordinateImpl(-2,2));
+				new HantoCoordinateImpl(-1,1));
 		assertEquals(radius, shouldContain);
 	}
 	
@@ -435,7 +436,7 @@ public class EpsilonHantoMasterTest {
 				md(HORSE, -1, 0), md(SPARROW, 1,1),
 				md(HORSE, -1, 0, 1, -2));
 		IPieceValidator flyValid = new FlyValidator(4);
-		assertEquals(11,flyValid.getValidMoves(
+		assertEquals(5,flyValid.getValidMoves(
 				(HantoBoardImpl)((BaseHantoGame) game).getBoard(), 
 				new HantoCoordinateImpl(1, 1)).size());
 	}
