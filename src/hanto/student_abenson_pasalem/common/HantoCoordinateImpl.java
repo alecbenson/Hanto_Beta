@@ -212,6 +212,7 @@ public class HantoCoordinateImpl implements HantoCoordinate
 			}
 			currentSearchSet = new ArrayList<HantoCoordinateImpl>(toBeSearched);
 		}
+		currentSearchSet.remove(this);
 		return currentSearchSet;
 	}
 	

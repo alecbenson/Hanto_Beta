@@ -34,6 +34,11 @@ public class WalkValidator implements IPieceValidator{
 	}
 
 	public void validate(IHantoBoard board, HantoCoordinate from, HantoCoordinate to) throws HantoException{
+		if(from.getX() == to.getX() && from.getY() == to.getY()){
+			throw new HantoException("Cannot walk from " + from.getX() + "," + from.getY() + " to " +
+					to.getX() + "," + to.getY() + ": cannot walk in place.");
+		}
+		
 		checkWalkablePathExists(board, from, to);
 	}
 	

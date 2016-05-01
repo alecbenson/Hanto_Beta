@@ -43,7 +43,8 @@ public class PieceAdjacentValidator implements IRuleValidator{
 				return;
 			}
 		}
-		throw new HantoException("The piece is not adjacent to any other piece");
+		throw new HantoException("The " + pieceType + " piece moving to " + 
+		to.getX() + "," + to.getY() + " is not adjacent to any other piece");
 	}
 
 }

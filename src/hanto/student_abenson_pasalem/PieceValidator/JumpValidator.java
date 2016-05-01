@@ -33,9 +33,13 @@ public class JumpValidator implements IPieceValidator{
 	@Override
 	public void validate(IHantoBoard board, HantoCoordinate from, HantoCoordinate to) throws HantoException {
 		int distance = new HantoCoordinateImpl(from).distance(new HantoCoordinateImpl(to));
+		if(from.getX() == to.getX() && from.getY() == to.getY()){
+			throw new HantoException("Cannot jump from " + from.getX() + "," + from.getY() + " to " +
+					to.getX() + "," + to.getY() + ": cannot jump in place.");
+		}
 		if(distance > maxDistance){
-			throw new HantoException("Cannot move from " + from.getX() + "," + from.getY() + " to " +
-				to.getX() + "," + to.getY() + ": cannot fly more than " + maxDistance + " tiles." +
+			throw new HantoException("Cannot jump from " + from.getX() + "," + from.getY() + " to " +
+				to.getX() + "," + to.getY() + ": cannot jump more than " + maxDistance + " tiles." +
 					"distance was " + distance);
 		}
 		
@@ -122,6 +126,8 @@ public class JumpValidator implements IPieceValidator{
 				if(board.spaceOccupied(dest)){
 					continue;
 				}
+				IPieceValidator contiguousMoveValidator = new ContiguousMovementValidator();
+				contiguousMoveValidator.validate(board, source, dest);
 				this.validate(board, source, dest);
 				validMoves.add(dest);
 			}

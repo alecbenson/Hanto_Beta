@@ -25,7 +25,9 @@ public class ContiguousMovementValidator implements IPieceValidator{
 		int totalPieces = board.pieceCount();
 		List<HantoCoordinate> contiguousGraph = getContiguousGraph(board, from, to, visited); 
 		if(totalPieces != contiguousGraph.size()){
-			throw new HantoException("Moving this piece would cause isolated groups to form on the board.");
+			throw new HantoException("Moving your piece from " + from.getX() + "," + from.getY()
+			 + " to " + to.getX() + "," + to.getY() + " would cause isolated groups"
+	 			+ " to form on the board.");
 		}
 		
 	}

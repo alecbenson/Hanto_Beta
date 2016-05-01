@@ -316,7 +316,6 @@ public class EpsilonHantoMasterTest {
 				new HantoCoordinateImpl(0,2),
 				new HantoCoordinateImpl(1,1),
 				new HantoCoordinateImpl(1,0),
-				new HantoCoordinateImpl(0,0),
 				new HantoCoordinateImpl(-1,1),
 				new HantoCoordinateImpl(-1,2),
 				new HantoCoordinateImpl(2,0),

@@ -31,9 +31,14 @@ public class FlyValidator implements IPieceValidator{
 
 	@Override
 	public void validate(IHantoBoard board, HantoCoordinate from, HantoCoordinate to) throws HantoException {
+		if(from.getX() == to.getX() && from.getY() == to.getY()){
+			throw new HantoException("Cannot fly from " + from.getX() + "," + from.getY() + " to " +
+					to.getX() + "," + to.getY() + ": cannot fly in place.");
+		}
+		
 		int distance = new HantoCoordinateImpl(from).distance(new HantoCoordinateImpl(to));
 		if(distance > maxDistance){
-			throw new HantoException("Cannot move from " + from.getX() + "," + from.getY() + " to " +
+			throw new HantoException("Cannot fly from " + from.getX() + "," + from.getY() + " to " +
 				to.getX() + "," + to.getY() + ": cannot fly more than " + maxDistance + " tiles." +
 					"distance was " + distance);
 		}	
@@ -41,13 +46,22 @@ public class FlyValidator implements IPieceValidator{
 	
 	@Override
 	public List<HantoCoordinateImpl> getValidMoves(HantoBoardImpl board, HantoCoordinate source) {
+		IPieceValidator contiguousMoveValidator = new ContiguousMovementValidator();
 		HantoCoordinateImpl sourceCoord = new HantoCoordinateImpl(source);
 		List<HantoCoordinateImpl> radiusCoords = sourceCoord.getCoordsInRadius(maxDistance);
 		List<HantoCoordinateImpl> validMoves = new ArrayList<HantoCoordinateImpl>();
 		for(HantoCoordinateImpl radiusCoord : radiusCoords){
 			try{
+				contiguousMoveValidator.validate(board, source, radiusCoord);
 				this.validate(board, source, radiusCoord);
-				validMoves.add(sourceCoord);
+				if(radiusCoord.getX() == sourceCoord.getX() 
+						&& radiusCoord.getY() == sourceCoord.getY()){
+					continue;
+				}
+				if(sourceCoord.isAdjacent(radiusCoord)){
+					continue;
+				}
+				validMoves.add(radiusCoord);
 			}catch(HantoException e){
 				continue;
 			}

@@ -19,7 +19,8 @@ public class SpaceOccupiedValidator implements IRuleValidator{
 	public void validate(BaseHantoGame game, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to)
 			throws HantoException {
 		if(game.getBoard().spaceOccupied(to)){
-			throw new HantoException("Piece cannot go here: space already occupied");
+			throw new HantoException("Piece cannot move to " + to.getX() + ","
+		+ to.getY() + " : space already occupied");
 		}
 	}
 
