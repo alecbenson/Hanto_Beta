@@ -33,6 +33,9 @@ public class HantoAI {
 	 * @param game the game
 	 * @return a list of HantoMoveRecords
 	 */
+	private final int earlyGameMoves = 10;
+	private final int midGameMoves = 20;
+	
 	public List<HantoMoveRecord> getAllLegalMovementsForPlayer(BaseHantoGame game, HantoPlayerColor color){
 		List<HantoMoveRecord> moveList = new ArrayList<HantoMoveRecord>();
 		Map<HantoCoordinate, HantoPiece> playerPieces = game.getBoard().getAllPlayerPieces(color);
@@ -103,15 +106,110 @@ public class HantoAI {
 		int piecesLeftInInventory = game.getCurrentPlayerState().numPiecesLeftInInventory();
 		boolean canPlace = game.canPlacePiece();
 		HantoPlayerColor currentPlayer = game.getCurrentPlayer();
+		int moveCount = game.getCurrentPlayerTurns();
 		
-		//Try to place a piece if possible
-		if( canPlace && piecesLeftInInventory > 0 ){
+		//Try to place pieces early if possible
+		if( canPlace && piecesLeftInInventory > 0 && moveCount < earlyGameMoves){
 			List<HantoMoveRecord> placeList = this.getAllLegalPlacementsForPlayer(game, currentPlayer);
 			return placeList.get(new Random().nextInt(placeList.size()));
 		} else{
+			HantoMoveRecord offensiveMove = lookForMoveToButterfly(game, opponentMove);
+			if(offensiveMove != null){
+				return offensiveMove;
+			}
+			HantoMoveRecord defensiveMove = moveButterflyToSafety(game, opponentMove);
+			if(defensiveMove != null){
+				return defensiveMove;
+			}
 			//Otherwise move a piece on the board
 			List<HantoMoveRecord> moveList = this.getAllLegalMovementsForPlayer(game, currentPlayer);
 			return moveList.get(new Random().nextInt(moveList.size()));
 		}
+	}
+	
+	/**
+	 * Attempts to find a move that places a piece adjacent to the opponent butterfly if possible.
+	 * If the piece is already adjacent, skip it.
+	 * @param game
+	 * @param opponentMove
+	 * @return
+	 */
+	public HantoMoveRecord lookForMoveToButterfly(BaseHantoGame game, HantoMoveRecord opponentMove){
+		HantoPlayerColor currentPlayer = game.getCurrentPlayer();
+		HantoCoordinate opponentButterflyPos = currentPlayer == HantoPlayerColor.RED 
+				? game.getBlueButterflyPos() : game.getRedButterflyPos();
+		if(opponentButterflyPos == null){
+			return null;
+		}
+		List<HantoMoveRecord> moveList = this.getAllLegalMovementsForPlayer(game, currentPlayer);
+		for(HantoMoveRecord move : moveList){
+			HantoCoordinateImpl fromPos = new HantoCoordinateImpl(move.getFrom());
+			if(fromPos.isAdjacent(opponentButterflyPos)){
+				continue;
+			}
+			HantoCoordinateImpl toPos = new HantoCoordinateImpl(move.getTo());
+			if(toPos.isAdjacent(opponentButterflyPos)){
+				return move;
+			}
+		}
+		return null;
+	}
+	
+	public HantoMoveRecord moveButterflyToSafety(BaseHantoGame game, HantoMoveRecord opponentMove){
+		HantoMoveRecord bestMove = null;
+		HantoPlayerColor currentPlayer = game.getCurrentPlayer();
+		HantoCoordinate myButterflyPos = currentPlayer == HantoPlayerColor.RED 
+				? game.getRedButterflyPos() : game.getBlueButterflyPos();
+		
+		if(myButterflyPos == null){
+			return null;
+		}
+		int currentDanger = this.butterflyDanger(game, myButterflyPos);
+		
+		//Find the move that puts the butterfly in the least danger
+		List<HantoMoveRecord> moveList = this.getAllLegalMovementsForPlayer(game, currentPlayer);
+		for(HantoMoveRecord move : moveList){
+			if(move.getPiece() != HantoPieceType.BUTTERFLY){
+				continue;
+			}
+			int tentativeDanger = this.butterflyDanger(game, move.getTo());
+			//If it's more dangerous or just as dangerous, don't bother
+			if(tentativeDanger >= currentDanger){
+				continue;
+			}
+			//If we haven't found any good move yet, use this one
+			if(bestMove == null){
+				bestMove = move;
+			//If this move is better than one we previously found, use this one
+			} else if(tentativeDanger < this.butterflyDanger(game, bestMove.getTo())){
+				bestMove = move;
+			}
+		}
+		return bestMove;
+	}
+	
+	/**
+	 * Return a danger heuristic for the given piece based on number of occupied adjacent hexes
+	 * @param game
+	 * @param hex
+	 * @return adjacent count
+	 */
+	public int butterflyDanger(BaseHantoGame game, HantoCoordinate hex){
+		HantoPlayerColor currentColor = game.getCurrentPlayer();
+		List<HantoCoordinateImpl> adjacentSquares = new HantoCoordinateImpl(hex).getAdjacentSpaces();
+		int adjCount = 0;
+		for(HantoCoordinateImpl adjHex : adjacentSquares){
+			HantoPiece pieceAt = game.getBoard().getPieceAt(adjHex);
+			if(pieceAt == null){
+				continue;
+			}
+			//2 danger is against enemy hexes, one for our own
+			if(pieceAt.getColor() != currentColor){
+				adjCount += 2;
+			} else{
+				adjCount += 1;
+			}
+		}
+		return adjCount;
 	}
 }

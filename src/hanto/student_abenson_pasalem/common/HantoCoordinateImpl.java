@@ -77,11 +77,15 @@ public class HantoCoordinateImpl implements HantoCoordinate
 		if(other == null){
 			throw new HantoException("Passed null argument when getting coordinate distance");
 		}
-		//We use euclidian distance to verify that the pieces are adjacent
-		//If the pieces are adjacent, they will have a eucl. distance <= sqrt(2)
-		double dist = Math.sqrt(Math.pow(other.getY() - this.getY(), 2) + 
-				Math.pow(other.getX() - this.getX(), 2));
-		return (int) Math.floor(dist);
+
+		int dx = Math.abs(other.getX() - x);
+		int dy = Math.abs(other.getY() - y);
+		
+		int otherZ = -1 * (x + y);
+		int thisZ = -1 * (other.getX() + other.getY());
+		int dz = Math.abs(otherZ - thisZ);
+
+		return Math.max(dx, Math.max(dy, dz));
 	}
 	
 	/**
@@ -182,7 +186,7 @@ public class HantoCoordinateImpl implements HantoCoordinate
 	 * @param other
 	 * @return true if adjacent hexes, false otherwise
 	 */
-	public boolean isAdjacent(HantoCoordinateImpl other){
+	public boolean isAdjacent(HantoCoordinate other){
 		List<HantoCoordinateImpl> adjacentSquares = this.getAdjacentSpaces();
 		for(HantoCoordinateImpl adj : adjacentSquares){
 			if(other.getX() == adj.getX() && other.getY() == adj.getY()){
@@ -201,7 +205,7 @@ public class HantoCoordinateImpl implements HantoCoordinate
 		//Start with radius coords
 		List<HantoCoordinateImpl> currentSearchSet = this.getAdjacentSpaces();
 		List<HantoCoordinateImpl> toBeSearched = new ArrayList<HantoCoordinateImpl>();
-		for(int i = 1; i < (radius/2); i++){
+		for(int i = 1; i < (radius); i++){
 			for(HantoCoordinateImpl adjacent : currentSearchSet){
 				List<HantoCoordinateImpl> newSearchItems = adjacent.getAdjacentSpaces();
 				for(HantoCoordinateImpl newSearchAdj : newSearchItems){
