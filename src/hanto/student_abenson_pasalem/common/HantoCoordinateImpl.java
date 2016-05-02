@@ -73,11 +73,7 @@ public class HantoCoordinateImpl implements HantoCoordinate
 	 * @return the distance as an integer
 	 * @throws HantoException
 	 */
-	public int distance(HantoCoordinate other) throws HantoException{
-		if(other == null){
-			throw new HantoException("Passed null argument when getting coordinate distance");
-		}
-
+	public int distance(HantoCoordinate other){
 		int dx = Math.abs(other.getX() - x);
 		int dy = Math.abs(other.getY() - y);
 		

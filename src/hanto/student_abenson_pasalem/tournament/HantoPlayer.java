@@ -56,7 +56,7 @@ public class HantoPlayer implements HantoGamePlayer
 			}
 			
 			HantoAI ai = new HantoAI();
-			HantoMoveRecord myMove = ai.decideMove(game, opponentsMove);
+			HantoMoveRecord myMove = ai.decide(game, opponentsMove);
 			if(myMove != null){
 				game.makeMove(myMove.getPiece(), myMove.getFrom(), myMove.getTo());
 			}

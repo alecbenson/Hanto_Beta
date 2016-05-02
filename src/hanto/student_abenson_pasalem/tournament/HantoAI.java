@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Random;
 
 import hanto.common.HantoCoordinate;
+import hanto.common.HantoException;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
@@ -101,30 +102,101 @@ public class HantoAI {
 	 * @param opponentMove
 	 * @return a HantoMoveRecord with the decided move
 	 */
-	public HantoMoveRecord decideMove(BaseHantoGame game, HantoMoveRecord opponentMove){
+	public HantoMoveRecord decide(BaseHantoGame game, HantoMoveRecord opponentMove){
+		int moveCount = game.getCurrentPlayerTurns();
+		HantoPlayerColor currentPlayer = game.getCurrentPlayer();
+		
+		//Try to place pieces early if possible
+		if(moveCount < earlyGameMoves){
+			HantoMoveRecord suggestedPlacement = placePiece(game, currentPlayer, opponentMove);
+			if(suggestedPlacement == null){
+				return movePiece(game, currentPlayer, opponentMove);
+			}
+			return suggestedPlacement;
+		} else{
+			HantoMoveRecord suggestedMove = movePiece(game, currentPlayer, opponentMove);
+			if(suggestedMove == null){
+				if(game.canPlacePiece()){
+					return placePiece(game, currentPlayer, opponentMove);
+				} else{
+					//DAMN
+					return new HantoMoveRecord(null, null, null);
+				}
+			}
+			return suggestedMove;
+		}
+	}
+	
+	/**
+	 * Places a piece
+	 * @param game
+	 * @param currentPlayer
+	 * @param opponentMove
+	 * @return
+	 */
+	public HantoMoveRecord placePiece(BaseHantoGame game, HantoPlayerColor currentPlayer,
+			HantoMoveRecord opponentMove){
 		//Get pieces left in inventory, make sure we can place pieces
 		int piecesLeftInInventory = game.getCurrentPlayerState().numPiecesLeftInInventory();
 		boolean canPlace = game.canPlacePiece();
-		HantoPlayerColor currentPlayer = game.getCurrentPlayer();
-		int moveCount = game.getCurrentPlayerTurns();
 		
-		//Try to place pieces early if possible
-		if( canPlace && piecesLeftInInventory > 0 && moveCount < earlyGameMoves){
-			List<HantoMoveRecord> placeList = this.getAllLegalPlacementsForPlayer(game, currentPlayer);
-			return placeList.get(new Random().nextInt(placeList.size()));
-		} else{
-			HantoMoveRecord offensiveMove = lookForMoveToButterfly(game, opponentMove);
-			if(offensiveMove != null){
-				return offensiveMove;
-			}
-			HantoMoveRecord defensiveMove = moveButterflyToSafety(game, opponentMove);
-			if(defensiveMove != null){
-				return defensiveMove;
-			}
-			//Otherwise move a piece on the board
-			List<HantoMoveRecord> moveList = this.getAllLegalMovementsForPlayer(game, currentPlayer);
-			return moveList.get(new Random().nextInt(moveList.size()));
+		//If we can't do anything, return
+		if(piecesLeftInInventory == 0 || !canPlace){
+			return null;
 		}
+		
+		//Place close to butterfly if possible
+		List<HantoMoveRecord> placeList = this.getAllLegalPlacementsForPlayer(game, currentPlayer);
+		HantoMoveRecord placeCloseToOpponentButterfly = this.placeCloseToOpponent(game, placeList);
+		if(placeCloseToOpponentButterfly != null){
+			return placeCloseToOpponentButterfly;
+		}
+		//Otherwise place randomly
+		return placeList.get(new Random().nextInt(placeList.size()));
+	}
+	
+	/**
+	 * Moves a piece
+	 * @param game
+	 * @param currentPlayer
+	 * @param opponentMove
+	 * @return
+	 */
+	public HantoMoveRecord movePiece(BaseHantoGame game, HantoPlayerColor currentPlayer,
+			HantoMoveRecord opponentMove){
+		List<HantoMoveRecord> moveList = this.getAllLegalMovementsForPlayer(game, currentPlayer);
+		//Try to attack other butterfly
+		HantoMoveRecord offensiveMove = lookForMoveToButterfly(game, moveList);
+		if(offensiveMove != null){
+			return offensiveMove;
+		}
+		//Try to defend our butterfly
+		HantoMoveRecord defensiveMove = moveButterflyToSafety(game, moveList);
+		if(defensiveMove != null){
+			return defensiveMove;
+		}
+		
+		//Try to mix things up sometimes
+		HantoMoveRecord moveRandom = moveRandomWithChance(game, moveList, 0.3, true);
+		if(moveRandom != null){
+			return moveRandom;
+		}
+		
+		//Try to advance far away pieces
+		HantoMoveRecord advancementMove = advanceFarAwayPiece(game, moveList);
+		if(advancementMove != null){
+			return advancementMove;
+		}
+		
+		//Here, we will place a piece if possible, otherwise, move randomly.
+		boolean canPlace = game.canPlacePiece();
+		if(canPlace){
+			HantoMoveRecord suggestedPlace = placePiece(game, currentPlayer, opponentMove);
+			if(suggestedPlace != null){
+				return suggestedPlace;
+			}
+		}
+		return moveList.get(new Random().nextInt(moveList.size()));
 	}
 	
 	/**
@@ -134,14 +206,13 @@ public class HantoAI {
 	 * @param opponentMove
 	 * @return
 	 */
-	public HantoMoveRecord lookForMoveToButterfly(BaseHantoGame game, HantoMoveRecord opponentMove){
+	public HantoMoveRecord lookForMoveToButterfly(BaseHantoGame game, List<HantoMoveRecord> moveList){
 		HantoPlayerColor currentPlayer = game.getCurrentPlayer();
 		HantoCoordinate opponentButterflyPos = currentPlayer == HantoPlayerColor.RED 
 				? game.getBlueButterflyPos() : game.getRedButterflyPos();
 		if(opponentButterflyPos == null){
 			return null;
 		}
-		List<HantoMoveRecord> moveList = this.getAllLegalMovementsForPlayer(game, currentPlayer);
 		for(HantoMoveRecord move : moveList){
 			HantoCoordinateImpl fromPos = new HantoCoordinateImpl(move.getFrom());
 			if(fromPos.isAdjacent(opponentButterflyPos)){
@@ -155,7 +226,13 @@ public class HantoAI {
 		return null;
 	}
 	
-	public HantoMoveRecord moveButterflyToSafety(BaseHantoGame game, HantoMoveRecord opponentMove){
+	/**
+	 * moves butterfly out of danger if possible
+	 * @param game
+	 * @param opponentMove
+	 * @return
+	 */
+	public HantoMoveRecord moveButterflyToSafety(BaseHantoGame game, List<HantoMoveRecord> moveList){
 		HantoMoveRecord bestMove = null;
 		HantoPlayerColor currentPlayer = game.getCurrentPlayer();
 		HantoCoordinate myButterflyPos = currentPlayer == HantoPlayerColor.RED 
@@ -167,7 +244,6 @@ public class HantoAI {
 		int currentDanger = this.butterflyDanger(game, myButterflyPos);
 		
 		//Find the move that puts the butterfly in the least danger
-		List<HantoMoveRecord> moveList = this.getAllLegalMovementsForPlayer(game, currentPlayer);
 		for(HantoMoveRecord move : moveList){
 			if(move.getPiece() != HantoPieceType.BUTTERFLY){
 				continue;
@@ -212,4 +288,123 @@ public class HantoAI {
 		}
 		return adjCount;
 	}
+	
+	/**
+	 * Attempt to place pieces so that they are close to the butterfly
+	 * @param game
+	 * @param placeList
+	 * @return
+	 */
+	public HantoMoveRecord placeCloseToOpponent(BaseHantoGame game, List<HantoMoveRecord> placeList){
+		HantoMoveRecord closestPiece = null;
+		HantoPlayerColor currentPlayer = game.getCurrentPlayer();
+		HantoCoordinate myButterflyPos = currentPlayer == HantoPlayerColor.RED 
+				? game.getRedButterflyPos() : game.getBlueButterflyPos();
+		HantoCoordinate opponentButterflyPos = currentPlayer == HantoPlayerColor.RED 
+					? game.getBlueButterflyPos() : game.getRedButterflyPos();
+					
+		//If they haven't placed the butterfly yet, return
+		if(opponentButterflyPos == null){
+			return null;
+		}
+
+		for(HantoMoveRecord move : placeList){
+			HantoCoordinateImpl toPos = new HantoCoordinateImpl(move.getTo());
+			
+			//Don't place our own butterfly close
+			if(move.getPiece() == HantoPieceType.BUTTERFLY){
+				continue;
+			}
+			//Don't ever surround our butterfly
+			if(myButterflyPos != null && toPos.isAdjacent(myButterflyPos)){
+				continue;
+			}
+			//Set this as the best move if we haven't yet found an option
+			if(closestPiece == null){
+				closestPiece = move;
+			}
+			//Update farthest if we found a better option
+			int tentativeBestDistance = toPos.distance(opponentButterflyPos);
+			int currentClosestDistance = new HantoCoordinateImpl(closestPiece.getTo())
+					.distance(opponentButterflyPos);
+			if(tentativeBestDistance < currentClosestDistance){
+				closestPiece = move;
+			}
+		}
+		return closestPiece;
+	}
+	
+
+	public HantoMoveRecord advanceFarAwayPiece(BaseHantoGame game, List<HantoMoveRecord> moveList){
+		HantoMoveRecord farthestPiece = null;
+		HantoPlayerColor currentPlayer = game.getCurrentPlayer();
+		HantoCoordinate myButterflyPos = currentPlayer == HantoPlayerColor.RED 
+				? game.getRedButterflyPos() : game.getBlueButterflyPos();
+		HantoCoordinate opponentButterflyPos = currentPlayer == HantoPlayerColor.RED 
+					? game.getBlueButterflyPos() : game.getRedButterflyPos();
+
+		for(HantoMoveRecord move : moveList){
+			HantoCoordinateImpl fromPos = new HantoCoordinateImpl(move.getFrom());
+			HantoCoordinateImpl toPos = new HantoCoordinateImpl(move.getTo());
+			int currentDistanceFromButterfly = fromPos.distance(opponentButterflyPos);
+			int tentativeDistanceFromButterfly = toPos.distance(opponentButterflyPos);
+			//Don't bother if we are moving away from the opponent butterfly
+			if(tentativeDistanceFromButterfly > currentDistanceFromButterfly){
+				continue;
+			}
+			//Don't ever advance our butterfly
+			if(move.getPiece() == HantoPieceType.BUTTERFLY){
+				continue;
+			}
+			//Don't ever surround our butterfly
+			if(toPos.isAdjacent(myButterflyPos)){
+				continue;
+			}
+			//Set this as the best move if we haven't yet found an option
+			if(farthestPiece == null){
+				farthestPiece = move;
+			}
+			//Update farthest if we found a better option
+			int currentFarthestDistance = new HantoCoordinateImpl(farthestPiece.getFrom())
+					.distance(opponentButterflyPos);
+			if(currentFarthestDistance < currentDistanceFromButterfly){
+				farthestPiece = move;
+			}
+			
+		}
+		return farthestPiece;
+	}
+	
+	/**
+	 * Move a piece randomly with some chance
+	 * @param game
+	 * @param moveList
+	 * @param chance
+	 * @return
+	 */
+	public HantoMoveRecord moveRandomWithChance(BaseHantoGame game, 
+			List<HantoMoveRecord> moveList, double chance, boolean avoidButterfly){
+		double rand = Math.random();
+		if(rand < chance){
+			HantoMoveRecord move = moveList.get(new Random().nextInt(moveList.size()));
+			
+			//Don't place on butterfly or move the butterfly
+			if(avoidButterfly){
+				HantoPlayerColor currentPlayer = game.getCurrentPlayer();
+				HantoCoordinate myButterflyPos = currentPlayer == HantoPlayerColor.RED 
+						? game.getRedButterflyPos() : game.getBlueButterflyPos();
+				//Reroll until successfully in avoiding butterfly
+				HantoCoordinateImpl to = new HantoCoordinateImpl(move.getTo());
+				while(move.getPiece() == HantoPieceType.BUTTERFLY 
+						|| to.isAdjacent(myButterflyPos)){
+					move = moveList.get(new Random().nextInt(moveList.size()));
+					to = new HantoCoordinateImpl(move.getTo());
+				}
+			}
+			return move;
+		}
+		return null;
+	}
+	
+	
 }
