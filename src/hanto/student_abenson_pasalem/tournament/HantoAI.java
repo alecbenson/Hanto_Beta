@@ -170,6 +170,13 @@ public class HantoAI {
 		if(offensiveMove != null){
 			return offensiveMove;
 		}
+		
+		//Try to mix things up sometimes
+		HantoMoveRecord spiceItUp = moveRandomWithChance(game, moveList, 0.05, false);
+		if(spiceItUp != null){
+			return spiceItUp;
+		}
+		
 		//Try to defend our butterfly
 		HantoMoveRecord defensiveMove = moveButterflyToSafety(game, moveList);
 		if(defensiveMove != null){
